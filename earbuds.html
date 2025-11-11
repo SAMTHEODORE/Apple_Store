@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apple Store</title>
+<title>Apple Store - Earbuds</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -88,7 +88,6 @@ footer { background:#222; color:#ccc; padding:20px; text-align:center; margin-to
 </footer>
 
 <script>
-// Elements
 const grid = document.getElementById('productGrid');
 const search = document.getElementById('searchInput');
 const categorySelect = document.getElementById('categorySelect');
@@ -96,113 +95,103 @@ const brandSelect = document.getElementById('brandSelect');
 
 function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
 
-// Preload data
+// Preload earbuds data if not exists
 if(!localStorage.getItem('earbuds')) {
-    const earbuds = [
-        {
-            brand: "Apple",
-            name: "AirPods Pro 2",
-            img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022",
-            desc: "Active Noise Cancellation<br>Adaptive EQ<br>MagSafe Charging Case",
-            price: "₹26,900"
-        }
-    ];
-    localStorage.setItem('earbuds', JSON.stringify(earbuds));
-    localStorage.setItem('earbuds-brands', JSON.stringify([...new Set(earbuds.map(e => e.brand))]));
-}
-if(!localStorage.getItem('mobile')) {
-    const mobiles = [
-        { brand: "Apple", name: "iPhone 15 Pro", img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-blue-select-202309?wid=940&hei=1112&fmt=png-alpha", desc:"5G<br>Pro Camera<br>iOS 17", price:"₹1,29,900" },
-        { brand: "Samsung", name: "Galaxy S23", img:"https://images.samsung.com/is/image/samsung/p6pim/in/2202/gallery/in-galaxy-s23-5g-s911-530833-sm-s911bzkginu-534871668?$650_519_PNG$", desc:"Snapdragon 8 Gen 2<br>120Hz Display<br>Android 14", price:"₹72,999" }
-    ];
-    localStorage.setItem('mobile', JSON.stringify(mobiles));
-    localStorage.setItem('mobile-brands', JSON.stringify([...new Set(mobiles.map(e=>e.brand))]));
-}
-if(!localStorage.getItem('laptop')) {
-    const laptops = [
-        { brand:"Apple", name:"MacBook Air M2", img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-m2-gold-select-202206?wid=904&hei=840&fmt=png-alpha", desc:"M2 Chip<br>13-inch Retina<br>8GB RAM", price:"₹1,19,900" },
-        { brand:"Dell", name:"Dell XPS 13", img:"https://i.dell.com/sites/csimages/Video_Imagery/all/xps-13-9310-laptop.png", desc:"Intel i7<br>13-inch Display<br>16GB RAM", price:"₹1,29,000" }
-    ];
-    localStorage.setItem('laptop', JSON.stringify(laptops));
-    localStorage.setItem('laptop-brands', JSON.stringify([...new Set(laptops.map(e=>e.brand))]));
-}
-if(!localStorage.getItem('watch')) {
-    const watches = [
-        { brand:"Apple", name:"Apple Watch Series 9", img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MYLA3_VW_34FR+watch-44-alum-midnight-cell-9s_VW_34FR_WF_CO_GEO_IN?wid=940&hei=1112&fmt=png-alpha", desc:"Fitness Tracking<br>Always-on Display", price:"₹49,900" }
-    ];
-    localStorage.setItem('watch', JSON.stringify(watches));
-    localStorage.setItem('watch-brands', JSON.stringify([...new Set(watches.map(e=>e.brand))]));
+ const earbuds = [
+  {
+    brand: "Apple",
+    name: "AirPods Pro 2",
+    img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022",
+    desc: "Active Noise Cancellation<br>Adaptive EQ<br>MagSafe Charging Case",
+    price: "₹26,900"
+  },
+  {
+    brand: "OnePlus",
+    name: "OnePlus Buds Pro 2",
+    img: "https://cdn1.smartprix.com/rx-iCMFzWmY-w1200-h1200/oneplus-buds-pro-2.jpg",
+    desc: "Active Noise Cancellation<br>10mm Dynamic Driver<br>IP55 Water Resistant",
+    price: "₹9,999"
+  },
+  {
+    brand: "Samsung",
+    name: "Galaxy Buds 2 Pro",
+    img: "https://images.samsung.com/is/image/samsung/p6pim/in/galaxy-buds2-pro-r190-sm-r510nzaainu-frontgreen-thumb-531144793?$320_320_PNG$",
+    desc: "Hi-Fi Sound<br>Active Noise Cancellation<br>Wireless Charging Case",
+    price: "₹15,990"
+  }
+];
+
+  localStorage.setItem('earbuds', JSON.stringify(earbuds));
+  const brands = [...new Set(earbuds.map(e => e.brand))];
+  localStorage.setItem('earbuds-brands', JSON.stringify(brands));
 }
 
 let allProducts = [];
 
-// Load products
+// Default category is Earbuds
 function loadProducts(defaultCategory='earbuds'){
-    const category = categorySelect.value || defaultCategory;
-    categorySelect.value = category;
+  const category = categorySelect.value || defaultCategory;
+  categorySelect.value = category;
 
-    allProducts = getData(category) || [];
+  allProducts = getData(category) || [];
 
-    // Fill brand select
-    const brands = getData(category+'-brands') || [];
-    brandSelect.innerHTML = '<option value="">All Brands</option>';
-    brands.forEach(b=> brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
+  // Fill brand select
+  const brands = getData(category+'-brands') || [];
+  brandSelect.innerHTML = '<option value="">All Brands</option>';
+  brands.forEach(b=> brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
 
-    displayProducts(allProducts);
+  displayProducts(allProducts);
 }
 
-// Display products
 function displayProducts(products){
-    grid.innerHTML = '';
-    products.forEach(p=>{
-        const card = document.createElement('div');
-        card.className='product-card';
-        card.innerHTML = `
-            <img src="${p.img}" alt="${p.name}">
-            <div class="product-info">
-                <h4>${p.name}</h4>
-                <p>${p.desc}<br><b>${p.price}</b></p>
-                <div class="btnn">
-                    <a href="buy.html" onclick='selectProduct(${JSON.stringify(p)})'>Buy Now</a>
-                </div>
-            </div>`;
-        grid.appendChild(card);
-    });
+  grid.innerHTML = '';
+  products.forEach(p=>{
+    const card = document.createElement('div');
+    card.className='product-card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div class="product-info">
+        <h4>${p.name}</h4>
+        <p>${p.desc}<br><b>${p.price}</b></p>
+        <div class="btnn">
+          <a href="buy.html" onclick='localStorage.setItem("selectedMobile", JSON.stringify(${JSON.stringify(p)}))'>Buy Now</a>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
 }
 
-// Buy button function
-function selectProduct(product) {
-    localStorage.setItem("selectedMobile", JSON.stringify(product));
-}
-
-// Search filter
+// Search products
 search.addEventListener('keyup', ()=>{
-    const val = search.value.toLowerCase();
-    const filtered = allProducts.filter(p=>
-        (p.name && p.name.toLowerCase().includes(val)) || 
-        (p.desc && p.desc.toLowerCase().includes(val))
-    );
-    displayProducts(filtered);
+  const val = search.value.toLowerCase();
+  const filtered = allProducts.filter(p=> p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
+  displayProducts(filtered);
+});
+
+// Redirect page when category changes
+categorySelect.addEventListener('change', ()=>{
+  const cat = categorySelect.value;
+  if(cat==='mobile') window.location.href='index.html';
+  else if(cat==='laptop') window.location.href='laptop.html';
+  else if(cat==='watch') window.location.href='watch.html';
+  else if(cat==='earbuds') window.location.href='earbuds.html';
 });
 
 // Filter by brand
 brandSelect.addEventListener('change', ()=>{
-    const val = brandSelect.value;
-    const filtered = val ? allProducts.filter(p=> p.brand===val) : allProducts;
-    displayProducts(filtered);
+  const val = brandSelect.value;
+  const filtered = val ? allProducts.filter(p=> p.brand===val) : allProducts;
+  displayProducts(filtered);
 });
-
-// Category change
-categorySelect.addEventListener('change', loadProducts);
 
 // Update on storage change
 window.addEventListener('storage', e=>{
-    if(['mobile','laptop','watch','earbuds'].includes(e.key) || e.key.endsWith('-brands')) loadProducts();
+  if(['mobile','laptop','watch','earbuds'].includes(e.key) || e.key.endsWith('-brands')) loadProducts();
 });
 
-// Initial load
-loadProducts();
-
+loadProducts(); // default Earbuds display
 </script>
+
 </body>
 </html>
+
