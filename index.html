@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APPLE STORE | Mobile</title>
+<link rel="icon" href="Images/apple-logo-transparent.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; margin:0; background:#f5f5f7; color:#1d1d1f; }
+  header { background:#fff; padding:20px; text-align:center; font-size:28px; font-weight:700; border-bottom:1px solid #d2d2d7; }
+  nav { display:flex; justify-content:center; gap:25px; background:#fff; padding:15px; border-bottom:1px solid #d2d2d7; }
+  nav a { text-decoration:none; color:#1d1d1f; font-weight:600; transition:color 0.3s; }
+  nav a:hover { color:#0071e3; }
+  .top-bar { display:flex; justify-content:center; gap:10px; background:#fff; padding:15px; border-bottom:1px solid #ddd; flex-wrap:wrap; }
+  .top-bar input, .top-bar select { padding:10px; font-size:15px; border:1px solid #ccc; border-radius:6px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px; padding:40px; max-width:1200px; margin:auto; }
+  .product-card { background:#fff; border-radius:16px; box-shadow:0 4px 15px rgba(0,0,0,0.08); overflow:hidden; transition:transform 0.2s; }
+  .product-card:hover { transform:translateY(-5px); }
+  .product-card img { width:100%; height:220px; object-fit:contain; background:#fafafa; padding:15px; }
+  .product-info { padding:15px; text-align:center; }
+  .product-info h4 { font-size:18px; margin-bottom:10px; }
+  .product-info p { font-size:14px; color:#444; line-height:1.5; }
+  .btnn a { display:inline-block; margin-top:10px; padding:10px 16px; background:#0071e3; color:#fff; border-radius:6px; text-decoration:none; transition:background 0.3s; }
+  .btnn a:hover { background:#005bb5; }
+</style>
+</head>
+<body>
+
+<header>APPLE STORE</header>
+
+<nav>
+  <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="./about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+  <a href="./contact.html"><i class="fa-solid fa-user"></i> Contact</a>
+  <a href="./admin.html"><i class="fa-solid fa-lock"></i> Admin</a>
+</nav>
+
+<div class="top-bar">
+  <select id="categorySelect">
+    <option value="index.html" selected>Mobile</option>
+    <option value="laptop.html">Laptop</option>
+    <option value="watch.html">Watch</option>
+    <option value="earbuds.html">Earbuds</option>
+  </select>
+
+  <select id="brandFilter">
+    <option value="">All Brands</option>
+  </select>
+
+  <input type="text" id="searchInput" placeholder="Search mobile...">
+</div>
+
+<div class="grid" id="productGrid"></div>
+
+<script>
+const grid = document.getElementById('productGrid');
+const search = document.getElementById('searchInput');
+const brandFilter = document.getElementById('brandFilter');
+const categorySelect = document.getElementById('categorySelect');
+
+// Navigate category
+categorySelect.addEventListener('change', ()=>{
+  const url = categorySelect.value;
+  window.location.href = url;
+});
+
+// Load mobiles from localStorage
+let mobiles = JSON.parse(localStorage.getItem('mobiles')) || [];
+
+// Load brands into filter
+function loadBrands(){
+  const brands = [...new Set(mobiles.map(p=>p.brand))];
+  brandFilter.innerHTML = '<option value="">All Brands</option>';
+  brands.forEach(b => brandFilter.innerHTML += `<option value="${b}">${b}</option>`);
+}
+
+// Display products
+function displayProducts(list){
+  grid.innerHTML = '';
+  if(list.length===0){ grid.innerHTML='<p style="text-align:center;">No mobiles found!</p>'; return; }
+  list.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div class="product-info">
+        <h4>${p.name}</h4>
+        <p>${p.desc}<br><b>${p.price}</b></p>
+        <div class="btnn"><a href="#" onclick='buyProduct(${JSON.stringify(p)})'>Buy Now</a></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Buy product
+function buyProduct(product){
+  localStorage.setItem('selectedMobile', JSON.stringify(product));
+  window.location.href = 'buy.html';
+}
+
+// Search
+search.addEventListener('keyup', ()=>{
+  const val = search.value.toLowerCase();
+  const filtered = mobiles.filter(p => p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
+  const brandVal = brandFilter.value;
+  displayProducts(brandVal ? filtered.filter(p=>p.brand===brandVal) : filtered);
+});
+
+// Brand filter
+brandFilter.addEventListener('change', ()=>{
+  const val = brandFilter.value;
+  const searchVal = search.value.toLowerCase();
+  let filtered = mobiles;
+  if(searchVal) filtered = mobiles.filter(p => p.name.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal));
+  displayProducts(val ? filtered.filter(p=>p.brand===val) : filtered);
+});
+
+// Init
+loadBrands();
+displayProducts(mobiles);
+</script>
+
+</body>
+</html>

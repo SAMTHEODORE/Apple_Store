@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laptops | APPLE STORE</title>
+<link rel="icon" href="../Images/apple-logo-transparent.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    background: #f5f5f7;
+    color: #1d1d1f;
+  }
+  header {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    border-bottom: 1px solid #d2d2d7;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #d2d2d7;
+  }
+  nav a {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: #0071e3; }
+
+  .top-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  .top-bar input, .top-bar select {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .product-card:hover { transform: translateY(-5px); }
+  .product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #fafafa;
+    padding: 15px;
+  }
+  .product-info {
+    padding: 15px;
+    text-align: center;
+  }
+  .product-info h4 { font-size: 18px; margin-bottom: 10px; }
+  .product-info p { font-size: 14px; color: #444; line-height: 1.5; }
+  .btnn a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 16px;
+    background: #0071e3;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .btnn a:hover { background: #005bb5; }
+</style>
+</head>
+<body>
+
+<header>APPLE STORE</header>
+
+<nav>
+  <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="./about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+  <a href="./contact.html"><i class="fa-solid fa-user"></i> Contact</a>
+  <a href="./admin.html"><i class="fa-solid fa-lock"></i> Admin</a>
+</nav>
+
+<div class="top-bar">
+  <input type="text" id="searchInput" placeholder="Search laptop...">
+
+    <select id="categorySelect" onchange="goCategory(this.value)">
+    <option value="index.html">Mobile</option>
+    <option value="laptop.html" selected>Laptop</option>
+    <option value="watch.html">Watch</option>
+    <option value="earbuds.html">Earbuds</option>
+  </select>
+
+  <select id="filterBrand">
+    <option value="">All Brands</option>
+  </select>
+</div>
+
+<div class="grid" id="productGrid"></div>
+
+<script>
+const grid = document.getElementById('productGrid');
+const search = document.getElementById('searchInput');
+const brandFilter = document.getElementById('filterBrand');
+
+// let laptops = [
+//   {brand:"Apple",name:"MacBook Air M2",img:"../Images/macbook-air.jpg",desc:"13.6-inch Retina Display<br>8GB RAM, 256GB SSD<br>Apple M2 Chip",price:"₹1,14,900"},
+//   {brand:"Apple",name:"MacBook Pro 14",img:"../Images/macbookpro.jpg",desc:"14.2-inch Liquid Retina XDR<br>16GB RAM, 512GB SSD<br>Apple M3 Pro Chip",price:"₹1,99,900"},
+//   {brand:"Dell",name:"Dell XPS 13",img:"../Images/dell-xps13.jpg",desc:"13.4-inch FHD+ Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",price:"₹1,39,990"},
+//   {brand:"Dell",name:"Dell Inspiron 15",img:"../Images/dell-inspiron15.jpg",desc:"15.6-inch Display<br>8GB RAM, 512GB SSD<br>Intel i5 13th Gen",price:"₹72,999"},
+//   {brand:"HP",name:"HP Pavilion 14",img:"../Images/hp-pavilion.jpg",desc:"14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",price:"₹79,990"},
+//   {brand:"HP",name:"HP Victus Gaming",img:"../Images/hp-victus.jpg",desc:"15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Ryzen 7 + RTX 3050",price:"₹92,999"},
+//   {brand:"Lenovo",name:"Lenovo IdeaPad Slim 5",img:"../Images/lenovo-ideapad.jpg",desc:"15.6-inch FHD Display<br>16GB RAM, 512GB SSD<br>AMD Ryzen 5",price:"₹62,999"},
+//   {brand:"Lenovo",name:"Lenovo Legion 5",img:"../Images/lenovo-legion5.jpg",desc:"16-inch QHD 165Hz Display<br>32GB RAM, 1TB SSD<br>Ryzen 7 + RTX 4060",price:"₹1,44,900"},
+//   {brand:"Asus",name:"Asus ZenBook 14",img:"../Images/asus-zenbook.jpg",desc:"14-inch OLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",price:"₹96,999"},
+//   {brand:"Asus",name:"Asus TUF Gaming F15",img:"../Images/asus-tuf.jpg",desc:"15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Intel i7 + RTX 3060",price:"₹1,09,900"},
+//   {brand:"Acer",name:"Acer Swift 3",img:"../Images/acer-swift3.jpg",desc:"14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i5 12th Gen",price:"₹59,999"},
+//   {brand:"Acer",name:"Acer Predator Helios 300",img:"../Images/acer-predator.jpg",desc:"15.6-inch QHD 165Hz<br>16GB RAM, 1TB SSD<br>i7 + RTX 4070",price:"₹1,49,900"},
+//   {brand:"MSI",name:"MSI Modern 14",img:"../Images/msi-modern14.jpg",desc:"14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",price:"₹77,990"},
+//   {brand:"MSI",name:"MSI Katana GF66",img:"../Images/msi-katana.jpg",desc:"15.6-inch 144Hz Display<br>16GB RAM, 512GB SSD<br>i7 + RTX 3060",price:"₹99,999"},
+//   {brand:"Samsung",name:"Samsung Galaxy Book3",img:"../Images/samsung-book3.jpg",desc:"15.6-inch AMOLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",price:"₹1,09,990"}
+// ];
+
+
+let laptops = [
+  {
+    brand: "Apple",
+    name: "MacBook Air M2",
+    img: "https://m.media-amazon.com/images/I/719C6bJv8jL.jpg",
+    desc: "13.6-inch Retina Display<br>8GB RAM, 256GB SSD<br>Apple M2 Chip",
+    price: "₹1,14,900"
+  },
+  {
+    brand: "Apple",
+    name: "MacBook Pro 14",
+    img: "https://cdsassets.apple.com/live/SZLF0YNV/images/sp/111902_mbp14-silver2.png",
+    desc: "14.2-inch Liquid Retina XDR<br>16GB RAM, 512GB SSD<br>Apple M3 Pro Chip",
+    price: "₹1,99,900"
+  },
+  {
+    brand: "Dell",
+    name: "Dell XPS 13",
+    img: "https://pctech.co.in/image/cache/catalog/Laptops/DELL/dell-xps-13-9315-laptop-01-1200x900.png",
+    desc: "13.4-inch FHD+ Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",
+    price: "₹1,39,990"
+  },
+  {
+    brand: "Dell",
+    name: "Dell Inspiron 15",
+    img: "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/inspiron-notebooks/15-3530-intel/pdp/inspiron-laptop-15-3530-intel-pdp-hero.psd?fmt=png-alpha&wid=570&hei=400&fit=constrain%2C1&qlt=90",
+    desc: "15.6-inch Display<br>8GB RAM, 512GB SSD<br>Intel i5 13th Gen",
+    price: "₹72,999"
+  },
+  {
+    brand: "HP",
+    name: "HP Pavilion 14",
+    img: "https://rukminim2.flixcart.com/image/480/640/xif0q/computer/z/j/h/-original-imahcd9tnyjnurpj.jpeg?q=20",
+    desc: "14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",
+    price: "₹79,990"
+  },
+  {
+    brand: "HP",
+    name: "HP Victus Gaming",
+    img: "https://www.hp.com/wcsstore/hpusstore/Treatment/mdps/Q3FY21_omen_victus16/omen_victus_ksp2.png",
+    desc: "15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Ryzen 7 + RTX 3050",
+    price: "₹92,999"
+  },
+  {
+    brand: "Lenovo",
+    name: "Lenovo IdeaPad Slim 5",
+    img: "https://p3-ofp.static.pub/fes/cms/2022/10/07/apkf8q6o1af6zimc6mxjxhth7h6xat132343.png",
+    desc: "15.6-inch FHD Display<br>16GB RAM, 512GB SSD<br>AMD Ryzen 5",
+    price: "₹62,999"
+  },
+  {
+    brand: "Lenovo",
+    name: "Lenovo Legion 5",
+    img: "https://p3-ofp.static.pub//fes/cms/2024/09/12/m1jnssoporjtlmma8zqy3ssoour2yj992790.png",
+    desc: "16-inch QHD 165Hz Display<br>32GB RAM, 1TB SSD<br>Ryzen 7 + RTX 4060",
+    price: "₹1,44,900"
+  },
+  {
+    brand: "Asus",
+    name: "Asus ZenBook 14",
+    img: "https://dlcdnwebimgs.asus.com/gain/838fbdac-6d10-4190-8e52-d4b9463f5d23/w800",
+    desc: "14-inch OLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",
+    price: "₹96,999"
+  },
+  {
+    brand: "Asus",
+    name: "Asus TUF Gaming F15",
+    img: "https://dlcdnwebimgs.asus.com/gain/47be2296-5fde-4c9b-b262-8c6b8879a020/",
+    desc: "15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Intel i7 + RTX 3060",
+    price: "₹1,09,900"
+  },
+  {
+    brand: "Acer",
+    name: "Acer Swift 3",
+    img: "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202008/acer_swift_3.jpeg?size=690:388",
+    desc: "14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i5 12th Gen",
+    price: "₹59,999"
+  },
+  {
+    brand: "Acer",
+    name: "Acer Predator Helios 300",
+    img: "https://cdn.assets.prezly.com/d3ea28bb-2052-4d17-866b-f048c5aad35b/Predator-Helios-300-PH315-53-Standard_03.png",
+    desc: "15.6-inch QHD 165Hz<br>16GB RAM, 1TB SSD<br>i7 + RTX 4070",
+    price: "₹1,49,900"
+  },
+  {
+    brand: "MSI",
+    name: "MSI Modern 14",
+    img: "https://asset.msi.com/resize/image/global/product/product_1669882648d8be33b846e1a7fe4b32c4a0e48e1d31.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
+    desc: "14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",
+    price: "₹77,990"
+  },
+  {
+    brand: "MSI",
+    name: "MSI Katana GF66",
+    img: "https://asset.msi.com/resize/image/global/product/product_16899288593170d3a8828b3fdd56d179cdace372dd.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+    desc: "15.6-inch 144Hz Display<br>16GB RAM, 512GB SSD<br>i7 + RTX 3060",
+    price: "₹99,999"
+  },
+  {
+    brand: "Samsung",
+    name: "Samsung Galaxy Book3",
+    img: "https://images.samsung.com/is/image/samsung/p6pim/in/feature/164358744/in-feature-galaxy-book3-360-13-3-inch-with-s-pen-np730-447651-535661147?$FB_TYPE_A_MO_JPG$",
+    desc: "15.6-inch AMOLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",
+    price: "₹1,09,990"
+  }
+];
+
+
+function loadBrands(){
+  const brands = [...new Set(laptops.map(p=>p.brand))];
+  brandFilter.innerHTML = '<option value="">All Brands</option>';
+  brands.forEach(b => brandFilter.innerHTML += `<option value="${b}">${b}</option>`);
+}
+
+// Function to redirect when category is changed
+function goCategory(pageUrl) {
+    // Redirect to selected page
+    window.location.href = pageUrl;
+}
+
+// Optional: Set default selected if needed
+const categorySelect = document.getElementById('categorySelect');
+categorySelect.value = window.location.pathname.includes("laptop.html") ? "laptop.html" : 
+                       window.location.pathname.includes("watch.html") ? "watch.html" :
+                       window.location.pathname.includes("earbuds.html") ? "earbuds.html" :
+                       "../index.html";
+
+function displayProducts(list){
+  grid.innerHTML = '';
+  list.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div class="product-info">
+        <h4>${p.name}</h4>
+        <p>${p.desc}<br><b>${p.price}</b></p>
+        <div class="btnn"><a href="#" onclick='buyProduct(${JSON.stringify(p)})'>Buy Now</a></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function buyProduct(product){
+  localStorage.setItem('selectedMobile', JSON.stringify(product));
+  window.location.href = 'buy.html';
+}
+
+search.addEventListener('keyup', ()=>{
+  const val = search.value.toLowerCase();
+  const filtered = laptops.filter(p => p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
+  displayProducts(filtered);
+});
+
+brandFilter.addEventListener('change', ()=>{
+  const val = brandFilter.value;
+  const filtered = val ? laptops.filter(p=>p.brand===val) : laptops;
+  displayProducts(filtered);
+});
+
+loadBrands();
+displayProducts(laptops);
+</script>
+
+</body>
+</html>

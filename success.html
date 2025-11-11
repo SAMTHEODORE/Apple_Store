@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Success | APPLE STORE</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+body{
+  font-family: 'Inter', Arial, sans-serif;
+  background:#f5f5f7;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+}
+.box{
+  background:#fff;
+  padding:40px;
+  border-radius:16px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.1);
+  text-align:center;
+  width:90%;
+  max-width:450px;
+  border:2px solid #e0e0e0;
+}
+h1{
+  color:#28a745;
+  font-size:36px;
+  margin-bottom:10px;
+}
+p{
+  color:#333;
+  font-size:18px;
+}
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 25px;
+  background:#0071e3;
+  color:#fff;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:600;
+  transition:background 0.3s;
+}
+.btn:hover{
+  background:#005bb5;
+}
+.logo{
+  width:60px;
+  margin-bottom:15px;
+}
+</style>
+</head>
+<body>
+<div class="box">
+  <img src="../Images/apple-logo-transparent.png" alt="Apple Logo" class="logo">
+  <h1>🎉 Order Placed Successfully!</h1>
+  <p>Thank you for shopping with Apple Store.</p>
+  <a href="index.html" class="btn">← Back to Home</a>
+  <br><br>
+  <button id="downloadInvoice" class="btn" style="background:#28a745;">📄 Download Invoice</button>
+</div>
+
+<script>
+document.getElementById("downloadInvoice").addEventListener("click", async ()=>{
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Get data from localStorage
+  const product = JSON.parse(localStorage.getItem('selectedMobile')) || {name:"Unknown Product",price:"₹0"};
+  const qty = localStorage.getItem('lastQuantity') || 1;
+  const payment = localStorage.getItem('lastPaymentMethod') || "Not Specified";
+  const now = new Date().toLocaleString();
+
+  const totalPrice = parseInt(product.price.replace(/[^0-9]/g,'')) * qty;
+  const upi = payment === "UPI" ? "samthiyodara@oksbi" : "—";
+
+  // Header
+  doc.setFontSize(22);
+  doc.text("APPLE STORE", 70, 20);
+  doc.setFontSize(12);
+  doc.text("Official Purchase Invoice", 80, 28);
+  doc.line(10, 32, 200, 32);
+
+  // Logo
+  const img = new Image();
+  img.src = "../Images/apple-logo-transparent.png";
+  img.onload = ()=>{
+    doc.addImage(img, "PNG", 15, 10, 15, 15);
+    finalize();
+  };
+  img.onerror = ()=>finalize();
+
+  function finalize(){
+    // Order details
+    doc.setFontSize(14);
+    doc.text("Order Details", 15, 45);
+    doc.setFontSize(12);
+    doc.text(`Product Name: ${product.name}`, 15, 55);
+    doc.text(`Quantity: ${qty}`, 15, 65);
+    doc.text(`Price (Each): ${product.price}`, 15, 75);
+    doc.text(`Total Amount: ₹${totalPrice.toLocaleString()}`, 15, 85);
+    doc.text(`Payment Method: ${payment}`, 15, 95);
+    doc.text(`UPI ID: ${upi}`, 15, 105);
+    doc.text(`Date & Time: ${now}`, 15, 115);
+
+    // Footer
+    doc.line(10, 125, 200, 125);
+    doc.text("This is a system-generated invoice by Apple Store.", 15, 135);
+    doc.text("Thank you for shopping with us!", 15, 145);
+
+    // Borders
+    doc.setLineWidth(0.5);
+    doc.rect(5, 5, 200, 287);
+
+    // Save
+    doc.save(`Invoice_${product.name.replace(/\s+/g,'_')}.pdf`);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Store</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Inter',sans-serif; background:#f4f4f4; }
+header { background:#fff; padding:15px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
+nav { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; }
+nav .logo { font-size:24px; font-weight:700; color:#0071e3; text-decoration:none; }
+nav ul { display:flex; list-style:none; gap:20px; margin:0; padding:0; }
+nav ul li a { text-decoration:none; color:#333; font-weight:500; transition:color 0.3s; }
+nav ul li a:hover { color:#0071e3; }
+
+.search-container { text-align:center; margin:30px 0; }
+.search-container input, .search-container select {
+  width:250px; max-width:90%; padding:10px 15px;
+  font-size:16px; border-radius:25px; border:1px solid #ccc;
+  outline:none; transition:border 0.3s; margin:5px;
+}
+.search-container input:focus { border-color:#0071e3; }
+
+.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; max-width:1200px; margin:0 auto; padding:0 20px; }
+.product-card {
+    background:#fff; border-radius:12px; overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:transform 0.3s, box-shadow 0.3s;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.product-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+.product-card img {
+    width:100%; height:250px; object-fit:contain;
+    background:#f9f9f9; padding-top:10px; transition:transform 0.3s;
+}
+.product-card:hover img { transform:scale(1.05); }
+
+.product-info { padding:15px; flex:1; display:flex; flex-direction:column; justify-content:space-between; align-items:center; text-align:center; }
+.product-info h4 { margin:0 0 10px 0; font-size:18px; color:#333; }
+.product-info p { font-size:14px; color:#555; margin-bottom:15px; line-height:1.4; }
+
+.btnn { display:flex; justify-content:center; align-items:center; }
+.btnn a {
+    display:inline-block; padding:10px 20px; border-radius:25px;
+    text-decoration:none; color:#fff; font-weight:600;
+    background:linear-gradient(45deg, #FF6B6B, #FFD93D);
+    transition:all 0.3s;
+}
+.btnn a:hover { background:linear-gradient(45deg, #FFD93D, #FF6B6B); transform:scale(1.05); }
+
+footer { background:#222; color:#ccc; padding:20px; text-align:center; margin-top:40px; font-size:14px; }
+</style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="#" class="logo">APPLE STORE</a>
+        <ul>
+            <li><a href="./about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
+            <li><a href="./contact.html"><i class="fa-solid fa-user"></i> Contact</a></li>
+            <li><a href="./admin.html"><i class="fa-solid fa-lock"></i> Admin</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="search-container">
+    <select id="categorySelect">
+        <option value="mobile">Mobile</option>
+        <option value="laptop">Laptop</option>
+        <option value="watch">Watch</option>
+        <option value="earbuds" selected>Earbuds</option>
+    </select>
+
+    <select id="brandSelect">
+        <option value="">All Brands</option>
+    </select>
+
+    <input type="text" id="searchInput" placeholder="Search products...">
+</div>
+
+<div class="products" id="productGrid"></div>
+
+<footer>
+    &copy; 2024 Theo Inc. All rights reserved.
+</footer>
+
+<script>
+// Elements
+const grid = document.getElementById('productGrid');
+const search = document.getElementById('searchInput');
+const categorySelect = document.getElementById('categorySelect');
+const brandSelect = document.getElementById('brandSelect');
+
+function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+
+// Preload data
+if(!localStorage.getItem('earbuds')) {
+    const earbuds = [
+        {
+            brand: "Apple",
+            name: "AirPods Pro 2",
+            img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022",
+            desc: "Active Noise Cancellation<br>Adaptive EQ<br>MagSafe Charging Case",
+            price: "₹26,900"
+        }
+    ];
+    localStorage.setItem('earbuds', JSON.stringify(earbuds));
+    localStorage.setItem('earbuds-brands', JSON.stringify([...new Set(earbuds.map(e => e.brand))]));
+}
+if(!localStorage.getItem('mobile')) {
+    const mobiles = [
+        { brand: "Apple", name: "iPhone 15 Pro", img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-blue-select-202309?wid=940&hei=1112&fmt=png-alpha", desc:"5G<br>Pro Camera<br>iOS 17", price:"₹1,29,900" },
+        { brand: "Samsung", name: "Galaxy S23", img:"https://images.samsung.com/is/image/samsung/p6pim/in/2202/gallery/in-galaxy-s23-5g-s911-530833-sm-s911bzkginu-534871668?$650_519_PNG$", desc:"Snapdragon 8 Gen 2<br>120Hz Display<br>Android 14", price:"₹72,999" }
+    ];
+    localStorage.setItem('mobile', JSON.stringify(mobiles));
+    localStorage.setItem('mobile-brands', JSON.stringify([...new Set(mobiles.map(e=>e.brand))]));
+}
+if(!localStorage.getItem('laptop')) {
+    const laptops = [
+        { brand:"Apple", name:"MacBook Air M2", img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-m2-gold-select-202206?wid=904&hei=840&fmt=png-alpha", desc:"M2 Chip<br>13-inch Retina<br>8GB RAM", price:"₹1,19,900" },
+        { brand:"Dell", name:"Dell XPS 13", img:"https://i.dell.com/sites/csimages/Video_Imagery/all/xps-13-9310-laptop.png", desc:"Intel i7<br>13-inch Display<br>16GB RAM", price:"₹1,29,000" }
+    ];
+    localStorage.setItem('laptop', JSON.stringify(laptops));
+    localStorage.setItem('laptop-brands', JSON.stringify([...new Set(laptops.map(e=>e.brand))]));
+}
+if(!localStorage.getItem('watch')) {
+    const watches = [
+        { brand:"Apple", name:"Apple Watch Series 9", img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MYLA3_VW_34FR+watch-44-alum-midnight-cell-9s_VW_34FR_WF_CO_GEO_IN?wid=940&hei=1112&fmt=png-alpha", desc:"Fitness Tracking<br>Always-on Display", price:"₹49,900" }
+    ];
+    localStorage.setItem('watch', JSON.stringify(watches));
+    localStorage.setItem('watch-brands', JSON.stringify([...new Set(watches.map(e=>e.brand))]));
+}
+
+let allProducts = [];
+
+// Load products
+function loadProducts(defaultCategory='earbuds'){
+    const category = categorySelect.value || defaultCategory;
+    categorySelect.value = category;
+
+    allProducts = getData(category) || [];
+
+    // Fill brand select
+    const brands = getData(category+'-brands') || [];
+    brandSelect.innerHTML = '<option value="">All Brands</option>';
+    brands.forEach(b=> brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
+
+    displayProducts(allProducts);
+}
+
+// Display products
+function displayProducts(products){
+    grid.innerHTML = '';
+    products.forEach(p=>{
+        const card = document.createElement('div');
+        card.className='product-card';
+        card.innerHTML = `
+            <img src="${p.img}" alt="${p.name}">
+            <div class="product-info">
+                <h4>${p.name}</h4>
+                <p>${p.desc}<br><b>${p.price}</b></p>
+                <div class="btnn">
+                    <a href="buy.html" onclick='selectProduct(${JSON.stringify(p)})'>Buy Now</a>
+                </div>
+            </div>`;
+        grid.appendChild(card);
+    });
+}
+
+// Buy button function
+function selectProduct(product) {
+    localStorage.setItem("selectedMobile", JSON.stringify(product));
+}
+
+// Search filter
+search.addEventListener('keyup', ()=>{
+    const val = search.value.toLowerCase();
+    const filtered = allProducts.filter(p=>
+        (p.name && p.name.toLowerCase().includes(val)) || 
+        (p.desc && p.desc.toLowerCase().includes(val))
+    );
+    displayProducts(filtered);
+});
+
+// Filter by brand
+brandSelect.addEventListener('change', ()=>{
+    const val = brandSelect.value;
+    const filtered = val ? allProducts.filter(p=> p.brand===val) : allProducts;
+    displayProducts(filtered);
+});
+
+// Category change
+categorySelect.addEventListener('change', loadProducts);
+
+// Update on storage change
+window.addEventListener('storage', e=>{
+    if(['mobile','laptop','watch','earbuds'].includes(e.key) || e.key.endsWith('-brands')) loadProducts();
+});
+
+// Initial load
+loadProducts();
+
+</script>
+</body>
+</html>

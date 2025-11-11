@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Store | Watches</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Inter',sans-serif; background:#f4f4f4; }
+header { background:#fff; padding:15px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
+nav { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; }
+nav .logo { font-size:24px; font-weight:700; color:#0071e3; text-decoration:none; }
+nav ul { display:flex; list-style:none; gap:20px; margin:0; padding:0; }
+nav ul li a { text-decoration:none; color:#333; font-weight:500; transition:color 0.3s; }
+nav ul li a:hover { color:#0071e3; }
+
+.search-container { text-align:center; margin:30px 0; }
+.search-container input, .search-container select {
+  width:300px; max-width:90%; padding:10px 15px;
+  font-size:16px; border-radius:25px; border:1px solid #ccc;
+  outline:none; transition:border 0.3s; margin:5px;
+}
+.search-container input:focus { border-color:#0071e3; }
+
+.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; max-width:1200px; margin:0 auto; padding:0 20px; }
+.product-card {
+    background:#fff; border-radius:12px; overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:transform 0.3s, box-shadow 0.3s;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.product-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+.product-card img {
+    width:100%; height:250px; object-fit:contain;
+    background:#f9f9f9; padding-top:10px; transition:transform 0.3s;
+}
+.product-card:hover img { transform:scale(1.05); }
+
+.product-info { padding:15px; flex:1; display:flex; flex-direction:column; justify-content:space-between; align-items:center; text-align:center; }
+.product-info h4 { margin:0 0 10px 0; font-size:18px; color:#333; }
+.product-info p { font-size:14px; color:#555; margin-bottom:15px; line-height:1.4; }
+
+.btnn { display:flex; justify-content:center; align-items:center; }
+.btnn a {
+    display:inline-block; padding:10px 20px; border-radius:25px;
+    text-decoration:none; color:#fff; font-weight:600;
+    background:linear-gradient(45deg, #FF6B6B, #FFD93D);
+    transition:all 0.3s;
+}
+.btnn a:hover { background:linear-gradient(45deg, #FFD93D, #FF6B6B); transform:scale(1.05); }
+
+footer { background:#222; color:#ccc; padding:20px; text-align:center; margin-top:40px; font-size:14px; }
+</style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">APPLE STORE</a>
+        <ul>
+            <li><a href="./index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="./contact.html"><i class="fa-solid fa-user"></i> Contact</a></li>
+            <li><a href="./admin.html"><i class="fa-solid fa-lock"></i> Admin</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search watches...">
+    <select id="categorySelect" onchange="goCategory(this.value)">
+    <option value="../index.html">Mobile</option>
+    <option value="laptop.html" >Laptop</option>
+    <option value="watch.html" selected>Watch</option>
+    <option value="earbuds.html">Earbuds</option>
+  </select>
+    <select id="filterBrand">
+        <option value="">All Brands</option>
+    </select>
+</div>
+
+<div class="products" id="productGrid"></div>
+
+<footer>
+    &copy; 2024 Theo Inc. All rights reserved.
+</footer>
+
+<script>
+const grid = document.getElementById('productGrid');
+const search = document.getElementById('searchInput');
+const brandFilter = document.getElementById('filterBrand');
+
+function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+
+let allProducts = [];
+
+function loadProducts(){
+  const products = getData('watch');
+  const brands = getData('watch-brands');
+  
+  brandFilter.innerHTML = '<option value="">All Brands</option>';
+  brands.forEach(b=> brandFilter.innerHTML += `<option value="${b}">${b}</option>`);
+
+  allProducts = products.length ? products : [
+    {brand:"Apple", name:"Apple Watch Series 8", img:"https://iplanet.one/cdn/shop/files/Apple_Watch_Series_8_LTE_45mm_Silver_Stainless_Steel_Silver_Milanese_Loop_PDP_Image_Position-1__en-US_a2c63b55-dff3-4860-82a5-4b07807741c7.jpg?v=1698872624&width=1445", desc:"Always-On Retina Display<br>GPS + Cellular", price:"₹45,900"},
+    {brand:"Apple", name:"Apple Watch SE", img:"https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MYG03ref_FV98_VW_34FR+watch-case-44-aluminum-midnight-nc-se3_VW_34FR+watch-face-44-aluminum-midnight-se3_VW_34FR?wid=752&hei=720&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=OUh6OFdFVEJxVkF6SUo5TWxpTE50MG5TeWJ6QW43NUFnQ2V4cmRFc1VnWWxvMTNVeXVWaTk0Ui9PSEVKVVU0d1lhaWUxTWU2aU04eE1hTy9TdWx3bWRGNnlaeXQ4NGFKQTAzc0NGeHR2aVovaXdUUWpjcUxCU0VQMFk3TFQ4aVV3MWtUbEY3SEFHcklpYWRuOHA5UEEveDMxaWg4TFhITTVrUW41Z084dENpYmZuSTdFUnErS0g3SWYxazQrNDdyRzE3K0tORmZaUy9vOVdqTEp2dmJNMlpHNW80UjJWZzYxTVdqVTNBWWxkVHoxUSt3MXdXOU45RlVNNm9vaUhPUw", desc:"Retina Display<br>GPS", price:"₹29,900"}
+  ];
+
+  displayProducts(allProducts);
+}
+
+function displayProducts(products){
+  grid.innerHTML = '';
+  products.forEach(p=>{
+    const card = document.createElement('div');
+    card.className='product-card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div class="product-info">
+        <h4>${p.name}</h4>
+        <p>${p.desc}<br><b>${p.price}</b></p>
+        <div class="btnn">
+          <a href="buy.html" onclick='localStorage.setItem("selectedMobile", JSON.stringify(${JSON.stringify(p)}))'>Buy Now</a>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// Function to redirect when category is changed
+function goCategory(pageUrl) {
+    // Redirect to selected page
+    window.location.href = pageUrl;
+}
+
+// Optional: Set default selected if needed
+const categorySelect = document.getElementById('categorySelect');
+categorySelect.value = window.location.pathname.includes("laptop.html") ? "laptop.html" : 
+                       window.location.pathname.includes("watch.html") ? "watch.html" :
+                       window.location.pathname.includes("earbuds.html") ? "earbuds.html" :
+                       "../index.html";
+
+// Search
+search.addEventListener('keyup', ()=>{
+  const val = search.value.toLowerCase();
+  const filtered = allProducts.filter(p=> p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
+  displayProducts(filtered);
+});
+
+// Brand filter
+brandFilter.addEventListener('change', ()=>{
+  const val = brandFilter.value;
+  const filtered = val ? allProducts.filter(p=> p.brand===val) : allProducts;
+  displayProducts(filtered);
+});
+
+// Auto update from admin panel
+window.addEventListener('storage', e=>{
+  if(e.key==='watch' || e.key==='watch-brands') loadProducts();
+});
+
+loadProducts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy Product | APPLE STORE</title>
+<link rel="icon" href="../Images/apple-logo-transparent.png">
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;margin:0;background:#f5f5f7;color:#1d1d1f;}
+header{background:#fff;padding:20px;text-align:center;font-size:28px;font-weight:700;border-bottom:1px solid #d2d2d7;}
+.container{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:50px;background:#fff;max-width:1100px;margin:50px auto;border-radius:20px;box-shadow:0px 5px 20px rgba(0,0,0,0.08);}
+.container img{width:100%;border-radius:12px;object-fit:contain;background:#fafafa;padding:15px;}
+.product-info{display:flex;flex-direction:column;justify-content:center;}
+.product-title{font-size:30px;font-weight:700;margin-bottom:10px;}
+.product-desc{font-size:17px;color:#444;line-height:1.8;margin-bottom:25px;}
+.product-price{font-size:24px;font-weight:700;color:#0071e3;background:#e8f2ff;display:inline-block;padding:10px 20px;border-radius:12px;}
+.accordion{max-width:900px;margin:30px auto;border-radius:12px;overflow:hidden;box-shadow:0px 4px 12px rgba(0,0,0,0.08);}
+.accordion-item{border-bottom:1px solid #e5e5ea;}
+.accordion-header{padding:18px;background:#f5f5f7;cursor:pointer;font-weight:600;font-size:17px;display:flex;justify-content:space-between;align-items:center;}
+.accordion-header:hover{background:#e5e5ea;}
+.accordion-content{display:none;padding:20px;background:white;}
+.accordion-content.active{display:block;}
+.input-field{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #d2d2d7;font-size:15px;background:#f9f9fb;}
+.submit-button{width:100%;padding:14px;border:none;border-radius:8px;background:#0071e3;color:white;font-size:16px;cursor:pointer;font-weight:500;transition:background 0.3s;}
+.submit-button:hover{background:#005bb5;}
+.back-button{display:block;text-align:center;margin:50px auto;width:220px;padding:12px;background:linear-gradient(45deg,#0071e3,#00b4d8);color:white;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;transition:transform 0.2s;}
+.back-button:hover{transform:scale(1.05);}
+#upiQR{text-align:center;margin-top:15px;display:none;}
+#upiQR img{width:180px;height:180px;border-radius:10px;border:1px solid #ddd;}
+.interest-info{color:#0071e3;font-weight:600;}
+</style>
+</head>
+<body>
+<header>APPLE STORE</header>
+
+<div class="container" id="productDetails"></div>
+
+<div class="accordion">
+  <div class="accordion-item">
+    <div class="accordion-header">DELIVERY ADDRESS <span>+</span></div>
+    <div class="accordion-content">
+      <input type="text" id="fullName" placeholder="Full Name" class="input-field">
+      <input type="text" id="street" placeholder="Street Address" class="input-field">
+      <input type="text" id="city" placeholder="City" class="input-field">
+      <input type="text" id="pincode" placeholder="Pincode" class="input-field">
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">ORDER SUMMARY <span>+</span></div>
+    <div class="accordion-content" id="orderSummary"></div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">PAYMENT OPTIONS <span>+</span></div>
+    <div class="accordion-content" id="paymentSection">
+      <label><input type="radio" name="payment" value="card"> 💳 Credit / Debit Card</label>
+      <div id="cardFields" style="display:none;margin-top:10px;">
+        <input type="text" id="cardNumber" class="input-field" placeholder="Card Number">
+        <input type="text" id="expiry" class="input-field" placeholder="MM/YY">
+        <input type="text" id="cvv" class="input-field" placeholder="CVV">
+        <button id="cardPay" class="submit-button">Pay Now</button>
+      </div>
+
+      <label><input type="radio" name="payment" value="netbanking"> 🏦 Net Banking</label>
+      <div id="bankField" style="display:none;margin-top:10px;">
+        <select id="bankSelect" class="input-field">
+          <option value="">Select Bank</option><option>SBI</option><option>HDFC</option><option>ICICI</option><option>Axis</option><option>Kotak</option>
+        </select>
+        <input type="text" id="bankUser" class="input-field" placeholder="User ID">
+        <input type="password" id="bankPass" class="input-field" placeholder="Password">
+        <button id="bankPay" class="submit-button">Pay Securely</button>
+      </div>
+
+      <label><input type="radio" name="payment" value="upi"> 💠 UPI (Google Pay / PhonePe / Paytm)</label>
+      <div id="upiField" style="display:none;margin-top:10px;">
+        <div id="upiQR">
+          <p><strong>Scan & Pay</strong></p>
+          <img id="qrImage" src="">
+          <button id="paidBtn" class="submit-button" style="margin-top:10px;">I’ve Paid</button>
+        </div>
+      </div>
+
+      <label><input type="radio" name="payment" value="emi"> 💼 EMI Options</label>
+      <div id="emiField" style="display:none;margin-top:10px;">
+        <select id="emiMonths" class="input-field">
+          <option value="">Select EMI Duration</option>
+          <option value="3">3 Months</option><option value="6">6 Months</option>
+          <option value="9">9 Months</option><option value="12">12 Months</option>
+        </select>
+        <p class="interest-info" id="emiInfo"></p>
+        <button id="emiPay" class="submit-button">Proceed with EMI</button>
+      </div>
+
+      <label><input type="radio" name="payment" value="cod"> 💵 Cash on Delivery</label>
+      <br><br><button id="confirmOrder" class="submit-button">Confirm Order</button>
+    </div>
+  </div>
+</div>
+
+<a href="index.html" class="back-button">← Back to Store</a>
+
+<script>
+const STORE_UPI_ID="samthiyodara@oksbi";
+
+window.addEventListener('load',()=>{
+ const p=JSON.parse(localStorage.getItem('selectedMobile'));
+ const box=document.getElementById('productDetails');
+ if(!p){box.innerHTML="<p style='text-align:center;'>No product selected.</p>";return;}
+ box.innerHTML=`<div><img src="${p.img}"></div>
+ <div class="product-info"><div class="product-title">${p.name}</div>
+ <div class="product-desc">${p.desc}</div><div class="product-price">${p.price}</div></div>`;
+ const sum=document.getElementById('orderSummary');
+ sum.innerHTML=`<p><strong>${p.name}</strong></p>
+ <label>Quantity:<input type="number" id="qty" min="1" value="1" class="input-field" style="width:80px"></label>
+ <p id="total"><strong>Total:${p.price}</strong></p>`;
+ const base=parseInt(p.price.replace(/[^0-9]/g,''));const qty=document.getElementById('qty');
+ qty.oninput=()=>{let q=Math.max(1,parseInt(qty.value)||1);document.getElementById('total').innerHTML="<strong>Total:₹"+(base*q).toLocaleString()+"</strong>";};
+});
+
+document.querySelectorAll('.accordion-header').forEach(h=>h.addEventListener('click',()=>{
+ const c=h.nextElementSibling;c.classList.toggle('active');
+ h.querySelector('span').textContent=c.classList.contains('active')?'-':'+';}));
+
+document.querySelectorAll('input[name="payment"]').forEach(r=>r.addEventListener('change',()=>{
+ ['cardFields','upiField','bankField','emiField'].forEach(id=>document.getElementById(id).style.display='none');
+ if(r.value==='card')cardFields.style.display='block';
+ if(r.value==='upi'){upiField.style.display='block';const p=JSON.parse(localStorage.getItem('selectedMobile'));const amt=parseInt(p.price.replace(/[^0-9]/g,''));const qr=`upi://pay?pa=${STORE_UPI_ID}&pn=Apple%20Store&am=${amt}&cu=INR`;qrImage.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qr)}`;upiQR.style.display='block';}
+ if(r.value==='netbanking')bankField.style.display='block';
+ if(r.value==='emi')emiField.style.display='block';
+}));
+
+document.getElementById('emiMonths').addEventListener('change',()=>{
+ const m=parseInt(emiMonths.value||0);const p=JSON.parse(localStorage.getItem('selectedMobile'));const price=parseInt(p.price.replace(/[^0-9]/g,''));if(!m)return emiInfo.textContent='';
+ const rate=0.02*m;const total=price+(price*rate);emiInfo.textContent=`${m} Months @ ${(rate*100).toFixed(1)}% Interest = ₹${total.toLocaleString()}`;
+});
+
+function goSuccess(){window.location.href="success.html";}
+
+['confirmOrder','paidBtn','cardPay','bankPay','emiPay'].forEach(id=>{
+ const btn=document.getElementById(id);if(btn)btn.onclick=()=>goSuccess();
+});
+</script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Inter',sans-serif; background:#f4f4f4; }
+header { background:#fff; padding:15px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
+nav { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; }
+nav .logo { font-size:24px; font-weight:700; color:#0071e3; text-decoration:none; }
+
+.container { max-width:1000px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+h2 { color:#0071e3; }
+input, select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:8px; font-size:15px; }
+button { background:#0071e3; color:#fff; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+button:hover { background:#005bb5; }
+.list-item { background:#f8f8f8; padding:10px; border-radius:8px; margin:5px 0; display:flex; justify-content:space-between; align-items:center; }
+.list-item span { font-weight:600; }
+.action-icons i { margin-left:10px; cursor:pointer; }
+.remove-btn { color:red; }
+.edit-btn { color:#0071e3; }
+#logout { background:#ff6b6b; }
+#homeBtn { background:#28a745; margin-right:10px; }
+#clearAll { background:#555; margin-top:15px; }
+#previewImg { display:block; margin:10px auto; max-width:200px; border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
+
+/* edit popup */
+#editPopup {
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.5); display:none;
+  justify-content:center; align-items:center;
+}
+.popup-content {
+  background:#fff; padding:20px; border-radius:12px;
+  width:90%; max-width:400px; box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+.popup-content input { width:100%; margin:8px 0; }
+.popup-content button { width:100%; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo">ADMIN PANEL</a>
+  </nav>
+</header>
+
+<div class="container" id="loginBox">
+  <h2>Admin Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div class="container" id="adminPanel" style="display:none;">
+  <div style="margin-bottom:20px;">
+    <button id="homeBtn" onclick="goHome()">🏠 Back to Home</button>
+    <button id="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <h2>Category</h2>
+  <select id="categorySelect" onchange="loadCategoryData()">
+    <option value="mobiles">Mobiles</option>
+    <option value="laptops">Laptops</option>
+    <option value="imacs">iMacs</option>
+    <option value="iwatch">iWatch</option>
+    <option value="earbuds">Earbuds</option>
+  </select>
+
+  <hr>
+
+  <h2>Manage Brands</h2>
+  <input type="text" id="brandName" placeholder="Enter Brand Name">
+  <button onclick="addBrand()">Add Brand</button>
+  <div id="brandList"></div>
+
+  <hr>
+
+  <h2>Manage Items</h2>
+  <select id="brandSelect"></select>
+  <input type="text" id="itemName" placeholder="Item Name">
+
+  <label><b>Image (Upload or Paste Link)</b></label>
+  <input type="file" id="itemImageFile" accept="image/*" onchange="previewImage(event)">
+  <input type="text" id="itemImg" placeholder="Or paste Image URL (optional)">
+  <img id="previewImg" style="display:none;">
+
+  <input type="text" id="itemDesc" placeholder="Description">
+  <input type="text" id="itemPrice" placeholder="Price">
+  <button onclick="addItem()">Add Item</button>
+  <button id="clearAll" onclick="clearAllData()">🧹 Clear All Data</button>
+
+  <h3>Items List</h3>
+  <div id="itemList"></div>
+</div>
+
+<!-- Edit popup -->
+<div id="editPopup">
+  <div class="popup-content">
+    <h3>Edit Item</h3>
+    <input type="text" id="editName" placeholder="Model">
+    <input type="text" id="editDesc" placeholder="Description">
+    <input type="text" id="editPrice" placeholder="Price">
+    <input type="text" id="editImg" placeholder="Image URL">
+    <button onclick="saveEdit()">Save</button>
+    <button onclick="closePopup()">Cancel</button>
+  </div>
+</div>
+
+<script>
+const USER = "admin";
+const PASS = "1234";
+let currentCategory = 'mobiles';
+let editIndex = null;
+
+// Login functions
+function login(){
+  const u=username.value, p=password.value;
+  if(u===USER && p===PASS){
+    loginBox.style.display='none';
+    adminPanel.style.display='block';
+    loadCategoryData();
+  } else alert("Invalid login!");
+}
+function logout(){
+  loginBox.style.display='block';
+  adminPanel.style.display='none';
+}
+function goHome(){
+  window.location.href = 'index.html'; // change to your home page path
+}
+
+// LocalStorage helpers
+function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+function saveData(key,data){ localStorage.setItem(key,JSON.stringify(data)); }
+
+// Category switch
+function loadCategoryData(){
+  currentCategory = categorySelect.value;
+  loadBrands();
+  loadItems();
+}
+
+// Brand functions
+function loadBrands(){
+  const brands = getData(currentCategory+'-brands');
+  brandList.innerHTML = '';
+  brandSelect.innerHTML = '<option value="">Select Brand</option>';
+  brands.forEach(b=>{
+    brandList.innerHTML += `<div class='list-item'><span>${b}</span>
+      <div class='action-icons'>
+        <i class='fa-solid fa-trash remove-btn' onclick="removeBrand('${b}')"></i>
+      </div></div>`;
+    brandSelect.innerHTML += `<option value="${b}">${b}</option>`;
+  });
+}
+
+function addBrand(){
+  const name = brandName.value.trim();
+  if(!name) return alert("Enter brand name!");
+  const brands = getData(currentCategory+'-brands');
+  if(brands.includes(name)) return alert("Brand exists!");
+  brands.push(name);
+  saveData(currentCategory+'-brands', brands);
+  brandName.value='';
+  loadBrands();
+}
+
+function removeBrand(name){
+  if(!confirm(`Remove brand "${name}"?`)) return;
+  let brands = getData(currentCategory+'-brands').filter(b=>b!==name);
+  saveData(currentCategory+'-brands', brands);
+
+  // remove items of that brand
+  let items = getData(currentCategory).filter(i=>i.brand!==name);
+  saveData(currentCategory, items);
+
+  loadBrands();
+  loadItems();
+}
+
+// Item functions
+function previewImage(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    previewImg.src=ev.target.result;
+    previewImg.style.display='block';
+  }
+  reader.readAsDataURL(file);
+}
+
+function loadItems(){
+  const items = getData(currentCategory);
+  itemList.innerHTML = '';
+  items.forEach((item,index)=>{
+    itemList.innerHTML += `<div class='list-item'>
+      <span>${item.brand} - ${item.name}</span>
+      <div class='action-icons'>
+        <i class='fa-solid fa-pen edit-btn' onclick='editItem(${index})'></i>
+        <i class='fa-solid fa-trash remove-btn' onclick='removeItem(${index})'></i>
+      </div>
+    </div>`;
+  });
+}
+
+function addItem(){
+  const brand = brandSelect.value;
+  const name = itemName.value.trim();
+  const desc = itemDesc.value.trim();
+  const price = itemPrice.value.trim();
+  const link = itemImg.value.trim();
+  const img = previewImg.src || link;
+
+  if(!brand || !name || !desc || !price || !img) return alert("Fill all fields and image!");
+
+  let items = getData(currentCategory);
+  items.push({brand,name,desc,price,img});
+  saveData(currentCategory, items);
+
+  itemName.value=''; itemDesc.value=''; itemPrice.value=''; itemImg.value=''; previewImg.style.display='none';
+  loadItems();
+}
+
+function removeItem(index){
+  if(!confirm("Delete this item?")) return;
+  let items = getData(currentCategory);
+  items.splice(index,1);
+  saveData(currentCategory, items);
+  loadItems();
+}
+
+function editItem(index){
+  const items = getData(currentCategory);
+  editIndex=index;
+  editName.value = items[index].name;
+  editDesc.value = items[index].desc;
+  editPrice.value = items[index].price;
+  editImg.value = items[index].img;
+  editPopup.style.display='flex';
+}
+
+function saveEdit(){
+  const items = getData(currentCategory);
+  items[editIndex].name = editName.value.trim();
+  items[editIndex].desc = editDesc.value.trim();
+  items[editIndex].price = editPrice.value.trim();
+  items[editIndex].img = editImg.value.trim();
+  saveData(currentCategory, items);
+  editPopup.style.display='none';
+  loadItems();
+}
+
+function closePopup(){ editPopup.style.display='none'; }
+
+function clearAllData(){
+  if(confirm("⚠️ This will delete all brands and items for this category!")){
+    localStorage.removeItem(currentCategory);
+    localStorage.removeItem(currentCategory+'-brands');
+    loadCategoryData();
+  }
+}
+</script>
+
+</body>
+</html>
