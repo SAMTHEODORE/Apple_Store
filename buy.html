@@ -3,155 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buy Product | APPLE STORE</title>
-<link rel="icon" href="../Images/apple-logo-transparent.png">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;margin:0;background:#f5f5f7;color:#1d1d1f;}
-header{background:#fff;padding:20px;text-align:center;font-size:28px;font-weight:700;border-bottom:1px solid #d2d2d7;}
-.container{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:50px;background:#fff;max-width:1100px;margin:50px auto;border-radius:20px;box-shadow:0px 5px 20px rgba(0,0,0,0.08);}
-.container img{width:100%;border-radius:12px;object-fit:contain;background:#fafafa;padding:15px;}
-.product-info{display:flex;flex-direction:column;justify-content:center;}
-.product-title{font-size:30px;font-weight:700;margin-bottom:10px;}
-.product-desc{font-size:17px;color:#444;line-height:1.8;margin-bottom:25px;}
-.product-price{font-size:24px;font-weight:700;color:#0071e3;background:#e8f2ff;display:inline-block;padding:10px 20px;border-radius:12px;}
-.accordion{max-width:900px;margin:30px auto;border-radius:12px;overflow:hidden;box-shadow:0px 4px 12px rgba(0,0,0,0.08);}
-.accordion-item{border-bottom:1px solid #e5e5ea;}
-.accordion-header{padding:18px;background:#f5f5f7;cursor:pointer;font-weight:600;font-size:17px;display:flex;justify-content:space-between;align-items:center;}
-.accordion-header:hover{background:#e5e5ea;}
-.accordion-content{display:none;padding:20px;background:white;}
-.accordion-content.active{display:block;}
-.input-field{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #d2d2d7;font-size:15px;background:#f9f9fb;}
-.submit-button{width:100%;padding:14px;border:none;border-radius:8px;background:#0071e3;color:white;font-size:16px;cursor:pointer;font-weight:500;transition:background 0.3s;}
-.submit-button:hover{background:#005bb5;}
-.back-button{display:block;text-align:center;margin:50px auto;width:220px;padding:12px;background:linear-gradient(45deg,#0071e3,#00b4d8);color:white;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;transition:transform 0.2s;}
-.back-button:hover{transform:scale(1.05);}
-#upiQR{text-align:center;margin-top:15px;display:none;}
-#upiQR img{width:180px;height:180px;border-radius:10px;border:1px solid #ddd;}
-.interest-info{color:#0071e3;font-weight:600;}
+body { margin:0; font-family:'Inter',sans-serif; background:#f4f4f4; }
+header { background:#fff; padding:15px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
+nav { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; }
+nav .logo { font-size:24px; font-weight:700; color:#0071e3; text-decoration:none; }
+
+.container { max-width:1000px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+h2 { color:#0071e3; }
+input, select { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:8px; font-size:15px; }
+button { background:#0071e3; color:#fff; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+button:hover { background:#005bb5; }
+.list-item { background:#f8f8f8; padding:10px; border-radius:8px; margin:5px 0; display:flex; justify-content:space-between; align-items:center; }
+.list-item span { font-weight:600; }
+.action-icons i { margin-left:10px; cursor:pointer; }
+.remove-btn { color:red; }
+.edit-btn { color:#0071e3; }
+#logout { background:#ff6b6b; }
+#homeBtn { background:#28a745; margin-right:10px; }
+#clearAll { background:#555; margin-top:15px; }
+#previewImg { display:block; margin:10px auto; max-width:200px; border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.2); }
+
+/* edit popup */
+#editPopup {
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.5); display:none;
+  justify-content:center; align-items:center;
+}
+.popup-content {
+  background:#fff; padding:20px; border-radius:12px;
+  width:90%; max-width:400px; box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+.popup-content input { width:100%; margin:8px 0; }
+.popup-content button { width:100%; margin-top:10px; }
 </style>
 </head>
 <body>
-<header>APPLE STORE</header>
 
-<div class="container" id="productDetails"></div>
+<header>
+  <nav>
+    <a href="#" class="logo">ADMIN PANEL</a>
+  </nav>
+</header>
 
-<div class="accordion">
-  <div class="accordion-item">
-    <div class="accordion-header">DELIVERY ADDRESS <span>+</span></div>
-    <div class="accordion-content">
-      <input type="text" id="fullName" placeholder="Full Name" class="input-field">
-      <input type="text" id="street" placeholder="Street Address" class="input-field">
-      <input type="text" id="city" placeholder="City" class="input-field">
-      <input type="text" id="pincode" placeholder="Pincode" class="input-field">
-    </div>
+<div class="container" id="loginBox">
+  <h2>Admin Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div class="container" id="adminPanel" style="display:none;">
+  <div style="margin-bottom:20px;">
+    <button id="homeBtn" onclick="goHome()">🏠 Back to Home</button>
+    <button id="logout" onclick="logout()">Logout</button>
   </div>
 
-  <div class="accordion-item">
-    <div class="accordion-header">ORDER SUMMARY <span>+</span></div>
-    <div class="accordion-content" id="orderSummary"></div>
-  </div>
+  <h2>Category</h2>
+  <select id="categorySelect" onchange="loadCategoryData()">
+    <option value="mobiles">Mobiles</option>
+    <option value="laptops">Laptops</option>
+    <option value="imacs">iMacs</option>
+    <option value="iwatch">iWatch</option>
+    <option value="earbuds">Earbuds</option>
+  </select>
 
-  <div class="accordion-item">
-    <div class="accordion-header">PAYMENT OPTIONS <span>+</span></div>
-    <div class="accordion-content" id="paymentSection">
-      <label><input type="radio" name="payment" value="card"> 💳 Credit / Debit Card</label>
-      <div id="cardFields" style="display:none;margin-top:10px;">
-        <input type="text" id="cardNumber" class="input-field" placeholder="Card Number">
-        <input type="text" id="expiry" class="input-field" placeholder="MM/YY">
-        <input type="text" id="cvv" class="input-field" placeholder="CVV">
-        <button id="cardPay" class="submit-button">Pay Now</button>
-      </div>
+  <hr>
 
-      <label><input type="radio" name="payment" value="netbanking"> 🏦 Net Banking</label>
-      <div id="bankField" style="display:none;margin-top:10px;">
-        <select id="bankSelect" class="input-field">
-          <option value="">Select Bank</option><option>SBI</option><option>HDFC</option><option>ICICI</option><option>Axis</option><option>Kotak</option>
-        </select>
-        <input type="text" id="bankUser" class="input-field" placeholder="User ID">
-        <input type="password" id="bankPass" class="input-field" placeholder="Password">
-        <button id="bankPay" class="submit-button">Pay Securely</button>
-      </div>
+  <h2>Manage Brands</h2>
+  <input type="text" id="brandName" placeholder="Enter Brand Name">
+  <button onclick="addBrand()">Add Brand</button>
+  <div id="brandList"></div>
 
-      <label><input type="radio" name="payment" value="upi"> 💠 UPI (Google Pay / PhonePe / Paytm)</label>
-      <div id="upiField" style="display:none;margin-top:10px;">
-        <div id="upiQR">
-          <p><strong>Scan & Pay</strong></p>
-          <img id="qrImage" src="">
-          <button id="paidBtn" class="submit-button" style="margin-top:10px;">I’ve Paid</button>
-        </div>
-      </div>
+  <hr>
 
-      <label><input type="radio" name="payment" value="emi"> 💼 EMI Options</label>
-      <div id="emiField" style="display:none;margin-top:10px;">
-        <select id="emiMonths" class="input-field">
-          <option value="">Select EMI Duration</option>
-          <option value="3">3 Months</option><option value="6">6 Months</option>
-          <option value="9">9 Months</option><option value="12">12 Months</option>
-        </select>
-        <p class="interest-info" id="emiInfo"></p>
-        <button id="emiPay" class="submit-button">Proceed with EMI</button>
-      </div>
+  <h2>Manage Items</h2>
+  <select id="brandSelect"></select>
+  <input type="text" id="itemName" placeholder="Item Name">
 
-      <label><input type="radio" name="payment" value="cod"> 💵 Cash on Delivery</label>
-      <br><br><button id="confirmOrder" class="submit-button">Confirm Order</button>
-    </div>
+  <label><b>Image (Upload or Paste Link)</b></label>
+  <input type="file" id="itemImageFile" accept="image/*" onchange="previewImage(event)">
+  <input type="text" id="itemImg" placeholder="Or paste Image URL (optional)">
+  <img id="previewImg" style="display:none;">
+
+  <input type="text" id="itemDesc" placeholder="Description">
+  <input type="text" id="itemPrice" placeholder="Price">
+  <button onclick="addItem()">Add Item</button>
+  <button id="clearAll" onclick="clearAllData()">🧹 Clear All Data</button>
+
+  <h3>Items List</h3>
+  <div id="itemList"></div>
+</div>
+
+<!-- Edit popup -->
+<div id="editPopup">
+  <div class="popup-content">
+    <h3>Edit Item</h3>
+    <input type="text" id="editName" placeholder="Model">
+    <input type="text" id="editDesc" placeholder="Description">
+    <input type="text" id="editPrice" placeholder="Price">
+    <input type="text" id="editImg" placeholder="Image URL">
+    <button onclick="saveEdit()">Save</button>
+    <button onclick="closePopup()">Cancel</button>
   </div>
 </div>
 
-<a href="index.html" class="back-button">← Back to Store</a>
-
 <script>
-const STORE_UPI_ID="samthiyodara@oksbi";
+const USER = "admin";
+const PASS = "1234";
+let currentCategory = 'mobiles';
+let editIndex = null;
 
-window.addEventListener('load',()=>{
- const p=JSON.parse(localStorage.getItem('selectedMobile'));
- const box=document.getElementById('productDetails');
- if(!p){box.innerHTML="<p style='text-align:center;'>No product selected.</p>";return;}
- box.innerHTML=`<div><img src="${p.img}"></div>
- <div class="product-info"><div class="product-title">${p.name}</div>
- <div class="product-desc">${p.desc}</div><div class="product-price">${p.price}</div></div>`;
- const sum=document.getElementById('orderSummary');
- sum.innerHTML=`<p><strong>${p.name}</strong></p>
- <label>Quantity:<input type="number" id="qty" min="1" value="1" class="input-field" style="width:80px"></label>
- <p id="total"><strong>Total:${p.price}</strong></p>`;
- const base=parseInt(p.price.replace(/[^0-9]/g,''));const qty=document.getElementById('qty');
- qty.oninput=()=>{let q=Math.max(1,parseInt(qty.value)||1);document.getElementById('total').innerHTML="<strong>Total:₹"+(base*q).toLocaleString()+"</strong>";};
-});
+// Login functions
+function login(){
+  const u=username.value, p=password.value;
+  if(u===USER && p===PASS){
+    loginBox.style.display='none';
+    adminPanel.style.display='block';
+    loadCategoryData();
+  } else alert("Invalid login!");
+}
+function logout(){
+  loginBox.style.display='block';
+  adminPanel.style.display='none';
+}
+function goHome(){
+  window.location.href = 'index.html'; // change to your home page path
+}
 
-document.querySelectorAll('.accordion-header').forEach(h=>h.addEventListener('click',()=>{
- const c=h.nextElementSibling;c.classList.toggle('active');
- h.querySelector('span').textContent=c.classList.contains('active')?'-':'+';}));
+// LocalStorage helpers
+function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+function saveData(key,data){ localStorage.setItem(key,JSON.stringify(data)); }
 
-document.querySelectorAll('input[name="payment"]').forEach(r=>r.addEventListener('change',()=>{
- ['cardFields','upiField','bankField','emiField'].forEach(id=>document.getElementById(id).style.display='none');
- if(r.value==='card')cardFields.style.display='block';
- if(r.value==='upi'){upiField.style.display='block';const p=JSON.parse(localStorage.getItem('selectedMobile'));const amt=parseInt(p.price.replace(/[^0-9]/g,''));const qr=`upi://pay?pa=${STORE_UPI_ID}&pn=Apple%20Store&am=${amt}&cu=INR`;qrImage.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qr)}`;upiQR.style.display='block';}
- if(r.value==='netbanking')bankField.style.display='block';
- if(r.value==='emi')emiField.style.display='block';
-}));
+// Category switch
+function loadCategoryData(){
+  currentCategory = categorySelect.value;
+  loadBrands();
+  loadItems();
+}
 
-document.getElementById('emiMonths').addEventListener('change',()=>{
- const m=parseInt(emiMonths.value||0);const p=JSON.parse(localStorage.getItem('selectedMobile'));const price=parseInt(p.price.replace(/[^0-9]/g,''));if(!m)return emiInfo.textContent='';
- const rate=0.02*m;const total=price+(price*rate);emiInfo.textContent=`${m} Months @ ${(rate*100).toFixed(1)}% Interest = ₹${total.toLocaleString()}`;
-});
+// Brand functions
+function loadBrands(){
+  const brands = getData(currentCategory+'-brands');
+  brandList.innerHTML = '';
+  brandSelect.innerHTML = '<option value="">Select Brand</option>';
+  brands.forEach(b=>{
+    brandList.innerHTML += `<div class='list-item'><span>${b}</span>
+      <div class='action-icons'>
+        <i class='fa-solid fa-trash remove-btn' onclick="removeBrand('${b}')"></i>
+      </div></div>`;
+    brandSelect.innerHTML += `<option value="${b}">${b}</option>`;
+  });
+}
 
-function goSuccess(){window.location.href="success.html";}
+function addBrand(){
+  const name = brandName.value.trim();
+  if(!name) return alert("Enter brand name!");
+  const brands = getData(currentCategory+'-brands');
+  if(brands.includes(name)) return alert("Brand exists!");
+  brands.push(name);
+  saveData(currentCategory+'-brands', brands);
+  brandName.value='';
+  loadBrands();
+}
 
-['confirmOrder','paidBtn','cardPay','bankPay','emiPay'].forEach(id=>{
- const btn=document.getElementById(id);if(btn)btn.onclick=()=>goSuccess();
-});
+function removeBrand(name){
+  if(!confirm(`Remove brand "${name}"?`)) return;
+  let brands = getData(currentCategory+'-brands').filter(b=>b!==name);
+  saveData(currentCategory+'-brands', brands);
+
+  // remove items of that brand
+  let items = getData(currentCategory).filter(i=>i.brand!==name);
+  saveData(currentCategory, items);
+
+  loadBrands();
+  loadItems();
+}
+
+// Item functions
+function previewImage(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    previewImg.src=ev.target.result;
+    previewImg.style.display='block';
+  }
+  reader.readAsDataURL(file);
+}
+
+function loadItems(){
+  const items = getData(currentCategory);
+  itemList.innerHTML = '';
+  items.forEach((item,index)=>{
+    itemList.innerHTML += `<div class='list-item'>
+      <span>${item.brand} - ${item.name}</span>
+      <div class='action-icons'>
+        <i class='fa-solid fa-pen edit-btn' onclick='editItem(${index})'></i>
+        <i class='fa-solid fa-trash remove-btn' onclick='removeItem(${index})'></i>
+      </div>
+    </div>`;
+  });
+}
+
+function addItem(){
+  const brand = brandSelect.value;
+  const name = itemName.value.trim();
+  const desc = itemDesc.value.trim();
+  const price = itemPrice.value.trim();
+  const link = itemImg.value.trim();
+  const img = previewImg.src || link;
+
+  if(!brand || !name || !desc || !price || !img) return alert("Fill all fields and image!");
+
+  let items = getData(currentCategory);
+  items.push({brand,name,desc,price,img});
+  saveData(currentCategory, items);
+
+  itemName.value=''; itemDesc.value=''; itemPrice.value=''; itemImg.value=''; previewImg.style.display='none';
+  loadItems();
+}
+
+function removeItem(index){
+  if(!confirm("Delete this item?")) return;
+  let items = getData(currentCategory);
+  items.splice(index,1);
+  saveData(currentCategory, items);
+  loadItems();
+}
+
+function editItem(index){
+  const items = getData(currentCategory);
+  editIndex=index;
+  editName.value = items[index].name;
+  editDesc.value = items[index].desc;
+  editPrice.value = items[index].price;
+  editImg.value = items[index].img;
+  editPopup.style.display='flex';
+}
+
+function saveEdit(){
+  const items = getData(currentCategory);
+  items[editIndex].name = editName.value.trim();
+  items[editIndex].desc = editDesc.value.trim();
+  items[editIndex].price = editPrice.value.trim();
+  items[editIndex].img = editImg.value.trim();
+  saveData(currentCategory, items);
+  editPopup.style.display='none';
+  loadItems();
+}
+
+function closePopup(){ editPopup.style.display='none'; }
+
+function clearAllData(){
+  if(confirm("⚠️ This will delete all brands and items for this category!")){
+    localStorage.removeItem(currentCategory);
+    localStorage.removeItem(currentCategory+'-brands');
+    loadCategoryData();
+  }
+}
 </script>
+
 </body>
-</html> 
-
-
-
-
-
-
-
-
-
-
-
-
+</html>
