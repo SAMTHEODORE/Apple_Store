@@ -54,6 +54,24 @@
 <div class="grid" id="productGrid"></div>
 
 <script>
+// ===== All mobiles data =====
+let mobiles = [
+  { name: "iPhone 15 Pro", brand: "Apple", desc: "6.1 inch, A17 Bionic, 256GB", price: "₹1,29,900", img: "https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/0/q/d/-original-imagtc4hzawdcp4g.jpeg?q=90" },
+  { name: "iPhone 14", brand: "Apple", desc: "6.1 inch, A15 Bionic, 128GB", price: "₹79,900", img: "https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/3/5/l/-original-imaghx9qmgqsk9s4.jpeg?q=90" },
+  { name: "Samsung Galaxy S23", brand: "Samsung", desc: "6.1 inch, Snapdragon 8 Gen2, 128GB", price: "₹79,999", img: "https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/t/0/g/-original-imah4zp7fvqp8wev.jpeg?q=90" },
+  { name: "Samsung Galaxy Z Fold5", brand: "Samsung", desc: "7.6 inch foldable, 512GB", price: "₹1,79,999", img: "https://cellbay.in/wp-content/uploads/2023/11/Samsung-Galaxy-Z-Fold-5-phantom-black.jpg" },
+  { name: "OnePlus 11", brand: "OnePlus", desc: "6.7 inch, Snapdragon 8 Gen2, 256GB", price: "₹49,999", img: "https://m.media-amazon.com/images/I/61amb0CfMGL.jpg" },
+  { name: "OnePlus Nord 3", brand: "OnePlus", desc: "6.7 inch, MediaTek Dimensity 9200+, 256GB", price: "₹29,999", img: "https://m.media-amazon.com/images/I/6175SlKKECL.jpg" },
+  { name: "Xiaomi 13 Pro", brand: "Xiaomi", desc: "6.73 inch, Snapdragon 8 Gen2, 256GB", price: "₹62,999", img: "https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/s/a/m/13-pro-2210132g-xiaomi-original-imahbdmy4ttbpvhg.jpeg?q=90" },
+  { name: "Redmi Note 12 Pro", brand: "Xiaomi", desc: "6.67 inch, MediaTek Dimensity 1080, 128GB", price: "₹19,999", img: "https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/m/j/o/-original-imaghkvue4yjecju.jpeg?q=90" },
+  { name: "Realme GT 3", brand: "Realme", desc: "6.7 inch, Snapdragon 8+, 256GB", price: "₹39,999", img: "https://rukminim2.flixcart.com/image/480/640/l3rmzrk0/mobile/a/f/2/-original-imagetmecznbydne.jpeg?q=90" },
+  { name: "Realme Narzo 60X", brand: "Realme", desc: "6.6 inch, MediaTek Helio G99, 128GB", price: "₹12,999", img: "https://rukminim2.flixcart.com/image/480/480/xif0q/mobile/v/3/e/narzo-60x-5g-rmx3782-realme-original-imagtjckcetgqd9y.jpeg?q=90" }
+];
+
+// Save to localStorage
+localStorage.setItem('mobiles', JSON.stringify(mobiles));
+
+// ===== Selectors =====
 const grid = document.getElementById('productGrid');
 const search = document.getElementById('searchInput');
 const brandFilter = document.getElementById('brandFilter');
@@ -64,10 +82,7 @@ categorySelect.addEventListener('change', ()=>{
   window.location.href = categorySelect.value;
 });
 
-// Load mobiles from localStorage
-let mobiles = JSON.parse(localStorage.getItem('mobiles')) || [];
-
-// Load brands
+// Load brands dynamically
 function loadBrands(){
   const brands = [...new Set(mobiles.map(p=>p.brand))];
   brandFilter.innerHTML = '<option value="">All Brands</option>';
@@ -76,19 +91,16 @@ function loadBrands(){
   });
 }
 
-// Display Products
+// Display products
 function displayProducts(list){
   grid.innerHTML = '';
-
   if(list.length === 0){
     grid.innerHTML = '<p style="text-align:center; width:100%">No mobiles found!</p>';
     return;
   }
-
   list.forEach(p=>{
     let card = document.createElement('div');
     card.className = 'product-card';
-
     card.innerHTML = `
       <img src="${p.img}" alt="${p.name}">
       <div class="product-info">
@@ -103,7 +115,7 @@ function displayProducts(list){
   });
 }
 
-// Buy Product
+// Buy product
 function buyProduct(product){
   localStorage.setItem("selectedMobile", JSON.stringify(product));
   window.location.href = "buy.html";
@@ -126,7 +138,7 @@ search.addEventListener('keyup', ()=>{
   displayProducts(filtered);
 });
 
-// Brand Filter
+// Brand filter
 brandFilter.addEventListener('change', ()=>{
   const brandVal = brandFilter.value;
   const text = search.value.toLowerCase();
