@@ -69,11 +69,11 @@ footer { background:#222; color:#ccc; padding:20px; text-align:center; margin-to
 <div class="search-container">
     <input type="text" id="searchInput" placeholder="Search watches...">
     <select id="categorySelect" onchange="goCategory(this.value)">
-    <option value="../index.html">Mobile</option>
-    <option value="laptop.html" >Laptop</option>
-    <option value="watch.html" selected>Watch</option>
-    <option value="earbuds.html">Earbuds</option>
-  </select>
+        <option value="../index.html">Mobile</option>
+        <option value="laptop.html">Laptop</option>
+        <option value="watch.html" selected>Watch</option>
+        <option value="earbuds.html">Earbuds</option>
+    </select>
     <select id="filterBrand">
         <option value="">All Brands</option>
     </select>
@@ -95,23 +95,40 @@ function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
 let allProducts = [];
 
 function loadProducts(){
-  const products = getData('watch');
-  const brands = getData('watch-brands');
-  
+  const defaultProducts = [
+    {brand:"Apple", name:"Apple Watch Series 9", img:"https://www.imagineonline.store/cdn/shop/files/Apple_Watch_Series_9_LTE_45mm_Graphite_Stainless_Steel_Midnight_Sport_Band_PDP_Image_Position-1__en-IN_60b9d3d4-3116-4e44-9c98-1cb5654fd60e.jpg?v=1759733890&width=1445", desc:"Always-On Retina Display<br>GPS + Cellular", price:"₹49,900"},
+    {brand:"Apple", name:"Apple Watch Series 8", img:"https://iplanet.one/cdn/shop/files/Apple_Watch_Series_8_LTE_45mm_Silver_Stainless_Steel_Silver_Milanese_Loop_PDP_Image_Position-1__en-US_a2c63b55-dff3-4860-82a5-4b07807741c7.jpg?v=1698872624&width=1445", desc:"Always-On Retina Display<br>GPS + Cellular", price:"₹45,900"},
+    {brand:"Apple", name:"Apple Watch SE", img:"https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MYG03ref_FV98_VW_34FR+watch-case-44-aluminum-midnight-nc-se3_VW_34FR+watch-face-44-aluminum-midnight-se3_VW_34FR?wid=752&hei=720&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=OUh6OFdFVEJxVkF6SUo5TWxpTE50MG5TeWJ6QW43NUFnQ2V4cmRFc1VnWWxvMTNVeXVWaTk0Ui9PSEVKVVU0d1lhaWUxTWU2aU04eE1hTy9TdWx3bWRGNnlaeXQ4NGFKQTAzc0NGeHR2aVovaXdUUWpjcUxCU0VQMFk3TFQ4aVV3MWtUbEY3SEFHcklpYWRuOHA5UEEveDMxaWg4TFhITTVrUW41Z084dENpYmZuSTdFUnErS0g3SWYxazQrNDdyRzE3K0tORmZaUy9vOVdqTEp2dmJNMlpHNW80UjJWZzYxTVdqVTNBWWxkVHoxUSt3MXdXOU45RlVNNm9vaUhPUw", desc:"Retina Display<br>GPS", price:"₹29,900"},
+    {brand:"Samsung", name:"Galaxy Watch 6", img:"https://images.samsung.com/is/image/samsung/p6pim/in/2307/gallery/in-galaxy-watch6-r945-sm-r940nzsains-537406468?$684_547_PNG$", desc:"Super AMOLED Display<br>GPS + LTE", price:"₹34,999"},
+    {brand:"Samsung", name:"Galaxy Watch 5", img:"https://images.samsung.com/in/galaxy-watch5/feature/galaxy-watch5-performance-right-visual-mo.jpg", desc:"AMOLED Display<br>GPS", price:"₹25,999"},
+    {brand:"Fitbit", name:"Fitbit Versa 4", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/smartwatch/p/l/7/-original-imagzsa93rvby62y.jpeg?q=90", desc:"Heart Rate Monitoring<br>Sleep Tracking", price:"₹19,999"},
+    {brand:"Fitbit", name:"Fitbit Sense 2", img:"https://m.media-amazon.com/images/I/51GeUyZUB9L._AC_UF1000,1000_QL80_.jpg", desc:"Stress Management<br>ECG Sensor", price:"₹29,999"},
+    {brand:"Garmin", name:"Garmin Venu 2", img:"https://contents.mediadecathlon.com/m12062789/df6ad9ca89c25bb113997e7057d27566/m12062789.jpg", desc:"AMOLED Display<br>Fitness Tracking", price:"₹39,999"},
+    {brand:"Fossil", name:"Fossil Gen 6", img:"https://m.media-amazon.com/images/I/7168FPOetGL.jpg", desc:"Wear OS<br>Heart Rate Tracking", price:"₹23,999"}
+  ];
+
+  let stored = getData('watch');
+
+  // Merge: overwrite old images with default ones
+  const products = defaultProducts.map(dp=>{
+    const old = stored.find(p=>p.name===dp.name);
+    return old ? {...old, img: dp.img, desc: dp.desc, price: dp.price, brand: dp.brand} : dp;
+  });
+
+  localStorage.setItem('watch', JSON.stringify(products));
+  allProducts = products;
+
+  // Populate brand filter
+  const brands = [...new Set(products.map(p=>p.brand))];
   brandFilter.innerHTML = '<option value="">All Brands</option>';
   brands.forEach(b=> brandFilter.innerHTML += `<option value="${b}">${b}</option>`);
-
-  allProducts = products.length ? products : [
-    {brand:"Apple", name:"Apple Watch Series 8", img:"https://iplanet.one/cdn/shop/files/Apple_Watch_Series_8_LTE_45mm_Silver_Stainless_Steel_Silver_Milanese_Loop_PDP_Image_Position-1__en-US_a2c63b55-dff3-4860-82a5-4b07807741c7.jpg?v=1698872624&width=1445", desc:"Always-On Retina Display<br>GPS + Cellular", price:"₹45,900"},
-    {brand:"Apple", name:"Apple Watch SE", img:"https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MYG03ref_FV98_VW_34FR+watch-case-44-aluminum-midnight-nc-se3_VW_34FR+watch-face-44-aluminum-midnight-se3_VW_34FR?wid=752&hei=720&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=OUh6OFdFVEJxVkF6SUo5TWxpTE50MG5TeWJ6QW43NUFnQ2V4cmRFc1VnWWxvMTNVeXVWaTk0Ui9PSEVKVVU0d1lhaWUxTWU2aU04eE1hTy9TdWx3bWRGNnlaeXQ4NGFKQTAzc0NGeHR2aVovaXdUUWpjcUxCU0VQMFk3TFQ4aVV3MWtUbEY3SEFHcklpYWRuOHA5UEEveDMxaWg4TFhITTVrUW41Z084dENpYmZuSTdFUnErS0g3SWYxazQrNDdyRzE3K0tORmZaUy9vOVdqTEp2dmJNMlpHNW80UjJWZzYxTVdqVTNBWWxkVHoxUSt3MXdXOU45RlVNNm9vaUhPUw", desc:"Retina Display<br>GPS", price:"₹29,900"}
-  ];
 
   displayProducts(allProducts);
 }
 
 function displayProducts(products){
   grid.innerHTML = '';
-  products.forEach(p=>{
+  products.forEach((p,index)=>{
     const card = document.createElement('div');
     card.className='product-card';
     card.innerHTML = `
@@ -120,27 +137,27 @@ function displayProducts(products){
         <h4>${p.name}</h4>
         <p>${p.desc}<br><b>${p.price}</b></p>
         <div class="btnn">
-          <a href="buy.html" onclick='localStorage.setItem("selectedMobile", JSON.stringify(${JSON.stringify(p)}))'>Buy Now</a>
+          <a href="buy.html" id="buy-${index}">Buy Now</a>
         </div>
       </div>`;
     grid.appendChild(card);
+
+    document.getElementById(`buy-${index}`).addEventListener('click', ()=>{
+      localStorage.setItem("selectedMobile", JSON.stringify(p));
+    });
   });
 }
 
-// Function to redirect when category is changed
-function goCategory(pageUrl) {
-    // Redirect to selected page
-    window.location.href = pageUrl;
-}
+function goCategory(pageUrl){ window.location.href = pageUrl; }
 
-// Optional: Set default selected if needed
+// Set category
 const categorySelect = document.getElementById('categorySelect');
 categorySelect.value = window.location.pathname.includes("laptop.html") ? "laptop.html" : 
                        window.location.pathname.includes("watch.html") ? "watch.html" :
                        window.location.pathname.includes("earbuds.html") ? "earbuds.html" :
                        "../index.html";
 
-// Search
+// Search filter
 search.addEventListener('keyup', ()=>{
   const val = search.value.toLowerCase();
   const filtered = allProducts.filter(p=> p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
@@ -154,7 +171,7 @@ brandFilter.addEventListener('change', ()=>{
   displayProducts(filtered);
 });
 
-// Auto update from admin panel
+// Listen for admin updates
 window.addEventListener('storage', e=>{
   if(e.key==='watch' || e.key==='watch-brands') loadProducts();
 });
