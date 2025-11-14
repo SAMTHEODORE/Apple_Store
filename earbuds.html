@@ -93,49 +93,27 @@ const search = document.getElementById('searchInput');
 const categorySelect = document.getElementById('categorySelect');
 const brandSelect = document.getElementById('brandSelect');
 
-function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
-
-// Preload earbuds data if not exists
-if(!localStorage.getItem('earbuds')) {
- const earbuds = [
-  {
-    brand: "Apple",
-    name: "AirPods Pro 2",
-    img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022",
-    desc: "Active Noise Cancellation<br>Adaptive EQ<br>MagSafe Charging Case",
-    price: "₹26,900"
-  },
-  {
-    brand: "OnePlus",
-    name: "OnePlus Buds Pro 2",
-    img: "https://cdn1.smartprix.com/rx-iCMFzWmY-w1200-h1200/oneplus-buds-pro-2.jpg",
-    desc: "Active Noise Cancellation<br>10mm Dynamic Driver<br>IP55 Water Resistant",
-    price: "₹9,999"
-  },
-  {
-    brand: "Samsung",
-    name: "Galaxy Buds 2 Pro",
-    img: "https://images.samsung.com/is/image/samsung/p6pim/in/galaxy-buds2-pro-r190-sm-r510nzaainu-frontgreen-thumb-531144793?$320_320_PNG$",
-    desc: "Hi-Fi Sound<br>Active Noise Cancellation<br>Wireless Charging Case",
-    price: "₹15,990"
-  }
+// Main earbuds array
+const earbudsData = [
+  { brand:"Apple", name:"AirPods Pro 2", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022", desc:"Active Noise Cancellation<br>Adaptive EQ<br>MagSafe Charging Case", price:"₹26,900" },
+  { brand:"OnePlus", name:"OnePlus Buds Pro 2", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/e/o/8/buds-pro-2r-oneplus-original-imagznzczgnncyzf.jpeg?q=90", desc:"Active Noise Cancellation<br>10mm Dynamic Driver<br>IP55 Water Resistant", price:"₹9,999" },
+  { brand:"Samsung", name:"Galaxy Buds 2 Pro", img:"https://m.media-amazon.com/images/I/61KVX-MbIUL._AC_UF1000,1000_QL80_.jpg", desc:"Hi-Fi Sound<br>Active Noise Cancellation<br>Wireless Charging Case", price:"₹15,990" },
+  { brand:"Sony", name:"Sony WF-1000XM4", img:"https://m.media-amazon.com/images/I/71o8Q5XJS5L._SL1500_.jpg", desc:"Noise Cancelling<br>IPX4 Waterproof<br>High-Res Audio", price:"₹19,999" },
+  { brand:"Bose", name:"Bose QuietComfort Earbuds II", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/j/n/n/quietcomfort-earbuds-ii-bose-original-imaghgjqh6bryxe2.jpeg?q=90", desc:"Acoustic Noise Cancelling<br>Touch Controls<br>Wireless Charging", price:"₹25,999" },
+  { brand:"JBL", name:"JBL Live Pro 2", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/s/7/u/-original-imagum68hvfdt5qs.jpeg?q=90", desc:"Smart Volume<br>IPX7 Waterproof<br>Wireless Charging Case", price:"₹12,499" }
 ];
 
-  localStorage.setItem('earbuds', JSON.stringify(earbuds));
-  const brands = [...new Set(earbuds.map(e => e.brand))];
-  localStorage.setItem('earbuds-brands', JSON.stringify(brands));
-}
+// Save data to localStorage for persistence
+localStorage.setItem('earbuds', JSON.stringify(earbudsData));
+localStorage.setItem('earbuds-brands', JSON.stringify([...new Set(earbudsData.map(e=>e.brand))]));
 
 let allProducts = [];
 
-// Default category is Earbuds
-function loadProducts(defaultCategory='earbuds'){
-  const category = categorySelect.value || defaultCategory;
-  categorySelect.value = category;
+function loadProducts(){
+  const category = 'earbuds';
+  allProducts = getData(category);
 
-  allProducts = getData(category) || [];
-
-  // Fill brand select
+  // Populate brand filter
   const brands = getData(category+'-brands') || [];
   brandSelect.innerHTML = '<option value="">All Brands</option>';
   brands.forEach(b=> brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
@@ -143,9 +121,11 @@ function loadProducts(defaultCategory='earbuds'){
   displayProducts(allProducts);
 }
 
+function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+
 function displayProducts(products){
   grid.innerHTML = '';
-  products.forEach(p=>{
+  products.forEach((p,index)=>{
     const card = document.createElement('div');
     card.className='product-card';
     card.innerHTML = `
@@ -154,44 +134,47 @@ function displayProducts(products){
         <h4>${p.name}</h4>
         <p>${p.desc}<br><b>${p.price}</b></p>
         <div class="btnn">
-          <a href="buy.html" onclick='localStorage.setItem("selectedMobile", JSON.stringify(${JSON.stringify(p)}))'>Buy Now</a>
+          <a href="buy.html" id="buy-${index}">Buy Now</a>
         </div>
       </div>`;
     grid.appendChild(card);
+
+    document.getElementById(`buy-${index}`).addEventListener('click', ()=>{
+      localStorage.setItem("selectedMobile", JSON.stringify(p));
+    });
   });
 }
 
-// Search products
+// Search filter
 search.addEventListener('keyup', ()=>{
   const val = search.value.toLowerCase();
   const filtered = allProducts.filter(p=> p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
   displayProducts(filtered);
 });
 
-// Redirect page when category changes
-categorySelect.addEventListener('change', ()=>{
-  const cat = categorySelect.value;
-  if(cat==='mobile') window.location.href='index.html';
-  else if(cat==='laptop') window.location.href='laptop.html';
-  else if(cat==='watch') window.location.href='watch.html';
-  else if(cat==='earbuds') window.location.href='earbuds.html';
-});
-
-// Filter by brand
+// Brand filter
 brandSelect.addEventListener('change', ()=>{
   const val = brandSelect.value;
   const filtered = val ? allProducts.filter(p=> p.brand===val) : allProducts;
   displayProducts(filtered);
 });
 
-// Update on storage change
-window.addEventListener('storage', e=>{
-  if(['mobile','laptop','watch','earbuds'].includes(e.key) || e.key.endsWith('-brands')) loadProducts();
+// Category redirect
+categorySelect.addEventListener('change', ()=>{
+  const cat = categorySelect.value;
+  if(cat==='mobile') window.location.href='index.html';
+  else if(cat==='laptop') window.location.href='laptop.html';
+  else if(cat==='watch') window.location.href='watch.html';
+  else if(cat==='earbuds') loadProducts(); // reload earbuds
 });
 
-loadProducts(); // default Earbuds display
+// Reload products if localStorage changes
+window.addEventListener('storage', e=>{
+  if(e.key==='earbuds' || e.key==='earbuds-brands') loadProducts();
+});
+
+loadProducts(); // initial display
 </script>
 
 </body>
 </html>
-
