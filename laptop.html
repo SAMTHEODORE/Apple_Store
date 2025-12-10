@@ -13,14 +13,67 @@
     background: #f5f5f7;
     color: #1d1d1f;
   }
-  header {
-    background: #fff;
-    padding: 20px;
-    text-align: center;
+  
+  .header-container {
+    background:#fff; 
+    border-bottom:1px solid #d2d2d7;
+    padding: 0 20px;
+  }
+  
+  header { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 28px;
     font-weight: 700;
-    border-bottom: 1px solid #d2d2d7;
+    color: #1d1d1f;
+    text-decoration: none;
   }
+  
+  .logo img {
+    height: 40px;
+    width: auto;
+  }
+  
+  .cart-icon {
+    position: relative;
+    font-size: 24px;
+    color: #1d1d1f;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  
+  .cart-icon:hover {
+    background: #f5f5f7;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #0071e3;
+    color: white;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
   nav {
     display: flex;
     justify-content: center;
@@ -29,286 +82,1251 @@
     padding: 15px;
     border-bottom: 1px solid #d2d2d7;
   }
+  
   nav a {
     text-decoration: none;
     color: #1d1d1f;
     font-weight: 600;
-    transition: color 0.3s;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  nav a:hover { color: #0071e3; }
-
+  
+  nav a:hover {
+    color: #0071e3;
+    background: #f5f5f7;
+  }
+  
+  nav a.active {
+    color: #0071e3;
+    background: #f0f7ff;
+    border-bottom: 2px solid #0071e3;
+  }
+  
+  .category-header {
+    background: linear-gradient(135deg, #0071e3, #2997ff);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .category-header h1 {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 700;
+  }
+  
+  .category-header p {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-top: 10px;
+  }
+  
+  .category-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+  
   .top-bar {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
     background: white;
-    padding: 15px;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
-  .top-bar input, .top-bar select {
-    padding: 10px;
+  
+  .top-bar input, 
+  .top-bar select {
+    padding: 12px 15px;
     font-size: 15px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 150px;
   }
+  
+  .top-bar input:focus,
+  .top-bar select:focus {
+    border-color: #0071e3;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.1);
+  }
+  
+  .filter-info {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+    font-size: 14px;
+    color: #86868b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .clear-filters {
+    background: none;
+    border: none;
+    color: #0071e3;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  
+  .clear-filters:hover {
+    background: #f0f7ff;
+  }
+  
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
     padding: 40px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: auto;
+    min-height: 400px;
   }
+  
   .product-card {
     background: #fff;
-    border-radius: 16px;
+    border-radius: 18px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e1e1e1;
+    position: relative;
   }
-  .product-card:hover { transform: translateY(-5px); }
+  
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+  
   .product-card img {
     width: 100%;
-    height: 220px;
+    height: 250px;
     object-fit: contain;
     background: #fafafa;
-    padding: 15px;
+    padding: 25px;
+    transition: transform 0.3s;
   }
+  
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+  
   .product-info {
-    padding: 15px;
+    padding: 25px;
     text-align: center;
   }
-  .product-info h4 { font-size: 18px; margin-bottom: 10px; }
-  .product-info p { font-size: 14px; color: #444; line-height: 1.5; }
-  .btnn a {
+  
+  .product-info h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #1d1d1f;
+    min-height: 48px;
+  }
+  
+  .product-info .desc {
+    font-size: 14px;
+    color: #86868b;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    min-height: 42px;
+  }
+  
+  .product-info .price {
+    color: #1d1d1f;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 15px 0;
+    display: block;
+  }
+  
+  .product-info .brand {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 16px;
+    background: #f5f5f7;
+    color: #515154;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    text-align: center;
+  }
+  
+  .btn-buy {
     background: #0071e3;
     color: #fff;
-    border-radius: 6px;
-    text-decoration: none;
+    flex: 2;
+  }
+  
+  .btn-buy:hover {
+    background: #005bb5;
+    transform: translateY(-2px);
+  }
+  
+  .btn-cart {
+    background: #f5f5f7;
+    color: #1d1d1f;
+    border: 1px solid #d2d2d7;
+    flex: 1;
+  }
+  
+  .btn-cart:hover {
+    background: #e5e5e7;
+    transform: translateY(-2px);
+  }
+  
+  .btn-cart.added {
+    background: #34c759;
+    color: white;
+    border-color: #34c759;
+  }
+  
+  .btn-cart.added:hover {
+    background: #2da44e;
+  }
+  
+  .product-counter {
+    background: #fff;
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1400px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d1d1f;
+    border: 1px solid #e1e1e1;
+  }
+  
+  /* Cart Sidebar */
+  .cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cart-sidebar.open {
+    right: 0;
+  }
+  
+  .cart-header {
+    padding: 25px;
+    border-bottom: 1px solid #d2d2d7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cart-header h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .close-cart {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #86868b;
+    padding: 5px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .close-cart:hover {
+    background: #f5f5f7;
+  }
+  
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  .cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #f5f5f7;
+    align-items: center;
+  }
+  
+  .cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 5px;
+  }
+  
+  .cart-item-details {
+    flex: 1;
+  }
+  
+  .cart-item-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .cart-item-price {
+    color: #0071e3;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  
+  .quantity-btn {
+    background: #f5f5f7;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
+  .quantity-btn:hover {
+    background: #e5e5e7;
+  }
+  
+  .quantity {
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  .remove-item {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 5px;
+  }
+  
+  .remove-item:hover {
+    text-decoration: underline;
+  }
+  
+  .cart-footer {
+    padding: 25px;
+    border-top: 1px solid #d2d2d7;
+  }
+  
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .cart-total-amount {
+    color: #0071e3;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: #0071e3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
     transition: background 0.3s;
   }
-  .btnn a:hover { background: #005bb5; }
+  
+  .checkout-btn:hover {
+    background: #005bb5;
+  }
+  
+  .empty-cart {
+    text-align: center;
+    padding: 50px 20px;
+    color: #86868b;
+  }
+  
+  .empty-cart i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+  }
+  
+  .overlay.active {
+    display: block;
+  }
+  
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: #86868b;
+  }
+  
+  .empty-state i {
+    font-size: 72px;
+    margin-bottom: 25px;
+    display: block;
+    opacity: 0.5;
+  }
+  
+  .empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #1d1d1f;
+  }
+  
+  .empty-state p {
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+  
+  footer {
+    background: #1d1d1f;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    text-align: left;
+  }
+  
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .footer-section a {
+    color: #86868b;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+  }
+  
+  .footer-section a:hover {
+    color: #fff;
+  }
+  
+  .copyright {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #86868b;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .top-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .top-bar input,
+    .top-bar select {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    nav {
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .category-header h1 {
+      font-size: 36px;
+    }
+    
+    .category-header p {
+      font-size: 16px;
+    }
+    
+    .category-icon {
+      font-size: 48px;
+    }
+    
+    .cart-sidebar {
+      width: 100%;
+      right: -100%;
+    }
+  }
 </style>
 </head>
 <body>
 
-<header>APPLE STORE</header>
+<div class="header-container">
+  <header>
+    <a href="./index.html" class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/488px-Apple_logo_black.svg.png" alt="Apple Logo">
+      <span>APPLE STORE</span>
+    </a>
+    <div class="cart-icon" onclick="openCart()">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </header>
+</div>
 
 <nav>
   <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="./index.html"><i class="fa-solid fa-mobile-screen"></i> Mobile</a>
+  <a href="./laptop.html" class="active"><i class="fa-solid fa-laptop"></i> Laptop</a>
+  <a href="./watch.html"><i class="fa-solid fa-clock"></i> Watch</a>
+  <a href="./earbuds.html"><i class="fa-solid fa-headphones"></i> Earbuds</a>
   <a href="./about.html"><i class="fa-solid fa-circle-info"></i> About</a>
   <a href="./contact.html"><i class="fa-solid fa-user"></i> Contact</a>
   <a href="./admin.html"><i class="fa-solid fa-lock"></i> Admin</a>
 </nav>
 
+<div class="category-header">
+  <div class="category-icon">
+    <i class="fa-solid fa-laptop"></i>
+  </div>
+  <h1>Laptop Collection</h1>
+  <p>Powerful laptops for work, creativity, and gaming</p>
+</div>
+
+<div class="product-counter">
+  Showing <span id="totalLaptops">15</span> laptops from <span id="totalBrands">8</span> brands
+</div>
+
 <div class="top-bar">
-  <input type="text" id="searchInput" placeholder="Search laptop...">
-
-    <select id="categorySelect" onchange="goCategory(this.value)">
-    <option value="index.html">Mobile</option>
-    <option value="laptop.html" selected>Laptop</option>
-    <option value="watch.html">Watch</option>
-    <option value="earbuds.html">Earbuds</option>
-  </select>
-
-  <select id="filterBrand">
+  <input type="text" id="searchInput" placeholder="🔍 Search laptops...">
+  
+  <select id="brandFilter">
     <option value="">All Brands</option>
+  </select>
+  
+  <select id="priceFilter">
+    <option value="">All Prices</option>
+    <option value="0-50000">Under ₹50,000</option>
+    <option value="50001-100000">₹50,001 - ₹1,00,000</option>
+    <option value="100001-150000">₹1,00,001 - ₹1,50,000</option>
+    <option value="150001-300000">Above ₹1,50,000</option>
+  </select>
+  
+  <select id="sortSelect">
+    <option value="default">Sort by</option>
+    <option value="price-low">Price: Low to High</option>
+    <option value="price-high">Price: High to Low</option>
+    <option value="name">Name A-Z</option>
+    <option value="brand">Brand A-Z</option>
   </select>
 </div>
 
-<div class="grid" id="productGrid"></div>
+<div class="filter-info">
+  <span id="resultCount">15 laptops found</span>
+  <button id="clearFilters" class="clear-filters">
+    <i class="fa-solid fa-xmark"></i> Clear All Filters
+  </button>
+</div>
+
+<div class="grid" id="productGrid">
+  <!-- Laptops will be loaded here -->
+</div>
+
+<!-- Cart Sidebar -->
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="close-cart" onclick="closeCart()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  
+  <div class="cart-items" id="cartItems">
+    <!-- Cart items will be loaded here -->
+  </div>
+  
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total:</span>
+      <span class="cart-total-amount" id="cartTotal">₹0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">
+      <i class="fa-solid fa-lock"></i> Proceed to Checkout
+    </button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Shop</h3>
+      <a href="./index.html"><i class="fa-solid fa-mobile-screen"></i> Mobile Phones</a>
+      <a href="./laptop.html"><i class="fa-solid fa-laptop"></i> Laptops</a>
+      <a href="./watch.html"><i class="fa-solid fa-clock"></i> Smart Watches</a>
+      <a href="./earbuds.html"><i class="fa-solid fa-headphones"></i> Earbuds</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Support</h3>
+      <a href="./contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+      <a href="#"><i class="fa-solid fa-question-circle"></i> Help Center</a>
+      <a href="#"><i class="fa-solid fa-shield-alt"></i> Warranty</a>
+      <a href="#"><i class="fa-solid fa-truck"></i> Shipping Info</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Company</h3>
+      <a href="about.html"><i class="fa-solid fa-building"></i> About Us</a>
+      <a href="#"><i class="fa-solid fa-newspaper"></i> Newsroom</a>
+      <a href="#"><i class="fa-solid fa-briefcase"></i> Careers</a>
+      <a href="#"><i class="fa-solid fa-handshake"></i> Partners</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Connect</h3>
+      <a href="#"><i class="fa-brands fa-twitter"></i> Twitter</a>
+      <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+      <a href="https://www.instagram.com/thalaiva_sam/"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="#"><i class="fa-brands fa-youtube"></i> YouTube</a>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p>© 2024 APPLE STORE. All rights reserved.</p>
+    <p>This is a demo website for educational purposes.</p>
+  </div>
+</footer>
 
 <script>
-const grid = document.getElementById('productGrid');
-const search = document.getElementById('searchInput');
-const brandFilter = document.getElementById('filterBrand');
-
-// let laptops = [
-//   {brand:"Apple",name:"MacBook Air M2",img:"../Images/macbook-air.jpg",desc:"13.6-inch Retina Display<br>8GB RAM, 256GB SSD<br>Apple M2 Chip",price:"₹1,14,900"},
-//   {brand:"Apple",name:"MacBook Pro 14",img:"../Images/macbookpro.jpg",desc:"14.2-inch Liquid Retina XDR<br>16GB RAM, 512GB SSD<br>Apple M3 Pro Chip",price:"₹1,99,900"},
-//   {brand:"Dell",name:"Dell XPS 13",img:"../Images/dell-xps13.jpg",desc:"13.4-inch FHD+ Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",price:"₹1,39,990"},
-//   {brand:"Dell",name:"Dell Inspiron 15",img:"../Images/dell-inspiron15.jpg",desc:"15.6-inch Display<br>8GB RAM, 512GB SSD<br>Intel i5 13th Gen",price:"₹72,999"},
-//   {brand:"HP",name:"HP Pavilion 14",img:"../Images/hp-pavilion.jpg",desc:"14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",price:"₹79,990"},
-//   {brand:"HP",name:"HP Victus Gaming",img:"../Images/hp-victus.jpg",desc:"15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Ryzen 7 + RTX 3050",price:"₹92,999"},
-//   {brand:"Lenovo",name:"Lenovo IdeaPad Slim 5",img:"../Images/lenovo-ideapad.jpg",desc:"15.6-inch FHD Display<br>16GB RAM, 512GB SSD<br>AMD Ryzen 5",price:"₹62,999"},
-//   {brand:"Lenovo",name:"Lenovo Legion 5",img:"../Images/lenovo-legion5.jpg",desc:"16-inch QHD 165Hz Display<br>32GB RAM, 1TB SSD<br>Ryzen 7 + RTX 4060",price:"₹1,44,900"},
-//   {brand:"Asus",name:"Asus ZenBook 14",img:"../Images/asus-zenbook.jpg",desc:"14-inch OLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",price:"₹96,999"},
-//   {brand:"Asus",name:"Asus TUF Gaming F15",img:"../Images/asus-tuf.jpg",desc:"15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Intel i7 + RTX 3060",price:"₹1,09,900"},
-//   {brand:"Acer",name:"Acer Swift 3",img:"../Images/acer-swift3.jpg",desc:"14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i5 12th Gen",price:"₹59,999"},
-//   {brand:"Acer",name:"Acer Predator Helios 300",img:"../Images/acer-predator.jpg",desc:"15.6-inch QHD 165Hz<br>16GB RAM, 1TB SSD<br>i7 + RTX 4070",price:"₹1,49,900"},
-//   {brand:"MSI",name:"MSI Modern 14",img:"../Images/msi-modern14.jpg",desc:"14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",price:"₹77,990"},
-//   {brand:"MSI",name:"MSI Katana GF66",img:"../Images/msi-katana.jpg",desc:"15.6-inch 144Hz Display<br>16GB RAM, 512GB SSD<br>i7 + RTX 3060",price:"₹99,999"},
-//   {brand:"Samsung",name:"Samsung Galaxy Book3",img:"../Images/samsung-book3.jpg",desc:"15.6-inch AMOLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",price:"₹1,09,990"}
-// ];
-
-
-let laptops = [
+// ===== COMPLETE LAPTOPS DATA =====
+const allLaptops = [
   {
+    id: 101,
     brand: "Apple",
     name: "MacBook Air M2",
     img: "https://m.media-amazon.com/images/I/719C6bJv8jL.jpg",
-    desc: "13.6-inch Retina Display<br>8GB RAM, 256GB SSD<br>Apple M2 Chip",
-    price: "₹1,14,900"
+    desc: "13.6-inch Retina Display, 8GB RAM, 256GB SSD, Apple M2 Chip",
+    price: 114900,
+    priceDisplay: "₹1,14,900",
+    category: "laptop"
   },
   {
+    id: 102,
     brand: "Apple",
     name: "MacBook Pro 14",
-    img: "https://cdsassets.apple.com/live/SZLF0YNV/images/sp/111902_mbp14-silver2.png",
-    desc: "14.2-inch Liquid Retina XDR<br>16GB RAM, 512GB SSD<br>Apple M3 Pro Chip",
-    price: "₹1,99,900"
+    img: "data:image/jpeg;base64,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",
+    desc: "14.2-inch Liquid Retina XDR, 16GB RAM, 512GB SSD, Apple M3 Pro",
+    price: 199900,
+    priceDisplay: "₹1,99,900",
+    category: "laptop"
   },
   {
+    id: 103,
     brand: "Dell",
     name: "Dell XPS 13",
     img: "https://pctech.co.in/image/cache/catalog/Laptops/DELL/dell-xps-13-9315-laptop-01-1200x900.png",
-    desc: "13.4-inch FHD+ Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",
-    price: "₹1,39,990"
+    desc: "13.4-inch FHD+ Display, 16GB RAM, 512GB SSD, Intel i7 12th Gen",
+    price: 139990,
+    priceDisplay: "₹1,39,990",
+    category: "laptop"
   },
   {
+    id: 104,
     brand: "Dell",
     name: "Dell Inspiron 15",
     img: "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/inspiron-notebooks/15-3530-intel/pdp/inspiron-laptop-15-3530-intel-pdp-hero.psd?fmt=png-alpha&wid=570&hei=400&fit=constrain%2C1&qlt=90",
-    desc: "15.6-inch Display<br>8GB RAM, 512GB SSD<br>Intel i5 13th Gen",
-    price: "₹72,999"
+    desc: "15.6-inch Display, 8GB RAM, 512GB SSD, Intel i5 13th Gen",
+    price: 72999,
+    priceDisplay: "₹72,999",
+    category: "laptop"
   },
   {
+    id: 105,
     brand: "HP",
     name: "HP Pavilion 14",
     img: "https://rukminim2.flixcart.com/image/480/640/xif0q/computer/z/j/h/-original-imahcd9tnyjnurpj.jpeg?q=20",
-    desc: "14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 12th Gen",
-    price: "₹79,990"
+    desc: "14-inch FHD Display, 16GB RAM, 512GB SSD, Intel i7 12th Gen",
+    price: 79990,
+    priceDisplay: "₹79,990",
+    category: "laptop"
   },
   {
+    id: 106,
     brand: "HP",
     name: "HP Victus Gaming",
     img: "https://www.hp.com/wcsstore/hpusstore/Treatment/mdps/Q3FY21_omen_victus16/omen_victus_ksp2.png",
-    desc: "15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Ryzen 7 + RTX 3050",
-    price: "₹92,999"
+    desc: "15.6-inch 144Hz Display, 16GB RAM, 1TB SSD, Ryzen 7 + RTX 3050",
+    price: 92999,
+    priceDisplay: "₹92,999",
+    category: "laptop"
   },
   {
+    id: 107,
     brand: "Lenovo",
     name: "Lenovo IdeaPad Slim 5",
     img: "https://p3-ofp.static.pub/fes/cms/2022/10/07/apkf8q6o1af6zimc6mxjxhth7h6xat132343.png",
-    desc: "15.6-inch FHD Display<br>16GB RAM, 512GB SSD<br>AMD Ryzen 5",
-    price: "₹62,999"
+    desc: "15.6-inch FHD Display, 16GB RAM, 512GB SSD, AMD Ryzen 5",
+    price: 62999,
+    priceDisplay: "₹62,999",
+    category: "laptop"
   },
   {
+    id: 108,
     brand: "Lenovo",
     name: "Lenovo Legion 5",
     img: "https://p3-ofp.static.pub//fes/cms/2024/09/12/m1jnssoporjtlmma8zqy3ssoour2yj992790.png",
-    desc: "16-inch QHD 165Hz Display<br>32GB RAM, 1TB SSD<br>Ryzen 7 + RTX 4060",
-    price: "₹1,44,900"
+    desc: "16-inch QHD 165Hz Display, 32GB RAM, 1TB SSD, Ryzen 7 + RTX 4060",
+    price: 144900,
+    priceDisplay: "₹1,44,900",
+    category: "laptop"
   },
   {
+    id: 109,
     brand: "Asus",
     name: "Asus ZenBook 14",
     img: "https://dlcdnwebimgs.asus.com/gain/838fbdac-6d10-4190-8e52-d4b9463f5d23/w800",
-    desc: "14-inch OLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",
-    price: "₹96,999"
+    desc: "14-inch OLED Display, 16GB RAM, 512GB SSD, Intel i7 13th Gen",
+    price: 96999,
+    priceDisplay: "₹96,999",
+    category: "laptop"
   },
   {
+    id: 110,
     brand: "Asus",
     name: "Asus TUF Gaming F15",
     img: "https://dlcdnwebimgs.asus.com/gain/47be2296-5fde-4c9b-b262-8c6b8879a020/",
-    desc: "15.6-inch 144Hz Display<br>16GB RAM, 1TB SSD<br>Intel i7 + RTX 3060",
-    price: "₹1,09,900"
+    desc: "15.6-inch 144Hz Display, 16GB RAM, 1TB SSD, Intel i7 + RTX 3060",
+    price: 109900,
+    priceDisplay: "₹1,09,900",
+    category: "laptop"
   },
   {
+    id: 111,
     brand: "Acer",
     name: "Acer Swift 3",
     img: "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202008/acer_swift_3.jpeg?size=690:388",
-    desc: "14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i5 12th Gen",
-    price: "₹59,999"
+    desc: "14-inch FHD Display, 16GB RAM, 512GB SSD, Intel i5 12th Gen",
+    price: 59999,
+    priceDisplay: "₹59,999",
+    category: "laptop"
   },
   {
+    id: 112,
     brand: "Acer",
     name: "Acer Predator Helios 300",
     img: "https://cdn.assets.prezly.com/d3ea28bb-2052-4d17-866b-f048c5aad35b/Predator-Helios-300-PH315-53-Standard_03.png",
-    desc: "15.6-inch QHD 165Hz<br>16GB RAM, 1TB SSD<br>i7 + RTX 4070",
-    price: "₹1,49,900"
+    desc: "15.6-inch QHD 165Hz, 16GB RAM, 1TB SSD, i7 + RTX 4070",
+    price: 149900,
+    priceDisplay: "₹1,49,900",
+    category: "laptop"
   },
   {
+    id: 113,
     brand: "MSI",
     name: "MSI Modern 14",
     img: "https://asset.msi.com/resize/image/global/product/product_1669882648d8be33b846e1a7fe4b32c4a0e48e1d31.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
-    desc: "14-inch FHD Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",
-    price: "₹77,990"
+    desc: "14-inch FHD Display, 16GB RAM, 512GB SSD, Intel i7 13th Gen",
+    price: 77990,
+    priceDisplay: "₹77,990",
+    category: "laptop"
   },
   {
+    id: 114,
     brand: "MSI",
     name: "MSI Katana GF66",
     img: "https://asset.msi.com/resize/image/global/product/product_16899288593170d3a8828b3fdd56d179cdace372dd.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
-    desc: "15.6-inch 144Hz Display<br>16GB RAM, 512GB SSD<br>i7 + RTX 3060",
-    price: "₹99,999"
+    desc: "15.6-inch 144Hz Display, 16GB RAM, 512GB SSD, i7 + RTX 3060",
+    price: 99999,
+    priceDisplay: "₹99,999",
+    category: "laptop"
   },
   {
+    id: 115,
     brand: "Samsung",
     name: "Samsung Galaxy Book3",
     img: "https://images.samsung.com/is/image/samsung/p6pim/in/feature/164358744/in-feature-galaxy-book3-360-13-3-inch-with-s-pen-np730-447651-535661147?$FB_TYPE_A_MO_JPG$",
-    desc: "15.6-inch AMOLED Display<br>16GB RAM, 512GB SSD<br>Intel i7 13th Gen",
-    price: "₹1,09,990"
+    desc: "15.6-inch AMOLED Display, 16GB RAM, 512GB SSD, Intel i7 13th Gen",
+    price: 109990,
+    priceDisplay: "₹1,09,990",
+    category: "laptop"
   }
 ];
 
+let currentProducts = [...allLaptops];
 
-function loadBrands(){
-  const brands = [...new Set(laptops.map(p=>p.brand))];
+// ===== Selectors =====
+const grid = document.getElementById('productGrid');
+const search = document.getElementById('searchInput');
+const brandFilter = document.getElementById('brandFilter');
+const priceFilter = document.getElementById('priceFilter');
+const sortSelect = document.getElementById('sortSelect');
+const clearFiltersBtn = document.getElementById('clearFilters');
+const resultCount = document.getElementById('resultCount');
+const cartCount = document.getElementById('cartCount');
+const cartItems = document.getElementById('cartItems');
+const cartTotal = document.getElementById('cartTotal');
+const cartSidebar = document.getElementById('cartSidebar');
+const cartOverlay = document.getElementById('cartOverlay');
+const totalLaptops = document.getElementById('totalLaptops');
+const totalBrands = document.getElementById('totalBrands');
+
+// Search timeout variable for debouncing
+let searchTimeout;
+
+// Initialize cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Update cart count
+function updateCartCount() {
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  cartCount.textContent = totalItems;
+  cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+}
+
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  updateCartDisplay();
+}
+
+// Load brands dynamically for filter
+function loadBrands() {
+  const brands = [...new Set(currentProducts.map(p => p.brand))];
+  
+  // Update filter dropdown
   brandFilter.innerHTML = '<option value="">All Brands</option>';
-  brands.forEach(b => brandFilter.innerHTML += `<option value="${b}">${b}</option>`);
+  brands.forEach(b => {
+    brandFilter.innerHTML += `<option value="${b}">${b}</option>`;
+  });
+  
+  // Update counters
+  totalLaptops.textContent = currentProducts.length;
+  totalBrands.textContent = brands.length;
 }
 
-// Function to redirect when category is changed
-function goCategory(pageUrl) {
-    // Redirect to selected page
-    window.location.href = pageUrl;
-}
-
-// Optional: Set default selected if needed
-const categorySelect = document.getElementById('categorySelect');
-categorySelect.value = window.location.pathname.includes("laptop.html") ? "laptop.html" : 
-                       window.location.pathname.includes("watch.html") ? "watch.html" :
-                       window.location.pathname.includes("earbuds.html") ? "earbuds.html" :
-                       "../index.html";
-
-function displayProducts(list){
+// Display products
+function displayProducts(list) {
   grid.innerHTML = '';
-  list.forEach(p=>{
-    const card = document.createElement('div');
+  
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-solid fa-laptop"></i>
+        <h3>No laptops found</h3>
+        <p>Try adjusting your search or filter to find what you're looking for.</p>
+        <button class="btn btn-buy" onclick="clearAllFilters()">
+          <i class="fa-solid fa-filter-circle-xmark"></i> Clear All Filters
+        </button>
+      </div>
+    `;
+    resultCount.textContent = '0 laptops found';
+    return;
+  }
+  
+  list.forEach(p => {
+    let card = document.createElement('div');
     card.className = 'product-card';
+    
+    // Check if product is already in cart
+    const inCart = cart.find(item => item.id === p.id);
+    const cartBtnClass = inCart ? 'btn-cart added' : 'btn-cart';
+    const cartBtnText = inCart ? '✓ Added' : 'Add to Cart';
+    const cartBtnIcon = inCart ? 'fa-check' : 'fa-cart-plus';
+    
     card.innerHTML = `
-      <img src="${p.img}" alt="${p.name}">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
       <div class="product-info">
+        <span class="brand">${p.brand}</span>
         <h4>${p.name}</h4>
-        <p>${p.desc}<br><b>${p.price}</b></p>
-        <div class="btnn"><a href="#" onclick='buyProduct(${JSON.stringify(p)})'>Buy Now</a></div>
+        <p class="desc">${p.desc}</p>
+        <span class="price">${p.priceDisplay}</span>
+        <div class="actions">
+          <button class="${cartBtnClass}" onclick='addToCart(${JSON.stringify(p)})'>
+            <i class="fa-solid ${cartBtnIcon}"></i> ${cartBtnText}
+          </button>
+          <button class="btn btn-buy" onclick='buyProduct(${JSON.stringify(p)})'>
+            <i class="fa-solid fa-bolt"></i> Buy Now
+          </button>
+        </div>
       </div>
     `;
     grid.appendChild(card);
   });
+  
+  resultCount.textContent = `${list.length} laptop${list.length !== 1 ? 's' : ''} found`;
 }
 
-function buyProduct(product){
-  localStorage.setItem('selectedMobile', JSON.stringify(product));
-  window.location.href = 'buy.html';
+// Filter products based on all criteria
+function filterProducts() {
+  const searchText = search.value.toLowerCase();
+  const brandValue = brandFilter.value;
+  const priceValue = priceFilter.value;
+  const sortValue = sortSelect.value;
+  
+  let filtered = [...allLaptops];
+  
+  // Apply search filter
+  if (searchText) {
+    filtered = filtered.filter(p =>
+      p.name.toLowerCase().includes(searchText) ||
+      p.desc.toLowerCase().includes(searchText) ||
+      p.brand.toLowerCase().includes(searchText)
+    );
+  }
+  
+  // Apply brand filter
+  if (brandValue) {
+    filtered = filtered.filter(p => p.brand === brandValue);
+  }
+  
+  // Apply price filter
+  if (priceValue) {
+    const [min, max] = priceValue.split('-').map(Number);
+    filtered = filtered.filter(p => p.price >= min && p.price <= max);
+  }
+  
+  // Apply sorting
+  switch(sortValue) {
+    case 'price-low':
+      filtered.sort((a, b) => a.price - b.price);
+      break;
+    case 'price-high':
+      filtered.sort((a, b) => b.price - a.price);
+      break;
+    case 'name':
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 'brand':
+      filtered.sort((a, b) => a.brand.localeCompare(b.brand));
+      break;
+    default:
+      // Default sorting (by price high to low)
+      filtered.sort((a, b) => b.price - a.price);
+  }
+  
+  currentProducts = filtered;
+  displayProducts(filtered);
 }
 
-search.addEventListener('keyup', ()=>{
-  const val = search.value.toLowerCase();
-  const filtered = laptops.filter(p => p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
-  displayProducts(filtered);
-});
+// Buy product
+function buyProduct(product) {
+  localStorage.setItem("selectedProduct", JSON.stringify(product));
+  window.location.href = "buy.html";
+}
 
-brandFilter.addEventListener('change', ()=>{
-  const val = brandFilter.value;
-  const filtered = val ? laptops.filter(p=>p.brand===val) : laptops;
-  displayProducts(filtered);
-});
+// Add to cart
+function addToCart(product) {
+  const existingItem = cart.find(item => item.id === product.id);
+  
+  if (existingItem) {
+    existingItem.quantity = (existingItem.quantity || 1) + 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+  
+  saveCart();
+  filterProducts(); // Refresh to update button states
+  
+  // Show notification
+  showNotification(`${product.name} added to cart!`);
+  
+  // Open cart sidebar
+  openCart();
+}
 
+// Remove from cart
+function removeFromCart(productId) {
+  cart = cart.filter(item => item.id !== productId);
+  saveCart();
+  filterProducts(); // Refresh to update button states
+  showNotification("Item removed from cart");
+}
+
+// Update cart quantity
+function updateQuantity(productId, change) {
+  const item = cart.find(item => item.id === productId);
+  if (item) {
+    item.quantity = (item.quantity || 1) + change;
+    if (item.quantity < 1) {
+      removeFromCart(productId);
+    } else {
+      saveCart();
+    }
+  }
+}
+
+// Update cart display
+function updateCartDisplay() {
+  if (cart.length === 0) {
+    cartItems.innerHTML = `
+      <div class="empty-cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h3>Your cart is empty</h3>
+        <p>Add some products to get started!</p>
+      </div>
+    `;
+    cartTotal.textContent = '₹0';
+    return;
+  }
+  
+  let itemsHTML = '';
+  let total = 0;
+  
+  cart.forEach(item => {
+    const itemTotal = item.price * (item.quantity || 1);
+    total += itemTotal;
+    
+    itemsHTML += `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.priceDisplay}</div>
+          <div class="cart-item-quantity">
+            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="quantity">${item.quantity || 1}</span>
+            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <button class="remove-item" onclick="removeFromCart(${item.id})">
+            <i class="fa-solid fa-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+    `;
+  });
+  
+  cartItems.innerHTML = itemsHTML;
+  cartTotal.textContent = `₹${total.toLocaleString('en-IN')}`;
+}
+
+// Open cart sidebar
+function openCart() {
+  cartSidebar.classList.add('open');
+  cartOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close cart sidebar
+function closeCart() {
+  cartSidebar.classList.remove('open');
+  cartOverlay.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Checkout function
+function checkout() {
+  if (cart.length === 0) {
+    showNotification("Your cart is empty!");
+    return;
+  }
+  
+  localStorage.setItem("checkoutCart", JSON.stringify(cart));
+  window.location.href = "checkout.html";
+}
+
+// Show notification
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #0071e3;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    animation: slideIn 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  `;
+  
+  notification.innerHTML = `
+    <i class="fa-solid fa-check-circle"></i>
+    ${message}
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        document.body.removeChild(notification);
+      }
+    }, 300);
+  }, 3000);
+}
+
+// Clear all filters
+function clearAllFilters() {
+  search.value = '';
+  brandFilter.value = '';
+  priceFilter.value = '';
+  sortSelect.value = 'default';
+  filterProducts();
+}
+
+// Initialize event listeners
+function initEventListeners() {
+  // Debounced search
+  search.addEventListener('keyup', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      filterProducts();
+    }, 300);
+  });
+  
+  // Brand filter
+  brandFilter.addEventListener('change', filterProducts);
+  
+  // Price filter
+  priceFilter.addEventListener('change', filterProducts);
+  
+  // Sort select
+  sortSelect.addEventListener('change', filterProducts);
+  
+  // Clear filters button
+  clearFiltersBtn.addEventListener('click', clearAllFilters);
+  
+  // Close cart when clicking overlay
+  cartOverlay.addEventListener('click', closeCart);
+  
+  // Close cart with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCart();
+    }
+  });
+}
+
+// Add CSS animations for notification
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+// Initialize
 loadBrands();
-displayProducts(laptops);
+initEventListeners();
+updateCartCount();
+updateCartDisplay();
+filterProducts(); // Initial display
 </script>
 
 </body>
