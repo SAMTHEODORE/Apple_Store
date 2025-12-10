@@ -7,120 +7,523 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 body{
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background:#f5f5f7;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
   margin:0;
+  padding:20px;
 }
-.box{
+.success-box{
   background:#fff;
-  padding:40px;
-  border-radius:16px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.1);
+  padding:50px;
+  border-radius:20px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.12);
   text-align:center;
   width:90%;
-  max-width:450px;
-  border:2px solid #e0e0e0;
+  max-width:500px;
+  border-top:5px solid #34c759;
+}
+.checkmark{
+  width:80px;
+  height:80px;
+  background:#34c759;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 25px;
+}
+.checkmark i{
+  color:white;
+  font-size:40px;
 }
 h1{
-  color:#28a745;
-  font-size:36px;
-  margin-bottom:10px;
+  color:#1d1d1f;
+  font-size:32px;
+  margin-bottom:15px;
+  font-weight:700;
 }
-p{
-  color:#333;
+.success-message{
+  color:#86868b;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:30px;
+}
+.order-info{
+  background:#f5f5f7;
+  padding:25px;
+  border-radius:12px;
+  margin:30px 0;
+  text-align:left;
+}
+.order-info h3{
+  color:#1d1d1f;
+  margin-bottom:15px;
   font-size:18px;
 }
+.order-detail{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  border-bottom:1px solid #e5e5e7;
+}
+.order-detail:last-child{
+  border-bottom:none;
+}
+.detail-label{
+  color:#86868b;
+  font-weight:500;
+}
+.detail-value{
+  color:#1d1d1f;
+  font-weight:600;
+}
+.detail-value.total{
+  color:#0071e3;
+  font-size:18px;
+}
+.actions{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
 .btn{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 25px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:15px 30px;
   background:#0071e3;
   color:#fff;
   text-decoration:none;
-  border-radius:8px;
+  border-radius:10px;
   font-weight:600;
-  transition:background 0.3s;
+  font-size:16px;
+  transition:all 0.3s;
+  border:none;
+  cursor:pointer;
+  min-width:200px;
+  justify-content:center;
 }
 .btn:hover{
   background:#005bb5;
+  transform:translateY(-2px);
+}
+.btn-secondary{
+  background:#f5f5f7;
+  color:#1d1d1f;
+  border:1px solid #d2d2d7;
+}
+.btn-secondary:hover{
+  background:#e5e5e7;
+  color:#1d1d1f;
+}
+.btn-success{
+  background:#34c759;
+}
+.btn-success:hover{
+  background:#2da44e;
 }
 .logo{
-  width:60px;
-  margin-bottom:15px;
+  width:40px;
+  margin-bottom:20px;
+}
+.email-note{
+  background:#f0f7ff;
+  padding:15px;
+  border-radius:10px;
+  margin-top:25px;
+  color:#0071e3;
+  font-size:14px;
+}
+@media (max-width: 768px) {
+  .success-box{
+    padding:30px 20px;
+  }
+  .actions{
+    flex-direction:column;
+  }
+  .btn{
+    width:100%;
+  }
 }
 </style>
 </head>
 <body>
-<div class="box">
-  <img src="../Images/apple-logo-transparent.png" alt="Apple Logo" class="logo">
-  <h1>🎉 Order Placed Successfully!</h1>
-  <p>Thank you for shopping with Apple Store.</p>
-  <a href="index.html" class="btn">← Back to Home</a>
-  <br><br>
-  <button id="downloadInvoice" class="btn" style="background:#28a745;">📄 Download Invoice</button>
+<div class="success-box">
+  <div class="checkmark">
+    <i class="fa-solid fa-check"></i>
+  </div>
+  <h1>Order Confirmed!</h1>
+  <p class="success-message">
+    Your purchase has been successfully processed. 
+    A confirmation email has been sent to your registered email address.
+  </p>
+  
+  <div class="order-info">
+    <h3><i class="fa-solid fa-receipt"></i> Order Summary</h3>
+    <div class="order-detail">
+      <span class="detail-label">Order ID:</span>
+      <span class="detail-value" id="orderId">AS-<span id="orderNumber">1001</span></span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Product:</span>
+      <span class="detail-value" id="productName">AirPods Pro 2</span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Quantity:</span>
+      <span class="detail-value" id="quantity">1</span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Unit Price:</span>
+      <span class="detail-value" id="unitPrice">₹26,900</span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Payment Method:</span>
+      <span class="detail-value" id="paymentMethod">UPI</span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Order Date:</span>
+      <span class="detail-value" id="orderDate">18 Dec 2024</span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Estimated Delivery:</span>
+      <span class="detail-value" id="deliveryDate">20-22 Dec 2024</span>
+    </div>
+    <div class="order-detail">
+      <span class="detail-label">Total Amount:</span>
+      <span class="detail-value total" id="totalAmount">₹26,900</span>
+    </div>
+  </div>
+  
+  <div class="email-note">
+    <i class="fa-solid fa-envelope"></i> Invoice will be sent to your email within 24 hours.
+  </div>
+  
+  <div class="actions">
+    <a href="index.html" class="btn btn-secondary">
+      <i class="fa-solid fa-house"></i> Back to Home
+    </a>
+    <button id="downloadInvoice" class="btn btn-success">
+      <i class="fa-solid fa-file-pdf"></i> Download Invoice
+    </button>
+    <a href="track-order.html" class="btn">
+      <i class="fa-solid fa-truck"></i> Track Order
+    </a>
+  </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
 <script>
-document.getElementById("downloadInvoice").addEventListener("click", async ()=>{
+// Generate random order ID
+function generateOrderId() {
+  const prefix = 'AS-';
+  const randomNum = Math.floor(1000 + Math.random() * 9000);
+  return prefix + randomNum;
+}
+
+// Get delivery date (2-4 days from now)
+function getDeliveryDate() {
+  const today = new Date();
+  const minDelivery = new Date(today);
+  minDelivery.setDate(today.getDate() + 2);
+  const maxDelivery = new Date(today);
+  maxDelivery.setDate(today.getDate() + 4);
+  
+  const formatDate = (date) => {
+    return date.toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
+  };
+  
+  return `${formatDate(minDelivery)} - ${formatDate(maxDelivery)}`;
+}
+
+// Get current date formatted
+function getCurrentDate() {
+  return new Date().toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    weekday: 'short'
+  });
+}
+
+// Get order data from localStorage
+function getOrderData() {
+  try {
+    const product = JSON.parse(localStorage.getItem('selectedMobile')) || 
+                   JSON.parse(localStorage.getItem('selectedProduct')) || 
+                   { name: "Unknown Product", price: "₹0", priceDisplay: "₹0" };
+    
+    const qty = localStorage.getItem('lastQuantity') || 1;
+    const payment = localStorage.getItem('lastPaymentMethod') || "Not Specified";
+    
+    // Extract numeric price
+    let priceValue = 0;
+    if (product.price) {
+      priceValue = parseInt(product.price.replace(/[^0-9]/g, '')) || 0;
+    } else if (product.priceDisplay) {
+      priceValue = parseInt(product.priceDisplay.replace(/[^0-9]/g, '')) || 0;
+    }
+    
+    const totalPrice = priceValue * qty;
+    
+    return {
+      product: product.name || "Unknown Product",
+      quantity: qty,
+      unitPrice: product.priceDisplay || product.price || "₹0",
+      paymentMethod: payment,
+      totalPrice: totalPrice
+    };
+  } catch (error) {
+    console.error("Error loading order data:", error);
+    return {
+      product: "AirPods Pro 2",
+      quantity: 1,
+      unitPrice: "₹26,900",
+      paymentMethod: "UPI",
+      totalPrice: 26900
+    };
+  }
+}
+
+// Update UI with order details
+function updateOrderDetails() {
+  const orderData = getOrderData();
+  const orderId = generateOrderId();
+  
+  document.getElementById('orderNumber').textContent = orderId.split('-')[1];
+  document.getElementById('productName').textContent = orderData.product;
+  document.getElementById('quantity').textContent = orderData.quantity;
+  document.getElementById('unitPrice').textContent = orderData.unitPrice;
+  document.getElementById('paymentMethod').textContent = orderData.paymentMethod;
+  document.getElementById('totalAmount').textContent = `₹${orderData.totalPrice.toLocaleString('en-IN')}`;
+  document.getElementById('orderDate').textContent = getCurrentDate();
+  document.getElementById('deliveryDate').textContent = getDeliveryDate();
+}
+
+// Generate and download invoice
+document.getElementById("downloadInvoice").addEventListener("click", async () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-
-  // Get data from localStorage
-  const product = JSON.parse(localStorage.getItem('selectedMobile')) || {name:"Unknown Product",price:"₹0"};
-  const qty = localStorage.getItem('lastQuantity') || 1;
-  const payment = localStorage.getItem('lastPaymentMethod') || "Not Specified";
-  const now = new Date().toLocaleString();
-
-  const totalPrice = parseInt(product.price.replace(/[^0-9]/g,'')) * qty;
-  const upi = payment === "UPI" ? "samthiyodara@oksbi" : "—";
-
-  // Header
-  doc.setFontSize(22);
-  doc.text("APPLE STORE", 70, 20);
+  
+  const orderData = getOrderData();
+  const orderId = generateOrderId();
+  const currentDate = getCurrentDate();
+  const deliveryDate = getDeliveryDate();
+  const paymentMethod = orderData.paymentMethod;
+  const upiId = paymentMethod === "UPI" ? "apple.store@okicici" : 
+                paymentMethod === "Credit Card" ? "XXXX-XXXX-XXXX-1234" : "—";
+  
+  // Set up document
+  doc.setFont("helvetica");
+  
+  // Header with logo
+  doc.setFontSize(24);
+  doc.setTextColor(0, 113, 227); // Apple blue
+  doc.text("APPLE STORE", 105, 25, { align: "center" });
+  
   doc.setFontSize(12);
-  doc.text("Official Purchase Invoice", 80, 28);
-  doc.line(10, 32, 200, 32);
-
-  // Logo
-  const img = new Image();
-  img.src = "../Images/apple-logo-transparent.png";
-  img.onload = ()=>{
-    doc.addImage(img, "PNG", 15, 10, 15, 15);
-    finalize();
-  };
-  img.onerror = ()=>finalize();
-
-  function finalize(){
-    // Order details
-    doc.setFontSize(14);
-    doc.text("Order Details", 15, 45);
-    doc.setFontSize(12);
-    doc.text(`Product Name: ${product.name}`, 15, 55);
-    doc.text(`Quantity: ${qty}`, 15, 65);
-    doc.text(`Price (Each): ${product.price}`, 15, 75);
-    doc.text(`Total Amount: ₹${totalPrice.toLocaleString()}`, 15, 85);
-    doc.text(`Payment Method: ${payment}`, 15, 95);
-    doc.text(`UPI ID: ${upi}`, 15, 105);
-    doc.text(`Date & Time: ${now}`, 15, 115);
-
-    // Footer
-    doc.line(10, 125, 200, 125);
-    doc.text("This is a system-generated invoice by Apple Store.", 15, 135);
-    doc.text("Thank you for shopping with us!", 15, 145);
-
-    // Borders
-    doc.setLineWidth(0.5);
-    doc.rect(5, 5, 200, 287);
-
-    // Save
-    doc.save(`Invoice_${product.name.replace(/\s+/g,'_')}.pdf`);
+  doc.setTextColor(100, 100, 100);
+  doc.text("Official Invoice", 105, 32, { align: "center" });
+  
+  doc.setFontSize(10);
+  doc.setTextColor(150, 150, 150);
+  doc.text("123 Apple Park Way, Cupertino, CA 95014", 105, 38, { align: "center" });
+  doc.text("Phone: 1800-108-4777 | Email: support@applestore.in", 105, 43, { align: "center" });
+  
+  doc.setDrawColor(200, 200, 200);
+  doc.line(20, 48, 190, 48);
+  
+  // Order Information
+  doc.setFontSize(14);
+  doc.setTextColor(0, 0, 0);
+  doc.text("ORDER INFORMATION", 20, 58);
+  
+  doc.setFontSize(10);
+  doc.text(`Order ID: ${orderId}`, 20, 68);
+  doc.text(`Order Date: ${currentDate}`, 20, 74);
+  doc.text(`Estimated Delivery: ${deliveryDate}`, 20, 80);
+  doc.text(`Payment Method: ${paymentMethod}`, 20, 86);
+  
+  // Billing Information
+  doc.setFontSize(14);
+  doc.text("BILLING INFORMATION", 110, 58);
+  
+  doc.setFontSize(10);
+  doc.text("Customer: John Doe", 110, 68);
+  doc.text("Email: johndoe@example.com", 110, 74);
+  doc.text("Phone: +91 98765 43210", 110, 80);
+  doc.text("Address: 123 Main Street, Bangalore, KA 560001", 110, 86);
+  
+  doc.setDrawColor(200, 200, 200);
+  doc.line(20, 95, 190, 95);
+  
+  // Product Details Table
+  doc.setFontSize(14);
+  doc.text("PRODUCT DETAILS", 20, 105);
+  
+  // Table header
+  doc.setFillColor(245, 245, 247);
+  doc.rect(20, 110, 170, 8, 'F');
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  doc.text("Product", 25, 115);
+  doc.text("Quantity", 110, 115);
+  doc.text("Unit Price", 140, 115);
+  doc.text("Total", 170, 115);
+  
+  // Table content
+  doc.setTextColor(0, 0, 0);
+  doc.text(orderData.product.substring(0, 40) + (orderData.product.length > 40 ? "..." : ""), 25, 125);
+  doc.text(orderData.quantity.toString(), 110, 125);
+  doc.text(orderData.unitPrice, 140, 125);
+  doc.text(`₹${orderData.totalPrice.toLocaleString('en-IN')}`, 170, 125);
+  
+  doc.setDrawColor(200, 200, 200);
+  doc.line(20, 130, 190, 130);
+  
+  // Totals
+  const yPos = 140;
+  doc.text("Subtotal:", 140, yPos);
+  doc.text(`₹${orderData.totalPrice.toLocaleString('en-IN')}`, 170, yPos);
+  
+  doc.text("Shipping:", 140, yPos + 6);
+  doc.text("₹0", 170, yPos + 6);
+  
+  doc.text("Tax (18%):", 140, yPos + 12);
+  const tax = Math.round(orderData.totalPrice * 0.18);
+  doc.text(`₹${tax.toLocaleString('en-IN')}`, 170, yPos + 12);
+  
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'bold');
+  doc.text("Grand Total:", 140, yPos + 22);
+  const grandTotal = orderData.totalPrice + tax;
+  doc.text(`₹${grandTotal.toLocaleString('en-IN')}`, 170, yPos + 22);
+  
+  doc.setFont(undefined, 'normal');
+  doc.setFontSize(10);
+  
+  // Payment Details
+  doc.setFontSize(14);
+  doc.text("PAYMENT DETAILS", 20, yPos + 35);
+  
+  doc.setFontSize(10);
+  doc.text(`Payment Method: ${paymentMethod}`, 20, yPos + 45);
+  doc.text(`Transaction ID: TXN${Date.now().toString().slice(-8)}`, 20, yPos + 51);
+  if (upiId !== "—") {
+    doc.text(`UPI ID: ${upiId}`, 20, yPos + 57);
   }
+  doc.text(`Payment Status: Completed`, 20, yPos + 63);
+  
+  // Footer
+  doc.setDrawColor(200, 200, 200);
+  doc.line(20, 250, 190, 250);
+  
+  doc.setFontSize(8);
+  doc.setTextColor(150, 150, 150);
+  doc.text("This is a computer-generated invoice and does not require a signature.", 105, 255, { align: "center" });
+  doc.text("Thank you for shopping with Apple Store. For any queries, contact support@applestore.in", 105, 260, { align: "center" });
+  doc.text("© 2024 Apple Store. All rights reserved.", 105, 265, { align: "center" });
+  
+  // Add border
+  doc.setLineWidth(0.5);
+  doc.rect(10, 10, 190, 277);
+  
+  // Save PDF
+  doc.save(`AppleStore_Invoice_${orderId}.pdf`);
+  
+  // Show success message
+  const downloadBtn = document.getElementById('downloadInvoice');
+  const originalHTML = downloadBtn.innerHTML;
+  downloadBtn.innerHTML = '<i class="fa-solid fa-check"></i> Invoice Downloaded';
+  downloadBtn.style.background = '#34c759';
+  
+  setTimeout(() => {
+    downloadBtn.innerHTML = originalHTML;
+    downloadBtn.style.background = '';
+  }, 2000);
 });
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+  updateOrderDetails();
+  
+  // Clear cart after successful order
+  localStorage.removeItem('cart');
+  localStorage.removeItem('checkoutCart');
+  
+  // Optional: Show notification
+  setTimeout(() => {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #34c759;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    `;
+    notification.innerHTML = `
+      <i class="fa-solid fa-check-circle"></i>
+      Order placed successfully! Order ID: ${generateOrderId()}
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease';
+      setTimeout(() => {
+        if (notification.parentNode) {
+          document.body.removeChild(notification);
+        }
+      }, 300);
+    }, 5000);
+  }, 1000);
+});
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
 </script>
+
 </body>
 </html>
