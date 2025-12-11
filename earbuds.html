@@ -3,177 +3,1330 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apple Store - Earbuds</title>
+<title>Wireless Earbuds | APPLE STORE</title>
+<link rel="icon" href="../Images/apple-logo-transparent.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-body { margin:0; font-family:'Inter',sans-serif; background:#f4f4f4; }
-header { background:#fff; padding:15px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
-nav { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; }
-nav .logo { font-size:24px; font-weight:700; color:#0071e3; text-decoration:none; }
-nav ul { display:flex; list-style:none; gap:20px; margin:0; padding:0; }
-nav ul li a { text-decoration:none; color:#333; font-weight:500; transition:color 0.3s; }
-nav ul li a:hover { color:#0071e3; }
-
-.search-container { text-align:center; margin:30px 0; }
-.search-container input, .search-container select {
-  width:250px; max-width:90%; padding:10px 15px;
-  font-size:16px; border-radius:25px; border:1px solid #ccc;
-  outline:none; transition:border 0.3s; margin:5px;
-}
-.search-container input:focus { border-color:#0071e3; }
-
-.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; max-width:1200px; margin:0 auto; padding:0 20px; }
-.product-card {
-    background:#fff; border-radius:12px; overflow:hidden;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    transition:transform 0.3s, box-shadow 0.3s;
-    display:flex; flex-direction:column; align-items:center; text-align:center;
-}
-.product-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
-.product-card img {
-    width:100%; height:250px; object-fit:contain;
-    background:#f9f9f9; padding-top:10px; transition:transform 0.3s;
-}
-.product-card:hover img { transform:scale(1.05); }
-
-.product-info { padding:15px; flex:1; display:flex; flex-direction:column; justify-content:space-between; align-items:center; text-align:center; }
-.product-info h4 { margin:0 0 10px 0; font-size:18px; color:#333; }
-.product-info p { font-size:14px; color:#555; margin-bottom:15px; line-height:1.4; }
-
-.btnn { display:flex; justify-content:center; align-items:center; }
-.btnn a {
-    display:inline-block; padding:10px 20px; border-radius:25px;
-    text-decoration:none; color:#fff; font-weight:600;
-    background:linear-gradient(45deg, #FF6B6B, #FFD93D);
-    transition:all 0.3s;
-}
-.btnn a:hover { background:linear-gradient(45deg, #FFD93D, #FF6B6B); transform:scale(1.05); }
-
-footer { background:#222; color:#ccc; padding:20px; text-align:center; margin-top:40px; font-size:14px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    background: #f5f5f7;
+    color: #1d1d1f;
+  }
+  
+  .header-container {
+    background:#fff; 
+    border-bottom:1px solid #d2d2d7;
+    padding: 0 20px;
+  }
+  
+  header { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1d1d1f;
+    text-decoration: none;
+  }
+  
+  .logo img {
+    height: 40px;
+    width: auto;
+  }
+  
+  .cart-icon {
+    position: relative;
+    font-size: 24px;
+    color: #1d1d1f;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  
+  .cart-icon:hover {
+    background: #f5f5f7;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #0071e3;
+    color: white;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #d2d2d7;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  nav a:hover {
+    color: #0071e3;
+    background: #f5f5f7;
+  }
+  
+  nav a.active {
+    color: #0071e3;
+    background: #f0f7ff;
+    border-bottom: 2px solid #0071e3;
+  }
+  
+  .category-header {
+    background: linear-gradient(135deg, #0071e3, #2997ff);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .category-header h1 {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 700;
+  }
+  
+  .category-header p {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-top: 10px;
+  }
+  
+  .category-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+  
+  .top-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  
+  .top-bar input, 
+  .top-bar select {
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 150px;
+  }
+  
+  .top-bar input:focus,
+  .top-bar select:focus {
+    border-color: #0071e3;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.1);
+  }
+  
+  .filter-info {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+    font-size: 14px;
+    color: #86868b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .clear-filters {
+    background: none;
+    border: none;
+    color: #0071e3;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  
+  .clear-filters:hover {
+    background: #f0f7ff;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: auto;
+    min-height: 400px;
+  }
+  
+  .product-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e1e1e1;
+    position: relative;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    background: #fafafa;
+    padding: 25px;
+    transition: transform 0.3s;
+  }
+  
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+  
+  .product-info {
+    padding: 25px;
+    text-align: center;
+  }
+  
+  .product-info h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #1d1d1f;
+    min-height: 48px;
+  }
+  
+  .product-info .desc {
+    font-size: 14px;
+    color: #86868b;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    min-height: 42px;
+  }
+  
+  .product-info .price {
+    color: #1d1d1f;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 15px 0;
+    display: block;
+  }
+  
+  .product-info .brand {
+    display: inline-block;
+    background: #f5f5f7;
+    color: #515154;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    text-align: center;
+  }
+  
+  .btn-buy {
+    background: #0071e3;
+    color: #fff;
+    flex: 2;
+  }
+  
+  .btn-buy:hover {
+    background: #005bb5;
+    transform: translateY(-2px);
+  }
+  
+  .btn-cart {
+    background: #f5f5f7;
+    color: #1d1d1f;
+    border: 1px solid #d2d2d7;
+    flex: 1;
+  }
+  
+  .btn-cart:hover {
+    background: #e5e5e7;
+    transform: translateY(-2px);
+  }
+  
+  .btn-cart.added {
+    background: #34c759;
+    color: white;
+    border-color: #34c759;
+  }
+  
+  .btn-cart.added:hover {
+    background: #2da44e;
+  }
+  
+  .product-counter {
+    background: #fff;
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1400px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d1d1f;
+    border: 1px solid #e1e1e1;
+  }
+  
+  /* Cart Sidebar */
+  .cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cart-sidebar.open {
+    right: 0;
+  }
+  
+  .cart-header {
+    padding: 25px;
+    border-bottom: 1px solid #d2d2d7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cart-header h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .close-cart {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #86868b;
+    padding: 5px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .close-cart:hover {
+    background: #f5f5f7;
+  }
+  
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  .cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #f5f5f7;
+    align-items: center;
+  }
+  
+  .cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 5px;
+  }
+  
+  .cart-item-details {
+    flex: 1;
+  }
+  
+  .cart-item-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .cart-item-price {
+    color: #0071e3;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  
+  .quantity-btn {
+    background: #f5f5f7;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
+  .quantity-btn:hover {
+    background: #e5e5e7;
+  }
+  
+  .quantity {
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  .remove-item {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 5px;
+  }
+  
+  .remove-item:hover {
+    text-decoration: underline;
+  }
+  
+  .cart-footer {
+    padding: 25px;
+    border-top: 1px solid #d2d2d7;
+  }
+  
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .cart-total-amount {
+    color: #0071e3;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: #0071e3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .checkout-btn:hover {
+    background: #005bb5;
+  }
+  
+  .empty-cart {
+    text-align: center;
+    padding: 50px 20px;
+    color: #86868b;
+  }
+  
+  .empty-cart i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+  }
+  
+  .overlay.active {
+    display: block;
+  }
+  
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: #86868b;
+  }
+  
+  .empty-state i {
+    font-size: 72px;
+    margin-bottom: 25px;
+    display: block;
+    opacity: 0.5;
+  }
+  
+  .empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #1d1d1f;
+  }
+  
+  .empty-state p {
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+  
+  footer {
+    background: #1d1d1f;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    text-align: left;
+  }
+  
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .footer-section a {
+    color: #86868b;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+  }
+  
+  .footer-section a:hover {
+    color: #fff;
+  }
+  
+  .copyright {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #86868b;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .top-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .top-bar input,
+    .top-bar select {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    nav {
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .category-header h1 {
+      font-size: 36px;
+    }
+    
+    .category-header p {
+      font-size: 16px;
+    }
+    
+    .category-icon {
+      font-size: 48px;
+    }
+    
+    .cart-sidebar {
+      width: 100%;
+      right: -100%;
+    }
+  }
 </style>
 </head>
 <body>
 
-<header>
-    <nav>
-        <a href="#" class="logo">APPLE STORE</a>
-        <ul>
-            <li><a href="./about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
-            <li><a href="./contact.html"><i class="fa-solid fa-user"></i> Contact</a></li>
-            <li><a href="./admin.html"><i class="fa-solid fa-lock"></i> Admin</a></li>
-        </ul>
-    </nav>
-</header>
-
-<div class="search-container">
-    <select id="categorySelect">
-        <option value="mobile">Mobile</option>
-        <option value="laptop">Laptop</option>
-        <option value="watch">Watch</option>
-        <option value="earbuds" selected>Earbuds</option>
-    </select>
-
-    <select id="brandSelect">
-        <option value="">All Brands</option>
-    </select>
-
-    <input type="text" id="searchInput" placeholder="Search products...">
+<div class="header-container">
+  <header>
+    <a href="index.html" class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/488px-Apple_logo_black.svg.png" alt="Apple Logo">
+      <span>APPLE STORE</span>
+    </a>
+    <div class="cart-icon" onclick="openCart()">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </header>
 </div>
 
-<div class="products" id="productGrid"></div>
+<nav>
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="mobile.html"><i class="fa-solid fa-mobile-screen"></i> Mobile</a>
+  <a href="laptop.html"><i class="fa-solid fa-laptop"></i> Laptop</a>
+  <a href="watch.html"><i class="fa-solid fa-clock"></i> Watch</a>
+  <a href="earbuds.html" class="active"><i class="fa-solid fa-headphones"></i> Earbuds</a>
+  <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+  <a href="contact.html"><i class="fa-solid fa-user"></i> Contact</a>
+  <a href="admin.html"><i class="fa-solid fa-lock"></i> Admin</a>
+</nav>
+
+<div class="category-header">
+  <div class="category-icon">
+    <i class="fa-solid fa-headphones"></i>
+  </div>
+  <h1>Wireless Earbuds Collection</h1>
+  <p>Premium audio experience with noise cancellation</p>
+</div>
+
+<div class="product-counter">
+  Showing <span id="totalEarbuds">15</span> earbuds from <span id="totalBrands">8</span> brands
+</div>
+
+<div class="top-bar">
+  <input type="text" id="searchInput" placeholder="🔍 Search earbuds...">
+  
+  <select id="brandFilter">
+    <option value="">All Brands</option>
+  </select>
+  
+  <select id="priceFilter">
+    <option value="">All Prices</option>
+    <option value="0-10000">Under ₹10,000</option>
+    <option value="10001-20000">₹10,001 - ₹20,000</option>
+    <option value="20001-30000">₹20,001 - ₹30,000</option>
+    <option value="30001-50000">Above ₹30,000</option>
+  </select>
+  
+  <select id="sortSelect">
+    <option value="default">Sort by</option>
+    <option value="price-low">Price: Low to High</option>
+    <option value="price-high">Price: High to Low</option>
+    <option value="name">Name A-Z</option>
+    <option value="brand">Brand A-Z</option>
+  </select>
+</div>
+
+<div class="filter-info">
+  <span id="resultCount">15 earbuds found</span>
+  <button id="clearFilters" class="clear-filters">
+    <i class="fa-solid fa-xmark"></i> Clear All Filters
+  </button>
+</div>
+
+<div class="grid" id="productGrid">
+  <!-- Earbuds will be loaded here -->
+</div>
+
+<!-- Cart Sidebar -->
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="close-cart" onclick="closeCart()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  
+  <div class="cart-items" id="cartItems">
+    <!-- Cart items will be loaded here -->
+  </div>
+  
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total:</span>
+      <span class="cart-total-amount" id="cartTotal">₹0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">
+      <i class="fa-solid fa-lock"></i> Proceed to Checkout
+    </button>
+  </div>
+</div>
 
 <footer>
-    &copy; 2024 Theo Inc. All rights reserved.
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Shop</h3>
+      <a href="mobile.html"><i class="fa-solid fa-mobile-screen"></i> Mobile Phones</a>
+      <a href="laptop.html"><i class="fa-solid fa-laptop"></i> Laptops</a>
+      <a href="watch.html"><i class="fa-solid fa-clock"></i> Smart Watches</a>
+      <a href="earbuds.html"><i class="fa-solid fa-headphones"></i> Earbuds</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Support</h3>
+      <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+      <a href="#"><i class="fa-solid fa-question-circle"></i> Help Center</a>
+      <a href="#"><i class="fa-solid fa-shield-alt"></i> Warranty</a>
+      <a href="#"><i class="fa-solid fa-truck"></i> Shipping Info</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Company</h3>
+      <a href="about.html"><i class="fa-solid fa-building"></i> About Us</a>
+      <a href="#"><i class="fa-solid fa-newspaper"></i> Newsroom</a>
+      <a href="#"><i class="fa-solid fa-briefcase"></i> Careers</a>
+      <a href="#"><i class="fa-solid fa-handshake"></i> Partners</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Connect</h3>
+      <a href="#"><i class="fa-brands fa-twitter"></i> Twitter</a>
+      <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+      <a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="#"><i class="fa-brands fa-youtube"></i> YouTube</a>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p>© 2024 APPLE STORE. All rights reserved.</p>
+    <p>This is a demo website for educational purposes.</p>
+  </div>
 </footer>
 
 <script>
-const grid = document.getElementById('productGrid');
-const search = document.getElementById('searchInput');
-const categorySelect = document.getElementById('categorySelect');
-const brandSelect = document.getElementById('brandSelect');
-
-// Main earbuds array
-const earbudsData = [
-  { brand:"Apple", name:"AirPods Pro 2", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022", desc:"Active Noise Cancellation<br>Adaptive EQ<br>MagSafe Charging Case", price:"₹26,900" },
-  { brand:"OnePlus", name:"OnePlus Buds Pro 2", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/e/o/8/buds-pro-2r-oneplus-original-imagznzczgnncyzf.jpeg?q=90", desc:"Active Noise Cancellation<br>10mm Dynamic Driver<br>IP55 Water Resistant", price:"₹9,999" },
-  { brand:"Samsung", name:"Galaxy Buds 2 Pro", img:"https://m.media-amazon.com/images/I/61KVX-MbIUL._AC_UF1000,1000_QL80_.jpg", desc:"Hi-Fi Sound<br>Active Noise Cancellation<br>Wireless Charging Case", price:"₹15,990" },
-  { brand:"Sony", name:"Sony WF-1000XM4", img:"https://m.media-amazon.com/images/I/71o8Q5XJS5L._SL1500_.jpg", desc:"Noise Cancelling<br>IPX4 Waterproof<br>High-Res Audio", price:"₹19,999" },
-  { brand:"Bose", name:"Bose QuietComfort Earbuds II", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/j/n/n/quietcomfort-earbuds-ii-bose-original-imaghgjqh6bryxe2.jpeg?q=90", desc:"Acoustic Noise Cancelling<br>Touch Controls<br>Wireless Charging", price:"₹25,999" },
-  { brand:"JBL", name:"JBL Live Pro 2", img:"https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/s/7/u/-original-imagum68hvfdt5qs.jpeg?q=90", desc:"Smart Volume<br>IPX7 Waterproof<br>Wireless Charging Case", price:"₹12,499" }
+// ===== COMPLETE EARBUDS DATA =====
+const allEarbuds = [
+  {
+    id: 301,
+    brand: "Apple",
+    name: "AirPods Pro 2",
+    img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1671567231022",
+    desc: "Active Noise Cancellation, Adaptive EQ, MagSafe Charging Case",
+    price: 26900,
+    priceDisplay: "₹26,900",
+    category: "earbuds"
+  },
+  {
+    id: 302,
+    brand: "Apple",
+    name: "AirPods 3",
+    img: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-3-hero-select-202509_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=1758077264181",
+    desc: "Spatial Audio, Sweat Resistant, MagSafe Charging",
+    price: 19900,
+    priceDisplay: "₹19,900",
+    category: "earbuds"
+  },
+  {
+    id: 303,
+    brand: "Apple",
+    name: "AirPods Max",
+    img: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-select-202409-midnight_FV1_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=azQxRkVJKzd6V3J0aGNqWFhLMzBmdmVWNWdHYnp5cHkwMldsSElEOHpyd2ttdW5wTmRBL1NETnlMVldNRXJ0RFZOSzlQRTFSbHNFZCtKQi9Wc2w5b3I2TGhYaGhMVkJpQ2RGWWVURTZNbXphV29iOFBIcjE1bWVvKzVNUlpwYys",
+    desc: "Over-Ear, Active Noise Cancellation, Spatial Audio",
+    price: 59900,
+    priceDisplay: "₹59,900",
+    category: "earbuds"
+  },
+  {
+    id: 304,
+    brand: "Samsung",
+    name: "Galaxy Buds 2 Pro",
+    img: "https://m.media-amazon.com/images/I/61KVX-MbIUL._AC_UF1000,1000_QL80_.jpg",
+    desc: "Hi-Fi Sound, Active Noise Cancellation, Wireless Charging Case",
+    price: 15990,
+    priceDisplay: "₹15,990",
+    category: "earbuds"
+  },
+  {
+    id: 305,
+    brand: "Samsung",
+    name: "Galaxy Buds FE",
+    img: "https://m.media-amazon.com/images/I/41-G40MgZ9L._AC_UF1000,1000_QL80_.jpg",
+    desc: "Active Noise Cancellation, 30hr Battery, Comfort Fit",
+    price: 9999,
+    priceDisplay: "₹9,999",
+    category: "earbuds"
+  },
+  {
+    id: 306,
+    brand: "OnePlus",
+    name: "OnePlus Buds Pro 2",
+    img: "https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/e/o/8/buds-pro-2r-oneplus-original-imagznzczgnncyzf.jpeg?q=90",
+    desc: "Active Noise Cancellation, 10mm Dynamic Driver, IP55 Water Resistant",
+    price: 9999,
+    priceDisplay: "₹9,999",
+    category: "earbuds"
+  },
+  {
+    id: 307,
+    brand: "OnePlus",
+    name: "OnePlus Nord Buds 2",
+    img: "https://m.media-amazon.com/images/I/51oMWaW7tKL.jpg",
+    desc: "Active Noise Cancellation, 12.4mm Drivers, 36hr Battery",
+    price: 2999,
+    priceDisplay: "₹2,999",
+    category: "earbuds"
+  },
+  {
+    id: 308,
+    brand: "Sony",
+    name: "Sony WF-1000XM5",
+    img: "https://m.media-amazon.com/images/I/71o8Q5XJS5L._SL1500_.jpg",
+    desc: "Industry Leading Noise Cancellation, Hi-Res Audio, IPX4",
+    price: 29990,
+    priceDisplay: "₹29,990",
+    category: "earbuds"
+  },
+  {
+    id: 309,
+    brand: "Sony",
+    name: "Sony WF-C700N",
+    img: "https://sony.scene7.com/is/image/sonyglobalsolutions/WF-C700N_Primary_1200x1200?$S7Product$&fmt=png-alpha",
+    desc: "Digital Noise Cancellation, IPX4, 20hr Battery",
+    price: 9990,
+    priceDisplay: "₹9,990",
+    category: "earbuds"
+  },
+  {
+    id: 310,
+    brand: "Bose",
+    name: "Bose QuietComfort Earbuds II",
+    img: "https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/j/n/n/quietcomfort-earbuds-ii-bose-original-imaghgjqh6bryxe2.jpeg?q=90",
+    desc: "Acoustic Noise Cancelling, Touch Controls, Wireless Charging",
+    price: 25999,
+    priceDisplay: "₹25,999",
+    category: "earbuds"
+  },
+  {
+    id: 311,
+    brand: "Bose",
+    name: "Bose Sport Earbuds",
+    img: "data:image/jpeg;base64,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",
+    desc: "StayHear Max Tips, IPX4, 15hr Battery",
+    price: 14999,
+    priceDisplay: "₹14,999",
+    category: "earbuds"
+  },
+  {
+    id: 312,
+    brand: "JBL",
+    name: "JBL Live Pro 2",
+    img: "https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/s/7/u/-original-imagum68hvfdt5qs.jpeg?q=90",
+    desc: "Smart Volume, IPX7 Waterproof, Wireless Charging Case",
+    price: 12499,
+    priceDisplay: "₹12,499",
+    category: "earbuds"
+  },
+  {
+    id: 313,
+    brand: "JBL",
+    name: "JBL Tune 230NC",
+    img: "https://rukminim2.flixcart.com/image/480/640/l2jcccw0/headphone/o/q/b/-original-imagduyfhj8ggwsq.jpeg?q=90",
+    desc: "Active Noise Cancellation, 40hr Battery, Fast Charging",
+    price: 5999,
+    priceDisplay: "₹5,999",
+    category: "earbuds"
+  },
+  {
+    id: 314,
+    brand: "Nothing",
+    name: "Nothing Ear (2)",
+    img: "https://rukminim2.flixcart.com/image/480/640/xif0q/headphone/x/m/v/-original-imagnydghgvy9huf.jpeg?q=90",
+    desc: "Active Noise Cancellation, Hi-Res Audio, 36hr Battery",
+    price: 9999,
+    priceDisplay: "₹9,999",
+    category: "earbuds"
+  },
+  {
+    id: 315,
+    brand: "Realme",
+    name: "Realme Buds Air 5 Pro",
+    img: "data:image/jpeg;base64,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",
+    desc: "50dB Active Noise Cancellation, 40hr Battery, Fast Charging",
+    price: 4999,
+    priceDisplay: "₹4,999",
+    category: "earbuds"
+  }
 ];
 
-// Save data to localStorage for persistence
-localStorage.setItem('earbuds', JSON.stringify(earbudsData));
-localStorage.setItem('earbuds-brands', JSON.stringify([...new Set(earbudsData.map(e=>e.brand))]));
+let currentProducts = [...allEarbuds];
 
-let allProducts = [];
+// ===== Selectors =====
+const grid = document.getElementById('productGrid');
+const search = document.getElementById('searchInput');
+const brandFilter = document.getElementById('brandFilter');
+const priceFilter = document.getElementById('priceFilter');
+const sortSelect = document.getElementById('sortSelect');
+const clearFiltersBtn = document.getElementById('clearFilters');
+const resultCount = document.getElementById('resultCount');
+const cartCount = document.getElementById('cartCount');
+const cartItems = document.getElementById('cartItems');
+const cartTotal = document.getElementById('cartTotal');
+const cartSidebar = document.getElementById('cartSidebar');
+const cartOverlay = document.getElementById('cartOverlay');
+const totalEarbuds = document.getElementById('totalEarbuds');
+const totalBrands = document.getElementById('totalBrands');
 
-function loadProducts(){
-  const category = 'earbuds';
-  allProducts = getData(category);
+// Search timeout variable for debouncing
+let searchTimeout;
 
-  // Populate brand filter
-  const brands = getData(category+'-brands') || [];
-  brandSelect.innerHTML = '<option value="">All Brands</option>';
-  brands.forEach(b=> brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
+// Initialize cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  displayProducts(allProducts);
+// Update cart count
+function updateCartCount() {
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  cartCount.textContent = totalItems;
+  cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
 }
 
-function getData(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  updateCartDisplay();
+}
 
-function displayProducts(products){
+// Load brands dynamically for filter
+function loadBrands() {
+  const brands = [...new Set(currentProducts.map(p => p.brand))];
+  
+  // Update filter dropdown
+  brandFilter.innerHTML = '<option value="">All Brands</option>';
+  brands.forEach(b => {
+    brandFilter.innerHTML += `<option value="${b}">${b}</option>`;
+  });
+  
+  // Update counters
+  totalEarbuds.textContent = currentProducts.length;
+  totalBrands.textContent = brands.length;
+}
+
+// Display products
+function displayProducts(list) {
   grid.innerHTML = '';
-  products.forEach((p,index)=>{
-    const card = document.createElement('div');
-    card.className='product-card';
+  
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-solid fa-headphones"></i>
+        <h3>No earbuds found</h3>
+        <p>Try adjusting your search or filter to find what you're looking for.</p>
+        <button class="btn btn-buy" onclick="clearAllFilters()">
+          <i class="fa-solid fa-filter-circle-xmark"></i> Clear All Filters
+        </button>
+      </div>
+    `;
+    resultCount.textContent = '0 earbuds found';
+    return;
+  }
+  
+  list.forEach(p => {
+    let card = document.createElement('div');
+    card.className = 'product-card';
+    
+    // Check if product is already in cart
+    const inCart = cart.find(item => item.id === p.id);
+    const cartBtnClass = inCart ? 'btn-cart added' : 'btn-cart';
+    const cartBtnText = inCart ? '✓ Added' : 'Add to Cart';
+    const cartBtnIcon = inCart ? 'fa-check' : 'fa-cart-plus';
+    
     card.innerHTML = `
-      <img src="${p.img}" alt="${p.name}">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
       <div class="product-info">
+        <span class="brand">${p.brand}</span>
         <h4>${p.name}</h4>
-        <p>${p.desc}<br><b>${p.price}</b></p>
-        <div class="btnn">
-          <a href="buy.html" id="buy-${index}">Buy Now</a>
+        <p class="desc">${p.desc}</p>
+        <span class="price">${p.priceDisplay}</span>
+        <div class="actions">
+          <button class="${cartBtnClass}" onclick='addToCart(${JSON.stringify(p)})'>
+            <i class="fa-solid ${cartBtnIcon}"></i> ${cartBtnText}
+          </button>
+          <button class="btn btn-buy" onclick='buyProduct(${JSON.stringify(p)})'>
+            <i class="fa-solid fa-bolt"></i> Buy Now
+          </button>
         </div>
-      </div>`;
+      </div>
+    `;
     grid.appendChild(card);
+  });
+  
+  resultCount.textContent = `${list.length} earbud${list.length !== 1 ? 's' : ''} found`;
+}
 
-    document.getElementById(`buy-${index}`).addEventListener('click', ()=>{
-      localStorage.setItem("selectedMobile", JSON.stringify(p));
-    });
+// Filter products based on all criteria
+function filterProducts() {
+  const searchText = search.value.toLowerCase();
+  const brandValue = brandFilter.value;
+  const priceValue = priceFilter.value;
+  const sortValue = sortSelect.value;
+  
+  let filtered = [...allEarbuds];
+  
+  // Apply search filter
+  if (searchText) {
+    filtered = filtered.filter(p =>
+      p.name.toLowerCase().includes(searchText) ||
+      p.desc.toLowerCase().includes(searchText) ||
+      p.brand.toLowerCase().includes(searchText)
+    );
+  }
+  
+  // Apply brand filter
+  if (brandValue) {
+    filtered = filtered.filter(p => p.brand === brandValue);
+  }
+  
+  // Apply price filter
+  if (priceValue) {
+    const [min, max] = priceValue.split('-').map(Number);
+    filtered = filtered.filter(p => p.price >= min && p.price <= max);
+  }
+  
+  // Apply sorting
+  switch(sortValue) {
+    case 'price-low':
+      filtered.sort((a, b) => a.price - b.price);
+      break;
+    case 'price-high':
+      filtered.sort((a, b) => b.price - a.price);
+      break;
+    case 'name':
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 'brand':
+      filtered.sort((a, b) => a.brand.localeCompare(b.brand));
+      break;
+    default:
+      // Default sorting (by price high to low)
+      filtered.sort((a, b) => b.price - a.price);
+  }
+  
+  currentProducts = filtered;
+  displayProducts(filtered);
+}
+
+// Buy product
+function buyProduct(product) {
+  localStorage.setItem("selectedProduct", JSON.stringify(product));
+  window.location.href = "buy.html";
+}
+
+// Add to cart
+function addToCart(product) {
+  const existingItem = cart.find(item => item.id === product.id);
+  
+  if (existingItem) {
+    existingItem.quantity = (existingItem.quantity || 1) + 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+  
+  saveCart();
+  filterProducts(); // Refresh to update button states
+  
+  // Show notification
+  showNotification(`${product.name} added to cart!`);
+  
+  // Open cart sidebar
+  openCart();
+}
+
+// Remove from cart
+function removeFromCart(productId) {
+  cart = cart.filter(item => item.id !== productId);
+  saveCart();
+  filterProducts(); // Refresh to update button states
+  showNotification("Item removed from cart");
+}
+
+// Update cart quantity
+function updateQuantity(productId, change) {
+  const item = cart.find(item => item.id === productId);
+  if (item) {
+    item.quantity = (item.quantity || 1) + change;
+    if (item.quantity < 1) {
+      removeFromCart(productId);
+    } else {
+      saveCart();
+    }
+  }
+}
+
+// Update cart display
+function updateCartDisplay() {
+  if (cart.length === 0) {
+    cartItems.innerHTML = `
+      <div class="empty-cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h3>Your cart is empty</h3>
+        <p>Add some products to get started!</p>
+      </div>
+    `;
+    cartTotal.textContent = '₹0';
+    return;
+  }
+  
+  let itemsHTML = '';
+  let total = 0;
+  
+  cart.forEach(item => {
+    const itemTotal = item.price * (item.quantity || 1);
+    total += itemTotal;
+    
+    itemsHTML += `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.priceDisplay}</div>
+          <div class="cart-item-quantity">
+            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="quantity">${item.quantity || 1}</span>
+            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <button class="remove-item" onclick="removeFromCart(${item.id})">
+            <i class="fa-solid fa-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+    `;
+  });
+  
+  cartItems.innerHTML = itemsHTML;
+  cartTotal.textContent = `₹${total.toLocaleString('en-IN')}`;
+}
+
+// Open cart sidebar
+function openCart() {
+  cartSidebar.classList.add('open');
+  cartOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close cart sidebar
+function closeCart() {
+  cartSidebar.classList.remove('open');
+  cartOverlay.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Checkout function
+function checkout() {
+  if (cart.length === 0) {
+    showNotification("Your cart is empty!");
+    return;
+  }
+  
+  localStorage.setItem("checkoutCart", JSON.stringify(cart));
+  window.location.href = "checkout.html";
+}
+
+// Show notification
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #0071e3;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    animation: slideIn 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  `;
+  
+  notification.innerHTML = `
+    <i class="fa-solid fa-check-circle"></i>
+    ${message}
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        document.body.removeChild(notification);
+      }
+    }, 300);
+  }, 3000);
+}
+
+// Clear all filters
+function clearAllFilters() {
+  search.value = '';
+  brandFilter.value = '';
+  priceFilter.value = '';
+  sortSelect.value = 'default';
+  filterProducts();
+}
+
+// Initialize event listeners
+function initEventListeners() {
+  // Debounced search
+  search.addEventListener('keyup', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      filterProducts();
+    }, 300);
+  });
+  
+  // Brand filter
+  brandFilter.addEventListener('change', filterProducts);
+  
+  // Price filter
+  priceFilter.addEventListener('change', filterProducts);
+  
+  // Sort select
+  sortSelect.addEventListener('change', filterProducts);
+  
+  // Clear filters button
+  clearFiltersBtn.addEventListener('click', clearAllFilters);
+  
+  // Close cart when clicking overlay
+  cartOverlay.addEventListener('click', closeCart);
+  
+  // Close cart with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCart();
+    }
   });
 }
 
-// Search filter
-search.addEventListener('keyup', ()=>{
-  const val = search.value.toLowerCase();
-  const filtered = allProducts.filter(p=> p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
-  displayProducts(filtered);
-});
+// Add CSS animations for notification
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
 
-// Brand filter
-brandSelect.addEventListener('change', ()=>{
-  const val = brandSelect.value;
-  const filtered = val ? allProducts.filter(p=> p.brand===val) : allProducts;
-  displayProducts(filtered);
-});
-
-// Category redirect
-categorySelect.addEventListener('change', ()=>{
-  const cat = categorySelect.value;
-  if(cat==='mobile') window.location.href='index.html';
-  else if(cat==='laptop') window.location.href='laptop.html';
-  else if(cat==='watch') window.location.href='watch.html';
-  else if(cat==='earbuds') loadProducts(); // reload earbuds
-});
-
-// Reload products if localStorage changes
-window.addEventListener('storage', e=>{
-  if(e.key==='earbuds' || e.key==='earbuds-brands') loadProducts();
-});
-
-loadProducts(); // initial display
+// Initialize
+loadBrands();
+initEventListeners();
+updateCartCount();
+updateCartDisplay();
+filterProducts(); // Initial display
 </script>
 
 </body>
