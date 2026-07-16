@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Order | APPLE STORE</title>
+<link rel="icon" href="./apple logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.6;
+  }
+  
+  .header-container {
+    background: #fff;
+    border-bottom: 1px solid #d2d2d7;
+    padding: 0 20px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1d1d1f;
+    text-decoration: none;
+  }
+  
+  .logo img {
+    height: 40px;
+    width: auto;
+  }
+  
+  .cart-icon {
+    position: relative;
+    font-size: 24px;
+    color: #1d1d1f;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  
+  .cart-icon:hover {
+    background: #f5f5f7;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #0071e3;
+    color: white;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #d2d2d7;
+    flex-wrap: wrap;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  nav a:hover {
+    color: #0071e3;
+    background: #f5f5f7;
+  }
+  
+  nav a.active {
+    color: #0071e3;
+    background: #f0f7ff;
+    border-bottom: 2px solid #0071e3;
+  }
+  
+  .hero-section {
+    background: linear-gradient(135deg, #0071e3, #2997ff);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .hero-section h1 {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 700;
+  }
+  
+  .hero-section p {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-top: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .track-order-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  
+  .track-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+  }
+  
+  .track-card h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #1d1d1f;
+    text-align: center;
+  }
+  
+  .track-form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #1d1d1f;
+    font-size: 16px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #d2d2d7;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background: #f5f5f7;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: #0071e3;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+  }
+  
+  .form-help {
+    font-size: 14px;
+    color: #86868b;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .btn-primary {
+    background: #0071e3;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background: #005bb5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 113, 227, 0.2);
+  }
+  
+  .btn-secondary {
+    background: #f5f5f7;
+    color: #1d1d1f;
+    border: 1px solid #d2d2d7;
+  }
+  
+  .btn-secondary:hover {
+    background: #e5e5e7;
+  }
+  
+  .order-status-card {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+  }
+  
+  .order-header {
+    border-bottom: 2px solid #f5f5f7;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .order-id {
+    font-size: 18px;
+    color: #86868b;
+    margin-bottom: 10px;
+  }
+  
+  .order-id strong {
+    color: #1d1d1f;
+  }
+  
+  .order-date {
+    color: #86868b;
+    font-size: 14px;
+  }
+  
+  .status-timeline {
+    position: relative;
+    padding: 40px 0;
+  }
+  
+  .status-timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #d2d2d7;
+  }
+  
+  .status-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  
+  .status-step:last-child {
+    margin-bottom: 0;
+  }
+  
+  .status-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #86868b;
+    margin-right: 25px;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  
+  .status-step.active .status-icon {
+    background: #0071e3;
+    color: white;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  .status-step.completed .status-icon {
+    background: #34c759;
+    color: white;
+  }
+  
+  .status-content {
+    flex: 1;
+  }
+  
+  .status-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #1d1d1f;
+  }
+  
+  .status-step.active .status-title {
+    color: #0071e3;
+  }
+  
+  .status-step.completed .status-title {
+    color: #34c759;
+  }
+  
+  .status-description {
+    color: #86868b;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .status-date {
+    font-size: 12px;
+    color: #86868b;
+    font-weight: 500;
+  }
+  
+  .order-details {
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 40px;
+  }
+  
+  .order-details h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #1d1d1f;
+  }
+  
+  .order-items {
+    margin-bottom: 20px;
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e5e7;
+  }
+  
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  .order-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid #d2d2d7;
+  }
+  
+  .order-item-details {
+    flex: 1;
+  }
+  
+  .order-item-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .order-item-price {
+    color: #0071e3;
+    font-weight: 600;
+  }
+  
+  .order-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f7;
+  }
+  
+  .summary-row:last-child {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  .summary-row .total-label {
+    color: #1d1d1f;
+  }
+  
+  .summary-row .total-value {
+    color: #0071e3;
+  }
+  
+  .no-order {
+    text-align: center;
+    padding: 60px 20px;
+    display: none;
+  }
+  
+  .no-order-icon {
+    font-size: 60px;
+    color: #d2d2d7;
+    margin-bottom: 20px;
+  }
+  
+  .no-order h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #1d1d1f;
+  }
+  
+  .no-order p {
+    color: #86868b;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .recent-orders {
+    margin-top: 30px;
+  }
+  
+  .recent-order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #e5e5e7;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .recent-order-item:hover {
+    border-color: #0071e3;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.1);
+  }
+  
+  .recent-order-item .order-id-small {
+    font-weight: 600;
+  }
+  
+  .recent-order-item .order-status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .badge-pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+  
+  .badge-processing {
+    background: #cce5ff;
+    color: #004085;
+  }
+  
+  .badge-shipped {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  .badge-delivered {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .badge-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  
+  .help-section {
+    background: #f5f5f7;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .help-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #1d1d1f;
+  }
+  
+  .help-section p {
+    color: #86868b;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #0071e3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-item span {
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+  
+  .contact-item p {
+    font-size: 14px;
+    color: #86868b;
+    margin: 0;
+  }
+  
+  .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+  }
+  
+  .notification.show {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .notification.success {
+    background: #34c759;
+  }
+  
+  .notification.error {
+    background: #ff3b30;
+  }
+  
+  .notification.info {
+    background: #0071e3;
+  }
+  
+  footer {
+    background: #1d1d1f;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    text-align: left;
+  }
+  
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .footer-section a {
+    color: #86868b;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+  }
+  
+  .footer-section a:hover {
+    color: #fff;
+  }
+  
+  .copyright {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #86868b;
+    font-size: 14px;
+  }
+  
+  .admin-badge {
+    display: inline-block;
+    background: #7209b7;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 36px;
+    }
+    
+    .hero-section p {
+      font-size: 16px;
+    }
+    
+    .track-card,
+    .order-status-card,
+    .help-section {
+      padding: 25px;
+    }
+    
+    .status-timeline::before {
+      left: 25px;
+    }
+    
+    .status-icon {
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+      font-size: 20px;
+    }
+    
+    .contact-info {
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    nav {
+      gap: 15px;
+    }
+    
+    .order-details {
+      padding: 15px;
+    }
+    
+    .order-details .order-item {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .order-details .order-item-image {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-section {
+      padding: 40px 20px;
+    }
+    
+    .hero-section h1 {
+      font-size: 28px;
+    }
+    
+    .track-card h2 {
+      font-size: 24px;
+    }
+    
+    .order-status-card {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header-container">
+  <header>
+    <a href="index.html" class="logo">
+      <img src="./apple logo.png" alt="Apple Logo" />
+      <span>APPLE STORE</span>
+    </a>
+    <div class="cart-icon" onclick="window.location.href='index.html'">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </header>
+</div>
+
+<nav>
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="mobile.html"><i class="fa-solid fa-mobile-screen"></i> Mobile</a>
+  <a href="laptop.html"><i class="fa-solid fa-laptop"></i> Laptop</a>
+  <a href="watch.html"><i class="fa-solid fa-clock"></i> Watch</a>
+  <a href="earbuds.html"><i class="fa-solid fa-headphones"></i> Earbuds</a>
+  <a href="track-order.html" class="active"><i class="fa-solid fa-truck"></i> Track Order</a>
+</nav>
+
+<div class="hero-section">
+  <h1>Track Your Order</h1>
+  <p>Enter your order ID to check the current status of your delivery</p>
+</div>
+
+<div class="track-order-container">
+  <div class="track-card">
+    <h2>Track Your Order</h2>
+    <div class="track-form">
+      <div class="form-group">
+        <label class="form-label">Order ID</label>
+        <input type="text" id="orderId" class="form-input" placeholder="Enter your order ID (e.g., AS-1234)">
+        <div class="form-help">
+          <i class="fa-solid fa-circle-info"></i>
+          You can find your Order ID in your order confirmation email
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="trackOrder()">
+        <i class="fa-solid fa-magnifying-glass"></i> Track Order
+      </button>
+    </div>
+    
+    <div id="recentOrdersContainer" style="margin-top: 30px;"></div>
+  </div>
+
+  <div class="order-status-card" id="orderStatusCard">
+    <!-- Order status will be loaded here -->
+  </div>
+
+  <div class="no-order" id="noOrder">
+    <div class="no-order-icon">
+      <i class="fa-solid fa-box-open"></i>
+    </div>
+    <h3>No Order Found</h3>
+    <p>We couldn't find an order with that ID. Please check your Order ID and try again.</p>
+    <button class="btn btn-primary" onclick="window.location.href='contact.html'" style="width: auto; padding: 12px 30px;">
+      <i class="fa-solid fa-headset"></i> Contact Support
+    </button>
+  </div>
+
+  <div class="help-section">
+    <h2>Need Help?</h2>
+    <p>If you're having trouble tracking your order or have any questions, our support team is here to help.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <span>Call Us</span>
+        <p>1800-108-4777</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <span>Email Us</span>
+        <p>support@applestore.in</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fa-solid fa-comments"></i>
+        </div>
+        <span>Live Chat</span>
+        <p>Available 24/7</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification -->
+<div id="notification" class="notification">
+  <i class="fa-solid fa-info-circle"></i>
+  <span id="notificationMessage">Notification message</span>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Shop</h3>
+      <a href="mobile.html"><i class="fa-solid fa-mobile-screen"></i> Mobile Phones</a>
+      <a href="laptop.html"><i class="fa-solid fa-laptop"></i> Laptops</a>
+      <a href="watch.html"><i class="fa-solid fa-clock"></i> Smart Watches</a>
+      <a href="earbuds.html"><i class="fa-solid fa-headphones"></i> Earbuds</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Support</h3>
+      <a href="track-order.html"><i class="fa-solid fa-truck"></i> Track Order</a>
+      <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+      <a href="helpcenter.html"><i class="fa-solid fa-question-circle"></i> Help Center</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Company</h3>
+      <a href="about.html"><i class="fa-solid fa-building"></i> About Us</a>
+      <a href="newsroom.html"><i class="fa-solid fa-newspaper"></i> Newsroom</a>
+      <a href="careers.html"><i class="fa-solid fa-briefcase"></i> Careers</a>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Connect</h3>
+      <a href="#"><i class="fa-brands fa-twitter"></i> Twitter</a>
+      <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+      <a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="#"><i class="fa-brands fa-youtube"></i> YouTube</a>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p>© 2026 APPLE STORE. All rights reserved.</p>
+    <p>This is a demo website for educational purposes.</p>
+  </div>
+</footer>
+
+<script>
+// ============================================
+// 1. ORDER DATA MANAGEMENT
+// ============================================
+
+// Get orders from localStorage (shared with admin)
+function getOrders() {
+  const storedOrders = localStorage.getItem('orders');
+  if (storedOrders) {
+    try {
+      return JSON.parse(storedOrders);
+    } catch (e) {
+      return [];
+    }
+  }
+  return [];
+}
+
+// Save orders to localStorage
+function saveOrders(orders) {
+  localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+// Add order from checkout
+function addOrderFromCheckout() {
+  const lastOrder = localStorage.getItem('lastOrder');
+  if (!lastOrder) return null;
+  
+  try {
+    const orderData = JSON.parse(lastOrder);
+    const orders = getOrders();
+    
+    // Check if order already exists
+    const existingOrder = orders.find(o => o.orderId === orderData.orderId);
+    if (existingOrder) return null;
+    
+    // Get shipping address
+    const shippingAddress = JSON.parse(localStorage.getItem('shippingAddress') || '{}');
+    
+    // Create order object
+    const newOrder = {
+      orderId: orderData.orderId || `AS-${Date.now().toString().slice(-4)}`,
+      customerName: shippingAddress.fullName || 'Guest User',
+      customerEmail: shippingAddress.email || 'guest@example.com',
+      customerPhone: shippingAddress.mobileNumber || '',
+      product: orderData.product || { name: 'Apple Product', price: 0 },
+      quantity: orderData.quantity || 1,
+      totalPrice: orderData.totalPrice || 0,
+      paymentMethod: orderData.paymentMethod || 'UPI',
+      status: 'pending',
+      date: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
+      shippingAddress: shippingAddress,
+      // Additional fields for tracking display
+      items: [
+        {
+          name: orderData.product?.name || 'Apple Product',
+          price: orderData.totalPrice || 0,
+          quantity: orderData.quantity || 1,
+          image: orderData.product?.img || 'https://via.placeholder.com/60x60/cccccc/969696?text=Product'
+        }
+      ],
+      subtotal: orderData.totalPrice || 0,
+      tax: Math.round((orderData.totalPrice || 0) * 0.18),
+      grandTotal: Math.round((orderData.totalPrice || 0) * 1.18),
+      shipping: {
+        address: shippingAddress.address ? 
+          `${shippingAddress.address}, ${shippingAddress.city || ''}, ${shippingAddress.state || ''} ${shippingAddress.pincode || ''}` :
+          'Address not provided',
+        method: 'Standard Delivery',
+        cost: 0
+      },
+      payment: {
+        method: orderData.paymentMethod || 'UPI',
+        amount: orderData.totalPrice || 0
+      },
+      statusSteps: [
+        { title: 'Order Placed', description: 'Your order has been received', date: new Date().toISOString(), completed: true },
+        { title: 'Order Confirmed', description: 'We\'ve confirmed your order', date: new Date(Date.now() + 60000).toISOString(), completed: false },
+        { title: 'Processing', description: 'Your order is being prepared', date: 'Processing soon', completed: false },
+        { title: 'Shipped', description: 'Your order is on the way', date: 'Estimated ' + new Date(Date.now() + 86400000).toLocaleDateString('en-IN'), completed: false },
+        { title: 'Out for Delivery', description: 'Your order is out for delivery', date: 'Estimated ' + new Date(Date.now() + 86400000 * 2).toLocaleDateString('en-IN'), completed: false },
+        { title: 'Delivered', description: 'Your order has been delivered', date: 'Estimated ' + new Date(Date.now() + 86400000 * 3).toLocaleDateString('en-IN'), completed: false }
+      ]
+    };
+    
+    orders.unshift(newOrder);
+    saveOrders(orders);
+    localStorage.removeItem('lastOrder');
+    
+    return newOrder;
+  } catch (e) {
+    console.error('Error adding order from checkout:', e);
+    return null;
+  }
+}
+
+// ============================================
+// 2. UI FUNCTIONS
+// ============================================
+
+// Update cart count
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const cartCount = document.getElementById('cartCount');
+  cartCount.textContent = totalItems;
+  cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+  const notification = document.getElementById('notification');
+  const messageElement = document.getElementById('notificationMessage');
+  
+  messageElement.textContent = message;
+  notification.className = `notification ${type} show`;
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 4000);
+}
+
+// Format date
+function formatDate(dateString) {
+  if (!dateString) return 'N/A';
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+    return date.toLocaleDateString('en-IN', {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  } catch (e) {
+    return dateString;
+  }
+}
+
+// Get status badge class
+function getStatusBadgeClass(status) {
+  switch(status?.toLowerCase()) {
+    case 'pending': return 'badge-pending';
+    case 'processing': return 'badge-processing';
+    case 'shipped': return 'badge-shipped';
+    case 'delivered': return 'badge-delivered';
+    case 'cancelled': return 'badge-cancelled';
+    default: return '';
+  }
+}
+
+// Get status emoji
+function getStatusEmoji(status) {
+  switch(status?.toLowerCase()) {
+    case 'pending': return '⏳';
+    case 'processing': return '⚙️';
+    case 'shipped': return '🚚';
+    case 'delivered': return '✅';
+    case 'cancelled': return '❌';
+    default: return '📦';
+  }
+}
+
+// Get step icon
+function getStepIcon(index) {
+  const icons = ['fa-shopping-cart', 'fa-check-circle', 'fa-box', 'fa-shipping-fast', 'fa-truck', 'fa-home'];
+  return icons[index] || 'fa-circle';
+}
+
+// ============================================
+// 3. TRACK ORDER FUNCTIONALITY
+// ============================================
+
+// Track order by ID
+function trackOrder() {
+  const orderIdInput = document.getElementById('orderId');
+  const orderId = orderIdInput.value.trim().toUpperCase();
+  const orderStatusCard = document.getElementById('orderStatusCard');
+  const noOrder = document.getElementById('noOrder');
+  
+  if (!orderId) {
+    showNotification('Please enter your Order ID', 'error');
+    orderIdInput.focus();
+    return;
+  }
+  
+  // Get orders
+  const orders = getOrders();
+  
+  // Find order (check both orderId and id fields for compatibility)
+  let order = orders.find(o => o.orderId?.toUpperCase() === orderId);
+  if (!order) {
+    order = orders.find(o => o.id?.toUpperCase() === orderId);
+  }
+  
+  if (order) {
+    displayOrderStatus(order);
+    orderStatusCard.style.display = 'block';
+    noOrder.style.display = 'none';
+    showNotification('Order found!', 'success');
+  } else {
+    orderStatusCard.style.display = 'none';
+    noOrder.style.display = 'block';
+    showNotification('Order not found. Please check your Order ID.', 'error');
+  }
+}
+
+// Display order status
+function displayOrderStatus(order) {
+  const orderStatusCard = document.getElementById('orderStatusCard');
+  
+  // Determine if we have statusSteps or need to generate them
+  let statusSteps = order.statusSteps;
+  if (!statusSteps || statusSteps.length === 0) {
+    // Generate default status steps based on order status
+    const statusMap = {
+      'pending': 1,
+      'processing': 2,
+      'shipped': 3,
+      'delivered': 5,
+      'cancelled': 0
+    };
+    const activeStep = statusMap[order.status?.toLowerCase()] || 0;
+    
+    statusSteps = [
+      { title: 'Order Placed', description: 'Your order has been received', date: order.date || order.timestamp || new Date().toISOString(), completed: activeStep >= 0 },
+      { title: 'Order Confirmed', description: 'We\'ve confirmed your order', date: order.date || order.timestamp || new Date().toISOString(), completed: activeStep >= 1 },
+      { title: 'Processing', description: 'Your order is being prepared', date: 'In progress', completed: activeStep >= 2 },
+      { title: 'Shipped', description: 'Your order is on the way', date: activeStep >= 3 ? 'Shipped' : 'Pending', completed: activeStep >= 3 },
+      { title: 'Out for Delivery', description: 'Your order is out for delivery', date: activeStep >= 4 ? 'Out for delivery' : 'Pending', completed: activeStep >= 4 },
+      { title: 'Delivered', description: 'Your order has been delivered', date: activeStep >= 5 ? 'Delivered' : 'Pending', completed: activeStep >= 5 }
+    ];
+  }
+  
+  // Determine active step
+  let activeStep = 0;
+  statusSteps.forEach((step, index) => {
+    if (step.completed) {
+      activeStep = index;
+    }
+  });
+  
+  // Generate status steps HTML
+  let statusStepsHTML = '';
+  statusSteps.forEach((step, index) => {
+    let statusClass = '';
+    if (index < activeStep) {
+      statusClass = 'completed';
+    } else if (index === activeStep && !step.completed) {
+      statusClass = 'active';
+    } else if (step.completed) {
+      statusClass = 'completed';
+    }
+    
+    const icon = index < activeStep ? 'fa-check' : getStepIcon(index);
+    
+    statusStepsHTML += `
+      <div class="status-step ${statusClass}">
+        <div class="status-icon">
+          <i class="fas ${icon}"></i>
+        </div>
+        <div class="status-content">
+          <div class="status-title">${step.title}</div>
+          <div class="status-description">${step.description}</div>
+          <div class="status-date">${step.completed ? formatDate(step.date) : step.date}</div>
+        </div>
+      </div>
+    `;
+  });
+  
+  // Get items
+  let items = order.items || [];
+  if (items.length === 0 && order.product) {
+    items = [{
+      name: order.product.name || 'Apple Product',
+      price: order.totalPrice || 0,
+      quantity: order.quantity || 1,
+      image: order.product.img || 'https://via.placeholder.com/60x60/cccccc/969696?text=Product'
+    }];
+  }
+  
+  // Generate order items HTML
+  let orderItemsHTML = '';
+  if (items.length > 0) {
+    items.forEach(item => {
+      const itemPrice = typeof item.price === 'number' ? item.price : 
+                       parseInt(String(item.price).replace(/[^0-9]/g, '')) || 0;
+      const itemTotal = itemPrice * (item.quantity || 1);
+      
+      orderItemsHTML += `
+        <div class="order-item">
+          <img src="${item.image}" alt="${item.name}" class="order-item-image" 
+               onerror="this.src='https://via.placeholder.com/60x60/cccccc/969696?text=No+Image'">
+          <div class="order-item-details">
+            <div class="order-item-name">${item.name} × ${item.quantity || 1}</div>
+            <div class="order-item-price">₹${itemTotal.toLocaleString('en-IN')}</div>
+          </div>
+        </div>
+      `;
+    });
+  }
+  
+  // Calculate totals
+  const subtotal = order.subtotal || order.totalPrice || 0;
+  const tax = order.tax || Math.round(subtotal * 0.18);
+  const grandTotal = order.grandTotal || subtotal + tax;
+  
+  // Get order ID
+  const orderId = order.orderId || order.id || 'AS-XXXX';
+  
+  // Get customer name
+  const customerName = order.customerName || 'Guest User';
+  
+  // Get shipping address
+  let shippingAddress = order.shippingAddress || order.shipping || {};
+  let addressDisplay = '';
+  if (typeof shippingAddress === 'object') {
+    if (shippingAddress.address) {
+      addressDisplay = `${shippingAddress.address}, ${shippingAddress.city || ''}, ${shippingAddress.state || ''} ${shippingAddress.pincode || ''}`;
+    } else if (shippingAddress.fullName) {
+      addressDisplay = `${shippingAddress.fullName}, ${shippingAddress.address || ''}, ${shippingAddress.city || ''}, ${shippingAddress.state || ''} ${shippingAddress.pincode || ''}`;
+    }
+  }
+  
+  if (!addressDisplay) {
+    addressDisplay = order.shipping?.address || 'Address not provided';
+  }
+  
+  // Get payment method
+  const paymentMethod = order.paymentMethod || order.payment?.method || 'Unknown';
+  const paymentAmount = order.payment?.amount || grandTotal;
+  
+  orderStatusCard.innerHTML = `
+    <div class="order-header">
+      <div class="order-id">Order #<strong>${orderId}</strong></div>
+      <div class="order-date">Placed on ${formatDate(order.date || order.timestamp)}</div>
+      <div style="margin-top: 10px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+        <span class="order-status-badge ${getStatusBadgeClass(order.status)}">
+          ${getStatusEmoji(order.status)} ${order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Pending'}
+        </span>
+        <span style="color: #86868b; font-size: 14px;">
+          <i class="fa-solid fa-user"></i> ${customerName}
+        </span>
+      </div>
+    </div>
+    
+    <div class="status-timeline">
+      ${statusStepsHTML}
+    </div>
+    
+    <div class="order-details">
+      <h3><i class="fa-solid fa-receipt"></i> Order Details</h3>
+      <div class="order-items">
+        ${orderItemsHTML || '<p style="color: #86868b;">No items found</p>'}
+      </div>
+      
+      <div class="order-summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>₹${subtotal.toLocaleString('en-IN')}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>${order.shipping?.cost ? `₹${order.shipping.cost.toLocaleString('en-IN')}` : 'FREE'}</span>
+        </div>
+        <div class="summary-row">
+          <span>GST (18%)</span>
+          <span>₹${tax.toLocaleString('en-IN')}</span>
+        </div>
+        <div class="summary-row">
+          <span class="total-label">Grand Total</span>
+          <span class="total-value">₹${grandTotal.toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+      
+      <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <h4 style="margin-bottom: 10px; color: #1d1d1f; font-size: 14px;">
+            <i class="fa-solid fa-location-dot"></i> Shipping Address
+          </h4>
+          <p style="color: #86868b; margin: 0; font-size: 14px; word-wrap: break-word;">${addressDisplay}</p>
+          ${order.shipping?.method ? `<p style="color: #86868b; margin-top: 5px; font-size: 13px;"><strong>Method:</strong> ${order.shipping.method}</p>` : ''}
+        </div>
+        <div>
+          <h4 style="margin-bottom: 10px; color: #1d1d1f; font-size: 14px;">
+            <i class="fa-solid fa-credit-card"></i> Payment Method
+          </h4>
+          <p style="color: #86868b; margin: 0; font-size: 14px;">${paymentMethod}</p>
+          <p style="color: #86868b; margin-top: 5px; font-size: 13px;">
+            <strong>Amount Paid:</strong> ₹${paymentAmount.toLocaleString('en-IN')}
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn btn-primary" onclick="window.print()" style="width: auto; padding: 12px 30px;">
+        <i class="fas fa-print"></i> Print Details
+      </button>
+      <button class="btn btn-secondary" onclick="window.location.href='index.html'" style="width: auto; padding: 12px 30px;">
+        <i class="fas fa-shopping-bag"></i> Continue Shopping
+      </button>
+    </div>
+  `;
+}
+
+// ============================================
+// 4. RECENT ORDERS
+// ============================================
+
+// Display recent orders
+function displayRecentOrders() {
+  const container = document.getElementById('recentOrdersContainer');
+  const orders = getOrders();
+  
+  if (orders.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  
+  const recentOrders = orders.slice(0, 3);
+  
+  let html = `
+    <div style="border-top: 1px solid #e5e5e7; padding-top: 20px; margin-top: 20px;">
+      <h3 style="font-size: 16px; color: #86868b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid fa-clock-rotate-left"></i> Recent Orders
+      </h3>
+  `;
+  
+  recentOrders.forEach(order => {
+    const orderId = order.orderId || order.id || 'AS-XXXX';
+    const statusClass = getStatusBadgeClass(order.status);
+    const statusEmoji = getStatusEmoji(order.status);
+    const statusDisplay = order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Pending';
+    const total = order.grandTotal || order.totalPrice || 0;
+    const date = order.date || order.timestamp || new Date().toISOString();
+    
+    html += `
+      <div class="recent-order-item" onclick="document.getElementById('orderId').value='${orderId}'; trackOrder();">
+        <div>
+          <div class="order-id-small">${orderId}</div>
+          <div style="font-size: 12px; color: #86868b;">${formatDate(date)}</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <span style="font-weight: 600; color: #1d1d1f;">₹${total.toLocaleString('en-IN')}</span>
+          <span class="order-status-badge ${statusClass}">${statusEmoji} ${statusDisplay}</span>
+          <i class="fa-solid fa-chevron-right" style="color: #d2d2d7;"></i>
+        </div>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// ============================================
+// 5. AUTO-COMPLETE AND INITIALIZATION
+// ============================================
+
+// Check URL for order ID parameter
+function checkUrlForOrderId() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get('order');
+  
+  if (orderId) {
+    document.getElementById('orderId').value = orderId;
+    setTimeout(() => trackOrder(), 500);
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  // Add order from checkout if exists
+  const newOrder = addOrderFromCheckout();
+  if (newOrder) {
+    showNotification(`Order ${newOrder.orderId} placed successfully!`, 'success');
+  }
+  
+  // Update cart count
+  updateCartCount();
+  
+  // Check URL for order ID
+  checkUrlForOrderId();
+  
+  // Display recent orders
+  displayRecentOrders();
+  
+  // Enter key support
+  document.getElementById('orderId').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      trackOrder();
+    }
+  });
+  
+  // Auto-track from success page redirect
+  const orderIdFromStorage = localStorage.getItem('trackOrderId');
+  if (orderIdFromStorage) {
+    document.getElementById('orderId').value = orderIdFromStorage;
+    localStorage.removeItem('trackOrderId');
+    setTimeout(() => trackOrder(), 300);
+  }
+});
+
+// Make functions global for onclick handlers
+window.trackOrder = trackOrder;
+window.formatDate = formatDate;
+</script>
+</body>
+</html>
